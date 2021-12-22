@@ -34,15 +34,6 @@
 <script src="../anyPaginator.js"></script>
 
 <script>
-// Initialize paginator in tfoot
-function initPaginator(rpp)
-{
-  return $("#myfoot").anyPaginator({ rowsPerPage: rpp,
-                                     onClick:     function() { refreshTable(); },
-                                  });
-}
-
-// Display a table
 function refreshTable()
 {
   if (!pager)
@@ -64,7 +55,11 @@ function refreshTable()
   }
 }
 
-let pager = initPaginator(20);
+// Initialize paginator in tfoot
+let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
+                                         onClick: function() { refreshTable(); },
+                                      });
+// Display table
 refreshTable();
 </script>
 
