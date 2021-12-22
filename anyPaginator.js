@@ -1,10 +1,9 @@
 "use strict";
 /****************************************************************************************
  *
- * anyPaginator is copyright (C) 2011-2021 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2021 Arne D. Morken and Balanse Software.
  *
- * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
- * Get licences here: http://balanse.info/anylist/license/ (coming soon).
+ * License: MIT.
  *
  ****************************************************************************************/
 
