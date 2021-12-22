@@ -1,0 +1,41 @@
+/****************************************************************************************
+ *
+ * anyPaginator is copyright (C) 2011-2021 Arne D. Morken and Balanse Software.
+ *
+ * License: AGPLv3.0 for open source use or anyList Commercial License for commercial use.
+ * Get licences here: http://balanse.info/anylist/license/ (coming soon).
+ *
+ ****************************************************************************************/
+
+.any-paginator-container {
+  margin-top:10px;
+}
+
+.any-paginator-num {
+  margin-right: 1px;
+  white-space:  nowrap;
+  display:      inline-block;
+  min-width:    20px;
+  max-width:    20px;
+  text-align:   center;
+  color:        #fc5200;
+  cursor:       pointer;
+}
+
+.any-paginator-num-page {
+  border:       1px solid #fc5200;
+}
+
+.any-paginator-inactive {
+  color:        #aaa;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Currently supported by
+                                  Vivaldi, Opera, Chrome, Edge and Firefox */
+}
