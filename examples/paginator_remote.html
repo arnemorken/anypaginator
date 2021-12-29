@@ -5,14 +5,17 @@
  *
  * License: MIT.
  *
+ * See also the anyList project: https://github.com/arnemorken/anylist
+ *
  ****************************************************************************************
 -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <script src="../../../../javascript/jquery/jquery-3.6.0.min.js"></script>
-  <link  href="../anyPaginator.css" rel="stylesheet"/>
+  <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
+  <script src="https://balanse.info/cdn/anypaginator/anyPaginator.js"></script>
+  <link  href="https://balanse.info/cdn/anypaginator/anyPaginator.css" rel="stylesheet"/>
   <title>anyPaginator example - remote data</title>
 </head>
 
@@ -29,27 +32,26 @@
   </table>
 </div>
 
-<script src="../anyPaginator.js"></script>
-
 <script>
+let cdn = "https://balanse.info/cdn/anypaginator/examples/";
+
 function refreshTable(pager)
 {
   if (!pager)
     return;
   let page_no = 1;
-  let tbody = $("#mytable > tbody");
-  if (tbody.length)
-    tbody.empty();
-  let from = pager.currentPage * 20 - 20;
-  let to   = from + 20;
-//let db_url = "https://balanse.info/cdn/anypaginator/examples/remote_select.php";
-  let db_url = "remote_select.php?from="+from+"&to="+to;
+  let from = pager.currentPage * pager.options.rowsPerPage - pager.options.rowsPerPage;
+  let to   = from + pager.options.rowsPerPage;
+  let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
   .done( function(data,textStatus,jqXHR) {
     if (textStatus == "success") {
+      let tbody = $("#mytable > tbody");
+      if (tbody.length)
+        tbody.empty();
       for (const i in data) {
         // Display all items received
-        tbody.append($("<tr id='myrow_"+i+"'><td>"+data[i]+"</td></tr>"));
+        tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
       }
       for (let i=1; i<=200; i++) {
         // Add a page number each rowsPerPage rows
@@ -64,13 +66,12 @@ function refreshTable(pager)
       console.log("Error: "+jqXHR.status+": "+jqXHR.statusText);
   })
   .fail(function(jqXHR,textStatus,error) {
-      console.error("Server error 1:"+error);
+      console.error("Server error (select):"+jqXHR.responseText);
   });
 } // refreshTable
 
 // Create remote table
-//let db_url = "https://balanse.info/cdn/anypaginator/examples/remote_create.php";
-let db_url = "remote_create.php";
+let db_url = cdn + "remote_create.php";
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
@@ -81,7 +82,7 @@ $.getJSON(db_url)
   refreshTable(pager);
 })
 .fail(function(jqXHR,textStatus,error) {
-  console.error("Server error 2:"+error);
+  console.error("Server error (create):"+jqXHR.responseText);
 });
 </script>
 
