@@ -41,7 +41,7 @@ function refreshTable(pager)
     return;
   let page_no = 1;
   let from = pager.currentPage * pager.options.rowsPerPage - pager.options.rowsPerPage;
-  let to   = from + pager.options.rowsPerPage;
+  let to   = from + pager.options.rowsPerPage - 1;
   let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
   .done( function(data,textStatus,jqXHR) {
