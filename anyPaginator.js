@@ -1,9 +1,11 @@
 "use strict";
 /****************************************************************************************
  *
- * anyPaginator is copyright (C) 2021 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2011-2021 Arne D. Morken and Balanse Software.
  *
  * License: MIT.
+ *
+ * See also the anyList project: https://github.com/arnemorken/anylist
  *
  ****************************************************************************************/
 
@@ -20,9 +22,11 @@ $.fn.anyPaginator = function (opt,args)
   {
     if (opt && typeof opt == "object")
       this.setOptions(opt);
+    else
+      this.setOptions({}); // Set default options
     if (!this.options) {
-      // plugin is not initialized
-      console.error("anyPaginator plugin: Not initialized. ");
+      // Should never happen
+      console.error("anyPaginator plugin: Options missing. ");
       return this;
     }
     if (this.options.rowsPerPage <= 0) {
@@ -41,7 +45,7 @@ $.fn.anyPaginator = function (opt,args)
   // Set options for the plugin
   this.setOptions = function(opt)
   {
-    if (typeof opt != "object")
+    if (!opt || typeof opt != "object")
       return this;
     this.options = $.extend({
       rowsPerPage: 20,
@@ -64,43 +68,30 @@ $.fn.anyPaginator = function (opt,args)
         pagenum_div.css("font-weight", "normal");
       }
       // Find and highlight new button
-      pagenum_id  = "#anyPaginator_"+opt.clickedPage;
-      pagenum_div = this.pager.find(pagenum_id);
-      if (pagenum_div.length) {
-        switch (opt.clickedPage) {
-          case "prev":
-            if (this.currentPage > 1) {
-              --this.currentPage;
-              pagenum_id  = "#anyPaginator_"+this.currentPage;
-              pagenum_div = this.pager.find(pagenum_id);
-              if (pagenum_div.length) {
-                pagenum_div.css("border","2px solid #fc5200");
-                pagenum_div.css("font-weight", "bolder");
-              }
-            }
-            break;
-          case "next":
-            if (this.currentPage < this.numPages) {
-              ++this.currentPage;
-              pagenum_id  = "#anyPaginator_"+this.currentPage;
-              pagenum_div = this.pager.find(pagenum_id);
-              if (pagenum_div.length) {
-                pagenum_div.css("border","2px solid #fc5200");
-                pagenum_div.css("font-weight", "bolder");
-              }
-            }
-            break;
-          default:
-            if (Number.isInteger(opt.clickedPage)) {
-              this.currentPage = opt.clickedPage;
-              pagenum_div.css("border","2px solid #fc5200");
-              pagenum_div.css("font-weight", "bolder");
-            }
-            break;
+      switch (opt.clickedPage) {
+        case "prev":
+          if (this.currentPage > 1)
+            --this.currentPage;
+          break;
+        case "next":
+          if (this.currentPage < this.numPages)
+            ++this.currentPage;
+          break;
+        default:
+          if (Number.isInteger(opt.clickedPage))
+            this.currentPage = opt.clickedPage;
+          break;
+      } // switch
+      if (opt.clickedPage) {
+        pagenum_id  = "#anyPaginator_"+this.currentPage;
+        pagenum_div = this.pager.find(pagenum_id);
+        if (pagenum_div.length) {
+          pagenum_div.css("border","2px solid #fc5200");
+          pagenum_div.css("font-weight", "bolder");
         }
-        createPrevButton(this,1);
-        createNextButton(this,this.numPages);
       }
+      createPrevButton(this,1);
+      createNextButton(this,this.numPages);
     }
     if (opt.onClick) {
       let context = opt.context ? opt.context : this;
