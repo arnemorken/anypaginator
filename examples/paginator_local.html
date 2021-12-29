@@ -5,7 +5,7 @@
  *
  * License: MIT.
  *
- * jsfiddle: https://jsfiddle.net/arnemorken/0snofdq7/13/
+ * See also the anyList project: https://github.com/arnemorken/anylist
  *
  ****************************************************************************************
 -->
@@ -13,15 +13,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <script src="../../../../javascript/jquery/jquery-3.6.0.min.js"></script>
-  <link  href="../anyPaginator.css" rel="stylesheet"/>
-  <title>anyPaginator example - local data</title>
+  <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
+  <script src="https://balanse.info/cdn/anypaginator/anyPaginator.js"></script>
+  <link  href="https://balanse.info/cdn/anypaginator/anyPaginator.css" rel="stylesheet"/>
+  <title>anyPaginator example - remote data</title>
 </head>
 
 <body>
 
 <div id="mydiv">
-  <h3>anyPaginator table pager example - local data</h3>
+  <h3>anyPaginator table pager example - remote data</h3>
   <table id="mytable" style="border-collapse: collapse;">
     <tbody style="border: 1px solid #333;">
     </tbody>
@@ -31,36 +32,58 @@
   </table>
 </div>
 
-<script src="../anyPaginator.js"></script>
-
 <script>
-function refreshTable()
+let cdn = "https://balanse.info/cdn/anypaginator/examples/";
+
+function refreshTable(pager)
 {
   if (!pager)
     return;
   let page_no = 1;
-  let tbody = $("#mytable > tbody");
-  if (tbody.length)
-    tbody.empty();
-  for (let i=1; i<=200; i++) {
-    // Display only items on current page
-    if (page_no == pager.currentPage) {
-      tbody.append($("<tr id='myrow_"+i+"'><td>Local row "+i+"</td></tr>"));
+  let from = pager.currentPage * pager.options.rowsPerPage - pager.options.rowsPerPage;
+  let to   = from + pager.options.rowsPerPage;
+  let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
+  $.getJSON(db_url)
+  .done( function(data,textStatus,jqXHR) {
+    if (textStatus == "success") {
+      let tbody = $("#mytable > tbody");
+      if (tbody.length)
+        tbody.empty();
+      for (const i in data) {
+        // Display all items received
+        tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
+      }
+      for (let i=1; i<=200; i++) {
+        // Add a page number each rowsPerPage rows
+        if (!(i % pager.options.rowsPerPage)) {
+          pager.anyPaginator("page",page_no);
+          ++page_no;
+        }
+      }
     }
-    // Add a page number each rowsPerPage rows
-    if (!(i % pager.options.rowsPerPage)) {
-      pager.anyPaginator("page",page_no);
-      ++page_no;
-    }
-  }
-}
+    else
+    if (textStatus == "error")
+      console.log("Error: "+jqXHR.status+": "+jqXHR.statusText);
+  })
+  .fail(function(jqXHR,textStatus,error) {
+      console.error("Server error (select):"+jqXHR.responseText);
+  });
+} // refreshTable
 
-// Initialize paginator in tfoot
-let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
-                                         onClick: function() { refreshTable(); },
-                                      });
-// Display table
-refreshTable();
+// Create remote table
+let db_url = cdn + "remote_create.php";
+$.getJSON(db_url)
+.done( function(data,textStatus,jqXHR) {
+  // Initialize paginator in tfoot
+  let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
+                                           onClick: function() { refreshTable(pager); },
+                                        });
+  // Display table
+  refreshTable(pager);
+})
+.fail(function(jqXHR,textStatus,error) {
+  console.error("Server error (create):"+jqXHR.responseText);
+});
 </script>
 
 </body>
