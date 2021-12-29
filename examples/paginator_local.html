@@ -16,13 +16,13 @@
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
   <script src="https://balanse.info/cdn/anypaginator/anyPaginator.js"></script>
   <link  href="https://balanse.info/cdn/anypaginator/anyPaginator.css" rel="stylesheet"/>
-  <title>anyPaginator example - remote data</title>
+  <title>anyPaginator example - local data</title>
 </head>
 
 <body>
 
 <div id="mydiv">
-  <h3>anyPaginator table pager example - remote data</h3>
+  <h3>anyPaginator table pager example - local data</h3>
   <table id="mytable" style="border-collapse: collapse;">
     <tbody style="border: 1px solid #333;">
     </tbody>
@@ -33,57 +33,33 @@
 </div>
 
 <script>
-let cdn = "https://balanse.info/cdn/anypaginator/examples/";
-
 function refreshTable(pager)
 {
   if (!pager)
     return;
   let page_no = 1;
-  let from = pager.currentPage * pager.options.rowsPerPage - pager.options.rowsPerPage;
-  let to   = from + pager.options.rowsPerPage;
-  let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
-  $.getJSON(db_url)
-  .done( function(data,textStatus,jqXHR) {
-    if (textStatus == "success") {
-      let tbody = $("#mytable > tbody");
-      if (tbody.length)
-        tbody.empty();
-      for (const i in data) {
-        // Display all items received
-        tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
-      }
-      for (let i=1; i<=200; i++) {
-        // Add a page number each rowsPerPage rows
-        if (!(i % pager.options.rowsPerPage)) {
-          pager.anyPaginator("page",page_no);
-          ++page_no;
-        }
-      }
+  let tbody = $("#mytable > tbody");
+  if (tbody.length)
+    tbody.empty();
+  for (let i=1; i<=200; i++) {
+    // Display only items on current page
+    if (page_no == pager.currentPage) {
+      tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
     }
-    else
-    if (textStatus == "error")
-      console.log("Error: "+jqXHR.status+": "+jqXHR.statusText);
-  })
-  .fail(function(jqXHR,textStatus,error) {
-      console.error("Server error (select):"+jqXHR.responseText);
-  });
+    // Add a page number each rowsPerPage rows
+    if (!(i % pager.options.rowsPerPage)) {
+      pager.anyPaginator("page",page_no);
+      ++page_no;
+    }
+  }
 } // refreshTable
 
-// Create remote table
-let db_url = cdn + "remote_create.php";
-$.getJSON(db_url)
-.done( function(data,textStatus,jqXHR) {
-  // Initialize paginator in tfoot
-  let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
-                                           onClick: function() { refreshTable(pager); },
-                                        });
-  // Display table
-  refreshTable(pager);
-})
-.fail(function(jqXHR,textStatus,error) {
-  console.error("Server error (create):"+jqXHR.responseText);
-});
+// Initialize paginator in tfoot
+let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
+                                         onClick: function() { refreshTable(pager); },
+                                      });
+// Display table
+refreshTable(pager);
 </script>
 
 </body>
