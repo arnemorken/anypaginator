@@ -72,12 +72,12 @@ function refreshData(pager)
 | splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
 | itemText                     | Text in front of item range for mode == 1                      | String                       | "Item"                     |
 | pageText                     | Text in front of page number for mode == 2                     | String                       | "Page"                     |
-| gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
+| gotoText                     | Text on the "go" button, ignored if gotoIcon is set            | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is set      | String                       | "&lsaquo;"                 |
 | nextText                     | Text on the "next" button, ignored if nextIcon is set          | String                       | "&rsaquo;"                 |
 | firstText                    | Text on the "first" button, ignored if firstIcon is set        | String                       | "&laquo"                   |
 | lastText                     | Text on the "last" button, ignored if lastIcon is set          | String                       | "&raquo"                   |
-| gotoIcon                     | Font Awesome icon on the "go" button instead of gotoText       | String                       | null                       |
+| gotoIcon                     | Font Awesome icon on the "goto" button instead of gotoText     | String                       | null                       |
 | prevIcon                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
 | nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
 | firstIcon                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
