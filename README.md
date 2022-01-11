@@ -90,31 +90,21 @@ function refreshData(pager)
 
 ### Public methods
 
-#### initialize(opt)
-Initialize options and properties.
+#### reset(opt)
+Initialize / reset options and properties, and redraw.
 Examples: 
 ```js
-let pager = $("#myfoot").anyPaginator({mode:1});
+pager = $("#mydiv").anyPaginator({mode:1});
 ```
 ```js
-pager.initialize({mode:1});
-```
-
-#### setOptions(opt,args)
-Set options for the paginator.
-Examples: 
-```js
-$("#myfoot").anyPaginator("options",{splitFirst:2});
-```
-```js
-pager.setOptions({splitFirst:2});
+pager = pager.reset({mode:1});
 ```
 
 #### getNumPages()
 Return the number of pages in the paginator.
 Examples: 
 ```js
-$("#myfoot").anyPaginator("numPages");
+$("#mydiv").anyPaginator("numPages");
 ```
 ```js
 pager.getNumPages();
@@ -124,19 +114,31 @@ pager.getNumPages();
 Return the page that is currently highlighted.
 Examples: 
 ```js
-$("#myfoot").anyPaginator("currentPage");
+$("#mydiv").anyPaginator("currentPage");
 ```
 ```js
 pager.getCurrentPage();
 ```
 
-#### reset()
-Remove all pages, reset the current page and the number of pages and create go/prev/next/first/last buttons
+#### setDefaults(opt,args)
+Set default options for the paginator.
 Examples: 
+```js
+$("#mydiv").anyPaginator("options",{splitFirst:2});
+```
+```js
+pager.setOptions({splitFirst:2});
+```
 
-#### refresh(opt)
-Redraw all the page numbers, ellipsis and navigators
+#### refresh()
+Redraw all the page numbers, ellipsis and navigators.
 Examples: 
+```js
+$("#mydiv").anyPaginator("refresh");
+```
+```js
+pager.refresh();
+```
 
 #### addPage()
 Add a page number button
