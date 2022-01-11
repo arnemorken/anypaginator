@@ -90,15 +90,19 @@ function refreshData(pager)
 
 ### Public methods
 
-#### reset(options)
-Initialize / reset options and properties, and redraw.
+#### Constructor
+Initialize options and properties and redraw the paginator.
 
 Examples: 
-
 ```js
 // Initialize the plugin with default values
 var pager = $("#mydiv").anyPaginator();
 ```
+
+#### reset(options)
+Reset options and properties and redraw the paginator.
+
+Examples: 
 ```js
 // Reset the plugin to mode 1
 pager = pager.reset({mode:1});
