@@ -1,6 +1,8 @@
 # anyPaginator
 An easy to use, yet advanced and fully customizable javascript/jQuery paginator. 
 
+<img src="examples/anyPaginator1.png"><br/>
+
 Take a look at the jsFiddle demos:
 
 * "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/46/
