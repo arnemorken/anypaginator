@@ -95,13 +95,13 @@ Initialize / reset options and properties, and redraw.
 
 Examples: 
 
-Initialize the plugin:
 ```js
-pager = $("#mydiv").anyPaginator({mode:1});
+// Initialize the plugin:
+var pager = $("#mydiv").anyPaginator({mode:1});
 ```
-Reset the plugin:
 ```js
-pager = pager.reset({mode:1});
+// Reset the plugin:
+var pager = pager.reset({mode:1});
 ```
 
 #### getNumPages()
@@ -109,11 +109,11 @@ Return the number of pages in the paginator.
 
 Examples: 
 ```js
-pager.anyPaginator("numPages");
+var np = pager.anyPaginator("numPages");
 ```
 or
 ```js
-pager.getNumPages();
+var np = pager.getNumPages();
 ```
 
 #### getCurrentPage()
@@ -121,11 +121,11 @@ Return the page that is currently highlighted.
 
 Examples: 
 ```js
-pager.anyPaginator("currentPage");
+var cp = pager.anyPaginator("currentPage");
 ```
 or
 ```js
-pager.getCurrentPage();
+var cp = pager.getCurrentPage();
 ```
 
 #### setOption(opt)
@@ -144,7 +144,6 @@ pager.setOption({splitFirst:2});
 Redraw all the page numbers, ellipsis and navigators.
 
 Examples: 
-
 ```js
 pager.anyPaginator("refresh");
 ```
@@ -155,15 +154,39 @@ pager.refresh();
 
 #### addPage()
 Add a page number button.
+
 Examples: 
+```js
+pager.anyPaginator("add");
+```
+or
+```js
+pager.addPage();
+```
 
 #### removePage()
 Remove a page number button.
+
 Examples: 
+```js
+pager.anyPaginator("remove");
+```
+or
+```js
+pager.removePage();
+```
 
 #### showPage(pageNo)
 Redraw the paginator with focus on the page pageNo.
+
 Examples: 
+```js
+pager.anyPaginator("show",12);
+```
+or
+```js
+pager.showPage(12);
+```
 
 #### buttonClicked(event)
 Update the paginator when a button is clicked.
