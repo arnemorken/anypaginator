@@ -133,11 +133,11 @@ Set one or more options for the paginator.
 
 Examples: 
 ```js
-pager.anyPaginator("option",{splitFirst:2});
+pager.anyPaginator("option",{splitFirst:2,splitLast:2});
 ```
 or
 ```js
-pager.setOption({splitFirst:2});
+pager.setOption({splitFirst:2,splitLast:2});
 ```
 
 #### refresh()
