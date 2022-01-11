@@ -101,7 +101,7 @@ var pager = $("#mydiv").anyPaginator();
 ```
 ```js
 // Reset the plugin to mode 1
-var pager = pager.reset({mode:1});
+pager = pager.reset({mode:1});
 ```
 
 #### getNumPages()
