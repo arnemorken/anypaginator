@@ -59,4 +59,8 @@ function refreshData(pager)
 }
 ```
 
+# License
+
+Released under the AGPL v3 license: https://choosealicense.com/licenses/agpl-3.0/
+
 ### See also the anyList project: https://github.com/arnemorken/anylist
