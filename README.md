@@ -34,8 +34,8 @@ Take a look at the jsFiddle demos:
 ```js
 let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
 for (let i=1; i<=200; i++) {
-  // Add a page number each rowsPerPage rows
-  if (!((i-1) % pager.options.rowsPerPage)) {
+  // Add a page number each itemsPerPage rows
+  if (!((i-1) % pager.options.itemsPerPage)) {
     pager.anyPaginator("add");
   }
 }
@@ -51,8 +51,8 @@ refreshData(pager);
 function refreshData(pager)
 {
   $("#mydata").empty();
-  let start = (pager.currentPage - 1) * pager.options.rowsPerPage + 1;
-  let stop  = start + pager.options.rowsPerPage - 1;
+  let start = (pager.currentPage - 1) * pager.options.itemsPerPage + 1;
+  let stop  = start + pager.options.itemsPerPage - 1;
   for (let i=start; i<=stop; i++) {
     $("#mydata").append("<p>Local row "+i+"</p>");
   }
@@ -66,20 +66,22 @@ function refreshData(pager)
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
 | mode                         | 0: buttons, 1: item range, 2: page number                      | Number                       | 0                          |
-| rowsPerPage                  | Number of items per page                                       | Number                       | 20                         |
+| itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
 | splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
+| modeItemText                 | Text in front of item range for mode == 1                      | String                       | "Item"                     |
+| modePageText                 | Text in front of page number for mode == 2                     | String                       | "Page"                     |
 | gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
-| prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&laquo;"                  |
-| nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&raquo;"                  |
-| firstText                    | Text on the "first" button, ignored if firstIcon is not null   | String                       | "|<"                       |
-| lastText                     | Text on the "last" button, ignored if lastIcon is not null     | String                       | ">|"                       |
+| prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&lsaquo;"                 |
+| nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&rsaquo;"                 |
+| firstText                    | Text on the "first" button, ignored if firstIcon is not null   | String                       | "&laquo"                   |
+| lastText                     | Text on the "last" button, ignored if lastIcon is not null     | String                       | "&raquo"                   |
 | gotoIcon                     | Font Awesome icon on the "go" button instead of gotoText       | String                       | null                       |
-| prevText                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
-| nextText                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
-| firstText                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
-| lastText                     | Font Awesome icon on the "last" button instead of lastText     | String                       | null                       |
+| prevIcon                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
+| nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
+| firstIcon                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
+| lastIcon                     | Font Awesome icon on the "last" button instead of lastText     | String                       | null                       |
 | hideGoto                     | Whether to hide the "goto page" button/input field             | Bool                         | false                      |
 | hidePrev                     | Whether to hide the "previous" button                          | Bool                         | false                      |
 | hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
