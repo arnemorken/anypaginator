@@ -90,7 +90,7 @@ function refreshData(pager)
 
 ### Public methods
 
-#### reset(opt)
+#### reset(options)
 Initialize / reset options and properties, and redraw.
 
 Examples: 
@@ -128,7 +128,7 @@ or
 var cp = pager.getCurrentPage();
 ```
 
-#### setOption(opt)
+#### setOption(options)
 Set one or more options for the paginator.
 
 Examples: 
