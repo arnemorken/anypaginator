@@ -92,10 +92,10 @@ function refreshData(pager)
 Initialize options and properties.
 Examples: 
 ```js
-let pager = $("#myfoot").anyPaginator();
+let pager = $("#myfoot").anyPaginator({mode:1});
 ```
 ```js
-pager("initialize",{mode:1});
+pager.initialize({mode:1});
 ```
 
 #### setOptions(opt,args)
@@ -111,10 +111,22 @@ pager.setOptions({splitFirst:2});
 #### getNumPages()
 Return the number of pages in the paginator.
 Examples: 
+```js
+$("#myfoot").anyPaginator("numPages");
+```
+```js
+pager.getNumPages();
+```
 
 #### getCurrentPage()
 Return the page that is currently highlighted.
 Examples: 
+```js
+$("#myfoot").anyPaginator("currentPage");
+```
+```js
+pager.getCurrentPage();
+```
 
 #### reset()
 Remove all pages, reset the current page and the number of pages and create go/prev/next/first/last buttons
