@@ -96,11 +96,11 @@ Initialize / reset options and properties, and redraw.
 Examples: 
 
 ```js
-// Initialize the plugin:
-var pager = $("#mydiv").anyPaginator({mode:1});
+// Initialize the plugin with default values
+var pager = $("#mydiv").anyPaginator();
 ```
 ```js
-// Reset the plugin:
+// Reset the plugin to mode 1
 var pager = pager.reset({mode:1});
 ```
 
