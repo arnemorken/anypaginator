@@ -59,6 +59,53 @@ function refreshData(pager)
 }
 ```
 
+# API
+
+## Options
+
+| Option                       | Description                                                    | Type                         | Default                    |
+| ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
+| mode                         | 0: buttons, 1: item range, 2: page number                      | Bool                         | 0                          |
+| rowsPerPage                  | Number of items per page                                       | Number                       | 20                         |
+| gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
+| prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&laquo;"                  |
+| nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&raquo;"                  |
+| firstText                    | Text on the "first" button, ignored if firstIcon is not null   | String                       | "|<"                       |
+| lastText                     | Text on the "last" button, ignored if lastIcon is not null     | String                       | ">|"                       |
+| gotoIcon                     | Font Awesome icon on the "go" button instead of gotoText       | String                       | null                       |
+| prevText                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
+| nextText                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
+| firstText                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
+| lastText                     | Font Awesome icon on the "last" button instead of lastText     | String                       | null                       |
+| hideGoto                     | Whether to hide the "goto page" button/input field             | Bool                         | false                      |
+| hidePrev                     | Whether to hide the "previous" button                          | Bool                         | false                      |
+| hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
+| hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
+| hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
+| splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
+| splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
+| splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
+
+## Public methods
+
+initialize(opt)
+
+reset()
+
+setOptions(opt)
+
+refresh(opt)
+
+addPage()
+
+removePage()
+
+showPage(pageNo)
+
+buttonClicked(event)
+
+goClicked(event)
+
 # License
 
 Released under the AGPL v3 license: https://choosealicense.com/licenses/agpl-3.0/
