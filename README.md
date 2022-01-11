@@ -1,11 +1,11 @@
 # anyPaginator
-An easy to use, yet advanced and fully customizable javascript/jQuery paginator
+An easy to use, yet advanced and fully customizable javascript/jQuery paginator. 
 
 Take a look at the jsFiddle demos:
 
-* jsfiddle "Hello world" example: https://jsfiddle.net/arnemorken/0snofdq7/23/
-* jsfiddle local data example:    https://jsfiddle.net/arnemorken/0snofdq7/23/
-* jsfiddle remote data example:   https://jsfiddle.net/arnemorken/kou1r0e6/8/
+* "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/46/
+* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/23/
+* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/8/
 
 # Download
 
@@ -39,7 +39,7 @@ for (let i=1; i<=num; i++) {
 }
 
 4. Display some data initially:
-
+```js
 refreshData(pager);
 
 5. Have the onClick calback function redraw the contents according to the page number selected:
@@ -54,4 +54,5 @@ function refreshData(pager)
   }
 }
 
- See also the anyList project: https://github.com/arnemorken/anylist
+```html
+<strong>See also the anyList project: https://github.com/arnemorken/anylist</strong>
