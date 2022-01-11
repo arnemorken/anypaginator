@@ -32,9 +32,8 @@ Take a look at the jsFiddle demos:
 
 3. Initialize the paginator and add some pages:
 ```js
-let num = 200;
 let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
-for (let i=1; i<=num; i++) {
+for (let i=1; i<=200; i++) {
   // Add a page number each rowsPerPage rows
   if (!((i-1) % pager.options.rowsPerPage)) {
     pager.anyPaginator("add");
