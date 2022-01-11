@@ -70,8 +70,8 @@ function refreshData(pager)
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
 | splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
-| modeItemText                 | Text in front of item range for mode == 1                      | String                       | "Item"                     |
-| modePageText                 | Text in front of page number for mode == 2                     | String                       | "Page"                     |
+| itemText                     | Text in front of item range for mode == 1                      | String                       | "Item"                     |
+| pageText                     | Text in front of page number for mode == 2                     | String                       | "Page"                     |
 | gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&lsaquo;"                 |
 | nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&rsaquo;"                 |
