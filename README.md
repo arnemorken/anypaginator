@@ -192,7 +192,7 @@ pager.showPage(12);
 Update the paginator when a button is clicked.
 Normally not neccessary to call this method.
 
-#### goClicked(event)
+#### gotoClicked(event)
 Update the paginator when the go button is clicked or enter is prerss in the input field.
 Normally not neccessary to call this method.
 
