@@ -60,5 +60,5 @@ function refreshData(pager)
 ```
 
 ```html
-<strong>See also the anyList project: https://github.com/arnemorken/anylist</strong>
+<h4>See also the anyList project: https://github.com/arnemorken/anylist</h4>
 ```
