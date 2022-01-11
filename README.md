@@ -59,6 +59,4 @@ function refreshData(pager)
 }
 ```
 
-```html
-<h4>See also the anyList project: https://github.com/arnemorken/anylist</h4>
-```
+####See also the anyList project: https://github.com/arnemorken/anylist
