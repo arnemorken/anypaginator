@@ -21,11 +21,13 @@ Download from either of these sources:
 ```html
 <script src="/path/to/anyPaginator.js"></script>
 <link  href="/path/to/anyPaginator.css" rel="stylesheet"/>
+```
 
 2. Provide a place for the paginator and its' associated data to live:
 ```html
 <div id="mypager"></div>
 <div id="mydata"></div>
+```
 
 3. Initialize the paginator and add some pages:
 ```js
@@ -37,10 +39,12 @@ for (let i=1; i<=num; i++) {
     pager.anyPaginator("add");
   }
 }
+```
 
 4. Display some data initially:
 ```js
 refreshData(pager);
+```
 
 5. Have the onClick calback function redraw the contents according to the page number selected:
 ```js
@@ -53,6 +57,8 @@ function refreshData(pager)
     $("#mydata").append("<p>Local row "+i+"</p>");
   }
 }
+```
 
 ```html
 <strong>See also the anyList project: https://github.com/arnemorken/anylist</strong>
+```
