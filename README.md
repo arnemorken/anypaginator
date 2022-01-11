@@ -91,22 +91,22 @@ function refreshData(pager)
 #### initialize(opt)
 Initialize options and properties.
 Examples: 
-'''js
+```js
 let pager = $("#myfoot").anyPaginator();
-'''
-'''js
- - pager("initialize",{mode:1});
-'''
+```
+```js
+pager("initialize",{mode:1});
+```
 
 #### setOptions(opt,args)
 Set options for the paginator.
 Examples: 
-'''js
+```js
 $("#myfoot").anyPaginator("options",{splitFirst:2});
-'''
-'''js
+```
+```js
 pager.setOptions({splitFirst:2});
-'''
+```
 
 #### getNumPages()
 Return the number of pages in the paginator.
