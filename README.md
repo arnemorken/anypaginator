@@ -65,8 +65,11 @@ function refreshData(pager)
 
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
-| mode                         | 0: buttons, 1: item range, 2: page number                      | Bool                         | 0                          |
+| mode                         | 0: buttons, 1: item range, 2: page number                      | Number                       | 0                          |
 | rowsPerPage                  | Number of items per page                                       | Number                       | 20                         |
+| splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
+| splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
+| splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
 | gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&laquo;"                  |
 | nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&raquo;"                  |
@@ -82,17 +85,14 @@ function refreshData(pager)
 | hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
 | hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
 | hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
-| splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
-| splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
-| splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
 
 ## Public methods
 
 initialize(opt)
 
-reset()
-
 setOptions(opt)
+
+reset()
 
 refresh(opt)
 
@@ -108,6 +108,7 @@ goClicked(event)
 
 # License
 
-Released under the AGPL v3 license: https://choosealicense.com/licenses/agpl-3.0/
+AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
 
 ### See also the anyList project: https://github.com/arnemorken/anylist
