@@ -82,7 +82,7 @@ function refreshData(pager)
 | nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
 | firstIcon                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
 | lastIcon                     | Font Awesome icon on the "last" button instead of lastText     | String                       | null                       |
-| hideGoto                     | Whether to hide the "goto page" button/input field             | Bool                         | false                      |
+| hideGoto                     | Whether to hide the "goto" button/input field                  | Bool                         | false                      |
 | hidePrev                     | Whether to hide the "previous" button                          | Bool                         | false                      |
 | hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
 | hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
