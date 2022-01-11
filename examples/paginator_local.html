@@ -1,7 +1,7 @@
 <!--
  ****************************************************************************************
  *
- * anyPaginator is copyright (C) 2021 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
  *
  * License: MIT.
  *
@@ -14,8 +14,9 @@
 <head>
   <meta charset="utf-8" />
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
-  <script src="https://balanse.info/cdn/anypaginator/anyPaginator.js"></script>
-  <link  href="https://balanse.info/cdn/anypaginator/anyPaginator.css" rel="stylesheet"/>
+  <link  href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet"/>
+  <script src="../anyPaginator.js"></script>
+  <link  href="../anyPaginator.css" rel="stylesheet"/>
   <title>anyPaginator example - local data</title>
 </head>
 
@@ -33,7 +34,7 @@
 </div>
 
 <script>
-function refreshTable(pager)
+function refreshTable(pager,num)
 {
   if (!pager)
     return;
@@ -41,25 +42,46 @@ function refreshTable(pager)
   let tbody = $("#mytable > tbody");
   if (tbody.length)
     tbody.empty();
-  for (let i=1; i<=200; i++) {
+  for (let i=1; i<=num; i++) {
     // Display only items on current page
-    if (page_no == pager.currentPage) {
-      tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
-    }
-    // Add a page number each rowsPerPage rows
-    if (!(i % pager.options.rowsPerPage)) {
-      pager.anyPaginator("page",page_no);
+    if (!((i-1) % pager.options.rowsPerPage))
       ++page_no;
+    if (page_no-1 == pager.currentPage) {
+      tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
     }
   }
 } // refreshTable
 
+function populatePager(pager,num)
+{
+  if (!pager)
+    return;
+  let page_no = 1;
+  for (let i=1; i<=num; i++) {
+    // Add a page number each rowsPerPage rows
+    if (!((i-1) % pager.options.rowsPerPage)) {
+      pager.anyPaginator("add");
+      ++page_no;
+    }
+  }
+} // populatePager
+
 // Initialize paginator in tfoot
-let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
-                                         onClick: function() { refreshTable(pager); },
+let num = 200;
+let pager =  $("#myfoot").anyPaginator({ mode:         0,
+                                         onClick:      function() { refreshTable(pager,num); },
+                                         rowsPerPage:  5,
+                                         gotoIcon:     "fa-thin fa-arrow-turn-down-left",
+                                         prevIcon:     "fas fa-caret-left",
+                                         nextIcon:     "fas fa-caret-right",
+                                         ellipsisIcon: "fa-thin fa-ellipsis-stroke",
                                       });
-// Display table
-refreshTable(pager);
+// Display table contents
+refreshTable(pager,num);
+
+// Add page numbers
+populatePager(pager,num);
+
 </script>
 
 </body>

@@ -1,6 +1,6 @@
 /****************************************************************************************
  *
- * anyPaginator is copyright (C) 2011-2021 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
  *
  * License: MIT.
  *
@@ -9,26 +9,78 @@
  ****************************************************************************************/
 
 .any-paginator-container {
-  margin-top:10px;
+  margin-top:   10px;
+  background:   white;
+  font:         12px Verdana, sans-serif;
 }
 
-.any-paginator-num {
+.any-paginator-btn {
   margin-right: 1px;
   white-space:  nowrap;
   display:      inline-block;
   min-width:    20px;
-  max-width:    20px;
   text-align:   center;
+  border-radius:3px;
   color:        #fc5200;
   cursor:       pointer;
 }
 
-.any-paginator-num-page {
+.any-paginator-num {
   border:       1px solid #fc5200;
+}
+
+.any-paginator-ellipsis {
+  border:       1px solid white;
+  color:        #888;
+  cursor:       default;
 }
 
 .any-paginator-inactive {
   color:        #aaa;
+}
+
+.any-paginator-compact {
+  margin-right: 1px;
+  white-space:  nowrap;
+  display:      inline-block;
+  min-width:    20px;
+  text-align:   center;
+  color:        #333;
+}
+
+.any-paginator-goto {
+  white-space:  nowrap;
+  display:      inline-block;
+}
+
+#anyPaginator_goto_inp {
+  min-width:        22px;
+  max-width:        22px;
+  min-height:       unset;
+  margin-right:     3px;
+  padding:          1px;
+  padding-top:      0px;
+  padding-bottom:   0px;
+  white-space:      nowrap;
+  display:          inline-block;
+  text-align:       center;
+  font:             12px Verdana, sans-serif;
+}
+
+#anyPaginator_goto_inp:focus {
+  outline:      none;
+}
+
+#anyPaginator_goto_btn {
+  padding:      2px;
+  white-space:  nowrap;
+  display:      inline-block;
+  cursor:       pointer;
+}
+
+#anyPaginator_goto_btn:hover {
+  padding:      1px;
+  border:       1px solid #ddd;
 }
 
 .noselect {

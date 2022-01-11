@@ -1,7 +1,7 @@
 <!--
  ****************************************************************************************
  *
- * anyPaginator is copyright (C) 2021 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
  *
  * License: MIT.
  *
@@ -14,8 +14,8 @@
 <head>
   <meta charset="utf-8" />
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
-  <script src="https://balanse.info/cdn/anypaginator/anyPaginator.js"></script>
-  <link  href="https://balanse.info/cdn/anypaginator/anyPaginator.css" rel="stylesheet"/>
+  <script src="../anyPaginator.js"></script>
+  <link  href="../anyPaginator.css" rel="stylesheet"/>
   <title>anyPaginator example - remote data</title>
 </head>
 
@@ -35,12 +35,11 @@
 <script>
 let cdn = "https://balanse.info/cdn/anypaginator/examples/";
 
-function refreshTable(pager)
+function refreshTable(pager,num)
 {
   if (!pager)
     return;
-  let page_no = 1;
-  let from = pager.currentPage * pager.options.rowsPerPage - pager.options.rowsPerPage;
+  let from = pager.options.rowsPerPage *(pager.currentPage - 1);
   let to   = from + pager.options.rowsPerPage - 1;
   let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
@@ -49,17 +48,10 @@ function refreshTable(pager)
       let tbody = $("#mytable > tbody");
       if (tbody.length)
         tbody.empty();
-      for (const i in data) {
-        // Display all items received
+      // Display all items received
+      for (const i in data)
         tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
-      }
-      for (let i=1; i<=200; i++) {
-        // Add a page number each rowsPerPage rows
-        if (!(i % pager.options.rowsPerPage)) {
-          pager.anyPaginator("page",page_no);
-          ++page_no;
-        }
-      }
+      populatePager(pager,num,pager.currentPage);
     }
     else
     if (textStatus == "error")
@@ -70,16 +62,40 @@ function refreshTable(pager)
   });
 } // refreshTable
 
+function populatePager(pager,num,page)
+{
+  if (!pager)
+    return;
+  pager.reset();
+  let page_no = 1;
+  for (let i=1; i<=num; i++) {
+    // Add a page number each rowsPerPage rows
+    if (!((i-1) % pager.options.rowsPerPage)) {
+      pager.anyPaginator("add");
+      ++page_no;
+    }
+  }
+  pager.showPage(page);
+} // populatePager
+
 // Create remote table
-let db_url = cdn + "remote_create.php";
+let num = 70; // Number of rows
+let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
+
   // Initialize paginator in tfoot
-  let pager =  $("#myfoot").anyPaginator({ rowsPerPage: 20,
-                                           onClick: function() { refreshTable(pager); },
+  let pager =  $("#myfoot").anyPaginator({ mode:        0,
+                                           onClick:     function() { refreshTable(pager,num); },
+                                           rowsPerPage: 5,
+                                           prevText:    "<",
+                                           nextText:    ">",
                                         });
-  // Display table
-  refreshTable(pager);
+  // Display table contents
+  refreshTable(pager,num);
+
+  // Add page numbers
+  populatePager(pager,num);
 })
 .fail(function(jqXHR,textStatus,error) {
   console.error("Server error (create):"+jqXHR.responseText);
