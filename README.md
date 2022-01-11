@@ -91,38 +91,58 @@ function refreshData(pager)
 #### initialize(opt)
 Initialize options and properties.
 Examples: 
- - $("#myfoot").anyPaginator();
- - $("#myfoot").anyPaginator("initialize",{mode:1});
+'''js
+let pager = $("#myfoot").anyPaginator();
+'''
+'''js
+ - pager("initialize",{mode:1});
+'''
 
-### setOptions(opt)
+#### setOptions(opt,args)
 Set options for the paginator.
+Examples: 
+'''js
+$("#myfoot").anyPaginator("options",{splitFirst:2});
+'''
+'''js
+pager.setOptions({splitFirst:2});
+'''
 
-### getNumPages()
+#### getNumPages()
 Return the number of pages in the paginator.
+Examples: 
 
-### getCurrentPage()
+#### getCurrentPage()
 Return the page that is currently highlighted.
+Examples: 
 
-### reset()
+#### reset()
 Remove all pages, reset the current page and the number of pages and create go/prev/next/first/last buttons
+Examples: 
 
-### refresh(opt)
+#### refresh(opt)
 Redraw all the page numbers, ellipsis and navigators
+Examples: 
 
-### addPage()
+#### addPage()
 Add a page number button
+Examples: 
 
-### removePage()
+#### removePage()
 Remove a page number button
+Examples: 
 
-### showPage(pageNo)
+#### showPage(pageNo)
 Redraw the paginator with focus on the page pageNo
+Examples: 
 
-### buttonClicked(event)
+#### buttonClicked(event)
 Update the paginator when a button is clicked
+Examples: 
 
-### goClicked(event)
+#### goClicked(event)
 Update the paginator when the go button is clicked or enter is prerss in the input field
+Examples: 
 
 # License
 
