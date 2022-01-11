@@ -127,7 +127,7 @@ Examples:
 $("#mydiv").anyPaginator("options",{splitFirst:2});
 ```
 ```js
-pager.setOptions({splitFirst:2});
+pager.setDefaults({splitFirst:2});
 ```
 
 #### refresh()
