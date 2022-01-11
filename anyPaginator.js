@@ -118,7 +118,8 @@ $.fn.anyPaginator = function (opt,args)
     ++this.numPages;
 
     // Show the new page button
-    this.showPage(this.numPages,true);
+    this.showPage(this.numPages);
+    toggleHighlight(this,this.numPages,false);
 
     // Highlight the current page button
     toggleHighlight(this,this.currentPage,true);
@@ -146,7 +147,7 @@ $.fn.anyPaginator = function (opt,args)
   //
   // Redraw the paginator with focus on the page pageNo
   //
-  this.showPage = function(pageNo,skipHilite)
+  this.showPage = function(pageNo)
   {
     if (this.options.mode) {
       if (this.options.mode == 1)
@@ -255,8 +256,7 @@ $.fn.anyPaginator = function (opt,args)
         }
       }
       // Highlight new button
-      if (!skipHilite)
-        toggleHighlight(this,pageNo,true);
+      toggleHighlight(this,pageNo,true);
     } // else
 
     // Change prev and next buttons if neccessary
@@ -315,11 +315,10 @@ $.fn.anyPaginator = function (opt,args)
     let opt = event.data;
     if (!opt)
       return this;
-    // Remove highlight from old button
-    toggleHighlight(this,this.currentPage,false);
     // Find new page
     let num = $("#anyPaginator_goto_inp").val();
     if (Number.isInteger(parseInt(num))) {
+      toggleHighlight(this,this.currentPage,false); // Remove highlight from old button
       if (this.options.mode == 1) {
         let num_items = this.numPages * this.options.itemsPerPage;
         if (num >= 1 && num <= num_items)
