@@ -35,9 +35,8 @@ Take a look at the jsFiddle demos:
 let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
 for (let i=1; i<=200; i++) {
   // Add a page number each itemsPerPage rows
-  if (!((i-1) % pager.options.itemsPerPage)) {
+  if (!((i-1) % pager.options.itemsPerPage))
     pager.anyPaginator("add");
-  }
 }
 ```
 
