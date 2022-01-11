@@ -12,8 +12,8 @@ Take a look at the jsFiddle demos:
 # Download
 
 - Github repository:                  https://github.com/arnemorken/anypaginator/
-- Balanse Software (minified):        https://balanse.info/cdn/anypaginator/anyPaginator.min.zip (minified)
-- Balanse Software (source/examples): https://balanse.info/cdn/anypaginator/anyPaginator.zip (complete source with examples)
+- Balanse Software (minified):        https://balanse.info/cdn/anypaginator/anyPaginator.min.zip
+- Balanse Software (source/examples): https://balanse.info/cdn/anypaginator/anyPaginator.zip
 
 # Usage
 
