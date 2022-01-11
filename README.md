@@ -89,30 +89,40 @@ function refreshData(pager)
 ### Public methods
 
 #### initialize(opt)
-- Initialize options and properties
-- Examples: 
-  --$("#myfoot").anyPaginator();
-  --$("#myfoot").anyPaginator("initialize",{mode:1});
+Initialize options and properties.
+Examples: 
+ - $("#myfoot").anyPaginator();
+ - $("#myfoot").anyPaginator("initialize",{mode:1});
 
-setOptions(opt)
+### setOptions(opt)
+Set options for the paginator.
 
-getNumPages()
+### getNumPages()
+Return the number of pages in the paginator.
 
-getCurrentPage()
+### getCurrentPage()
+Return the page that is currently highlighted.
 
-reset()
+### reset()
+Remove all pages, reset the current page and the number of pages and create go/prev/next/first/last buttons
 
-refresh(opt)
+### refresh(opt)
+Redraw all the page numbers, ellipsis and navigators
 
-addPage()
+### addPage()
+Add a page number button
 
-removePage()
+### removePage()
+Remove a page number button
 
-showPage(pageNo)
+### showPage(pageNo)
+Redraw the paginator with focus on the page pageNo
 
-buttonClicked(event)
+### buttonClicked(event)
+Update the paginator when a button is clicked
 
-goClicked(event)
+### goClicked(event)
+Update the paginator when the go button is clicked or enter is prerss in the input field
 
 # License
 
