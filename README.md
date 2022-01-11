@@ -86,17 +86,19 @@ function refreshData(pager)
 | hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
 | hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
 
-### Public properties
-
-numPages
-
-currentPage
-
 ### Public methods
 
-initialize(opt)
+#### initialize(opt)
+- Initialize options and properties
+- Examples: 
+  --$("#myfoot").anyPaginator();
+  --$("#myfoot").anyPaginator("initialize",{mode:1});
 
 setOptions(opt)
+
+getNumPages()
+
+getCurrentPage()
 
 reset()
 
