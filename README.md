@@ -61,7 +61,7 @@ function refreshData(pager)
 
 # API
 
-## Options
+### Options
 
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
@@ -86,13 +86,13 @@ function refreshData(pager)
 | hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
 | hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
 
-## Public properties
+### Public properties
 
 numPages
 
 currentPage
 
-## Public methods
+### Public methods
 
 initialize(opt)
 
@@ -115,6 +115,7 @@ goClicked(event)
 # License
 
 AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+
 Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
 
 ### See also the anyList project: https://github.com/arnemorken/anylist
