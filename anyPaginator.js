@@ -36,16 +36,49 @@ $.fn.anyPaginator = function (opt,args)
       console.error("anyPaginator: Illegal mode. ");
       return this;
     }
-    if (this.options.rowsPerPage <= 0 ||
-        this.options.splitLeft   <  0 ||
-        this.options.splitMiddle <  0 ||
-        this.options.splitRight  <  0) {
+    if (this.options.itemsPerPage <= 0 ||
+        this.options.splitLeft    <  0 ||
+        this.options.splitMiddle  <  0 ||
+        this.options.splitRight   <  0) {
       console.error("anyPaginator: Illegal number in options. ");
       return this;
     }
     this.reset();
     return this;
   }; // initialize
+
+  //
+  // Set options for the plugin
+  //
+  this.setOptions = function(opt)
+  {
+    if (!opt || typeof opt != "object")
+      return this;
+    // Merge with defaults
+    this.options = $.extend({
+      mode:         0,         // 0: buttons, 1: item range, 2: page number
+      itemsPerPage: 20,        // Number of rows per page
+      splitLeft:    3,         // Number of split buttons to the left
+      splitMiddle:  3,         // Number of split buttons in the middle
+      splitRight:   3,         // Number of split buttons to the right
+      gotoText:     "Go",      // Text on the "go" button
+      prevText:     "&laquo;", // Text on the "previous" button, ignored if prevIcon is not null
+      nextText:     "&raquo;", // Text on the "next" button, ignored if nextIcon is not null
+      firstText:    "|<",      // Text on the "first" button, ignored if firstIcon is not null
+      lastText:     ">|",      // Text on the "last" button, ignored if lastIcon is not null
+      gotoIcon:     null,      // Icon on the "go" button instead of gotoText
+      prevIcon:     null,      // Icon on the "previous" button instead of prevText
+      nextIcon:     null,      // Icon on the "next" button instead of nextText
+      firstIcon:    null,      // Icon on the "first" button instead of firstText
+      lastIcon:     null,      // Icon on the "last" button instead of lastText
+      hideGoto:     false,     // Whether to hide the "goto page" button/input field
+      hidePrev:     false,     // Whether to hide the "previous" button
+      hideNext:     false,     // Whether to hide the "next" button
+      hideFirst:    true,      // Whether to hide the "first" button. Should be "true" if splitLeft == 1
+      hideLast:     true,      // Whether to hide the "last" button. Should be "true" if splitRight == 1
+    }, opt);
+    return this;
+  }; // setOptions
 
   //
   // Remove all pages, reset currentPage and numPages and create prev/next buttons
@@ -59,39 +92,6 @@ $.fn.anyPaginator = function (opt,args)
     redrawPrevButton(this,1);
     redrawNextButton(this,this.numPages);
   }; // reset
-
-  //
-  // Set options for the plugin
-  //
-  this.setOptions = function(opt)
-  {
-    if (!opt || typeof opt != "object")
-      return this;
-    // Merge with defaults
-    this.options = $.extend({
-      mode:        0,         // 0: buttons, 1: item range, 2: page number
-      rowsPerPage: 20,        // Number of rows per page
-      gotoText:    "Go",      // Text on the "go" button
-      prevText:    "&laquo;", // Text on the "previous" button, ignored if prevIcon is not null
-      nextText:    "&raquo;", // Text on the "next" button, ignored if nextIcon is not null
-      firstText:   "|<",      // Text on the "first" button, ignored if firstIcon is not null
-      lastText:    ">|",      // Text on the "last" button, ignored if lastIcon is not null
-      gotoIcon:    null,      // Icon on the "go" button instead of gotoText
-      prevIcon:    null,      // Icon on the "previous" button instead of prevText
-      nextIcon:    null,      // Icon on the "next" button instead of nextText
-      firstIcon:   null,      // Icon on the "first" button instead of firstText
-      lastIcon:    null,      // Icon on the "last" button instead of lastText
-      hideGoto:    false,     // Whether to hide the "goto page" button/input field
-      hidePrev:    false,     // Whether to hide the "previous" button
-      hideNext:    false,     // Whether to hide the "next" button
-      hideFirst:   true,      // Whether to hide the "first" button. Should be "true" if splitLeft == 1
-      hideLast:    true,      // Whether to hide the "last" button. Should be "true" if splitRight == 1
-      splitLeft:   3,         // Number of split buttons to the left
-      splitMiddle: 3,         // Number of split buttons in the middle
-      splitRight:  3,         // Number of split buttons to the right
-    }, opt);
-    return this;
-  }; // setOptions
 
   //
   // Redraw all the page numbers, ellipsis and navigators
@@ -321,9 +321,9 @@ $.fn.anyPaginator = function (opt,args)
     let num = $("#anyPaginator_goto_inp").val();
     if (Number.isInteger(parseInt(num))) {
       if (this.options.mode == 1) {
-        let num_items = this.numPages * this.options.rowsPerPage;
+        let num_items = this.numPages * this.options.itemsPerPage;
         if (num >= 1 && num <= num_items)
-          this.currentPage = Math.trunc((num-1)/this.options.rowsPerPage) + 1;
+          this.currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
       }
       else { // mode == 0 or mode == 2
         if (num >= 1 && num <= this.numPages) {
@@ -509,9 +509,9 @@ $.fn.anyPaginator = function (opt,args)
     let div_id = "anyPaginator_itemrange";
     if ($("#"+div_id))
       $("#"+div_id).remove();
-    let from = self.options.rowsPerPage * (pageNo-1) + 1;
-    let to   = self.options.rowsPerPage * pageNo;
-    let num  = self.options.rowsPerPage * self.numPages;
+    let from = self.options.itemsPerPage * (pageNo-1) + 1;
+    let to   = self.options.itemsPerPage * pageNo;
+    let num  = self.options.itemsPerPage * self.numPages;
     let str = " "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
     self.pager.append(div);
