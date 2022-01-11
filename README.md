@@ -92,8 +92,6 @@ function refreshData(pager)
 
 #### Constructor
 Initialize options and properties and redraw the paginator.
-
-Examples: 
 ```js
 // Initialize the plugin with default values
 var pager = $("#mydiv").anyPaginator();
@@ -101,8 +99,6 @@ var pager = $("#mydiv").anyPaginator();
 
 #### reset(options)
 Reset options and properties and redraw the paginator.
-
-Examples: 
 ```js
 // Reset the plugin to mode 1
 pager = pager.reset({mode:1});
@@ -110,8 +106,6 @@ pager = pager.reset({mode:1});
 
 #### getNumPages()
 Return the number of pages in the paginator.
-
-Examples: 
 ```js
 var np = pager.anyPaginator("numPages");
 ```
@@ -122,8 +116,6 @@ var np = pager.getNumPages();
 
 #### getCurrentPage()
 Return the page that is currently highlighted.
-
-Examples: 
 ```js
 var cp = pager.anyPaginator("currentPage");
 ```
@@ -134,8 +126,6 @@ var cp = pager.getCurrentPage();
 
 #### setOption(options)
 Set one or more options for the paginator.
-
-Examples: 
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
 ```
@@ -146,8 +136,6 @@ pager.setOption({splitFirst:2,splitLast:2});
 
 #### refresh()
 Redraw all the page numbers, ellipsis and navigators.
-
-Examples: 
 ```js
 pager.anyPaginator("refresh");
 ```
@@ -158,8 +146,6 @@ pager.refresh();
 
 #### addPage()
 Add a page number button.
-
-Examples: 
 ```js
 pager.anyPaginator("add");
 ```
@@ -170,8 +156,6 @@ pager.addPage();
 
 #### removePage()
 Remove a page number button.
-
-Examples: 
 ```js
 pager.anyPaginator("remove");
 ```
@@ -182,8 +166,6 @@ pager.removePage();
 
 #### showPage(pageNo)
 Redraw the paginator with focus on the page pageNo.
-
-Examples: 
 ```js
 pager.anyPaginator("show",12);
 ```
