@@ -1,5 +1,5 @@
 # anyPaginator
-An easy to use, yet advanced and fully customizable javascript/jQuery paginator. 
+An easy to use, yet advanced and fully customizable javascript/jQuery paginator plugin. 
 
 <img src="examples/anyPaginator1.png"><br/>
 
@@ -92,72 +92,85 @@ function refreshData(pager)
 
 #### reset(opt)
 Initialize / reset options and properties, and redraw.
+
 Examples: 
+
+Initialize the plugin:
 ```js
 pager = $("#mydiv").anyPaginator({mode:1});
 ```
+Reset the plugin:
 ```js
 pager = pager.reset({mode:1});
 ```
 
 #### getNumPages()
 Return the number of pages in the paginator.
+
 Examples: 
 ```js
-$("#mydiv").anyPaginator("numPages");
+pager.anyPaginator("numPages");
 ```
+or
 ```js
 pager.getNumPages();
 ```
 
 #### getCurrentPage()
 Return the page that is currently highlighted.
+
 Examples: 
 ```js
-$("#mydiv").anyPaginator("currentPage");
+pager.anyPaginator("currentPage");
 ```
+or
 ```js
 pager.getCurrentPage();
 ```
 
-#### setDefaults(opt,args)
-Set default options for the paginator.
+#### setOption(opt)
+Set one or more options for the paginator.
+
 Examples: 
 ```js
-$("#mydiv").anyPaginator("options",{splitFirst:2});
+pager.anyPaginator("option",{splitFirst:2});
 ```
+or
 ```js
-pager.setDefaults({splitFirst:2});
+pager.setOption({splitFirst:2});
 ```
 
 #### refresh()
 Redraw all the page numbers, ellipsis and navigators.
+
 Examples: 
+
 ```js
-$("#mydiv").anyPaginator("refresh");
+pager.anyPaginator("refresh");
 ```
+or
 ```js
 pager.refresh();
 ```
 
 #### addPage()
-Add a page number button
+Add a page number button.
 Examples: 
 
 #### removePage()
-Remove a page number button
+Remove a page number button.
 Examples: 
 
 #### showPage(pageNo)
-Redraw the paginator with focus on the page pageNo
+Redraw the paginator with focus on the page pageNo.
 Examples: 
 
 #### buttonClicked(event)
-Update the paginator when a button is clicked
+Update the paginator when a button is clicked.
 Examples: 
 
 #### goClicked(event)
-Update the paginator when the go button is clicked or enter is prerss in the input field
+Update the paginator when the go button is clicked or enter is prerss in the input field.
 Examples: 
 
 # License
