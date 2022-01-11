@@ -73,10 +73,10 @@ function refreshData(pager)
 | itemText                     | Text in front of item range for mode == 1                      | String                       | "Item"                     |
 | pageText                     | Text in front of page number for mode == 2                     | String                       | "Page"                     |
 | gotoText                     | Text on the "go" button                                        | String                       | "Go"                       |
-| prevText                     | Text on the "previous" button, ignored if prevIcon is not null | String                       | "&lsaquo;"                 |
-| nextText                     | Text on the "next" button, ignored if nextIcon is not null     | String                       | "&rsaquo;"                 |
-| firstText                    | Text on the "first" button, ignored if firstIcon is not null   | String                       | "&laquo"                   |
-| lastText                     | Text on the "last" button, ignored if lastIcon is not null     | String                       | "&raquo"                   |
+| prevText                     | Text on the "previous" button, ignored if prevIcon is set      | String                       | "&lsaquo;"                 |
+| nextText                     | Text on the "next" button, ignored if nextIcon is set          | String                       | "&rsaquo;"                 |
+| firstText                    | Text on the "first" button, ignored if firstIcon is set        | String                       | "&laquo"                   |
+| lastText                     | Text on the "last" button, ignored if lastIcon is set          | String                       | "&raquo"                   |
 | gotoIcon                     | Font Awesome icon on the "go" button instead of gotoText       | String                       | null                       |
 | prevIcon                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
 | nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
