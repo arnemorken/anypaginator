@@ -147,7 +147,7 @@ pager.refresh();
 ```
 
 #### refresh()
-Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set, it will be called with the specified arguments in an array after refresh has completed.
+Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
 
