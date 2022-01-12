@@ -128,11 +128,11 @@ pager.setOption({splitFirst:2,splitLast:2});
 ```
 
 #### refresh()
-Redraw all the page numbers, ellipsis and navigators. If any arguments are specified, the user-supplied onClick handler is called with these arguments in an array.
+Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set, it will be called with the specified arguments in an array.
 ```js
-pager.anyPaginator("refresh",args);
+pager.anyPaginator("refresh",pager,num);
 
-pager.refresh(args);
+pager.refresh(pager,num);
 ```
 
 #### addPage()
