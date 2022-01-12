@@ -89,6 +89,22 @@ $.fn.anyPaginator = function (cmd,...args)
     return this;
   }; // setDefaults
 
+  this.setOptions = function(opt)
+  {
+    if (!opt || typeof opt != "object")
+      return this;
+    let old_ipp = this.options.itemsPerPage;
+    this.options = $.extend(this.options,opt);
+    if (opt.itemsPerPage) {
+      // Recalculate numPages
+      let np = (this.numPages * old_ipp) / this.options.itemsPerPage;
+      this.numPages = Math.trunc(np);
+      if (np > this.numPages)
+        this.numPages += 1;
+    }
+    return this;
+  }; // setOptions
+
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
@@ -640,7 +656,7 @@ $.fn.anyPaginator = function (cmd,...args)
     this.reset(cmd);
   else
   if (cmd == "option")
-    this.setOption(option);
+    this.setOptions(options);
   else
   if (cmd == "refresh")
     this.refresh(args);
