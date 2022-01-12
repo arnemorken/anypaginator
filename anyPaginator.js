@@ -12,98 +12,92 @@
 
 (function ( $ ) {
 
-$.fn.anyPaginator = function (opt,args)
+$.fn.anyPaginator = function (cmd,options)
 {
   ////////////////////
   // Public methods //
   ////////////////////
 
   //
-  // Initialize options and properties
+  // Initialize / reset options and properties and redraw
   //
-  this.initialize = function(opt)
+  this.reset = function(opt)
   {
     if (opt && typeof opt == "object")
-      this.setOptions(opt); // Set user-defined options
+      this.setDefaults(opt); // Set user-defined options
     else
-      this.setOptions({}); // Set default options
+      this.setDefaults({ }); // Set default options
     if (!this.options) {
-      // Should never happen
       console.error("anyPaginator: Options missing. ");
       return this;
     }
-    if (this.options.mode < 0 || this.options.mode > 2) {
-      console.error("anyPaginator: Illegal mode. ");
-      return this;
-    }
-    if (this.options.itemsPerPage <= 0 ||
-        this.options.splitLeft    <  0 ||
-        this.options.splitMiddle  <  0 ||
-        this.options.splitRight   <  0) {
-      console.error("anyPaginator: Illegal number in options. ");
-      return this;
-    }
-    this.reset();
+    this.numPages = 0;
+    this.currentPage = 1;
+    this.refresh();
     return this;
-  }; // initialize
+  }; // reset
 
   //
-  // Set options for the plugin
+  // Getters
   //
-  this.setOptions = function(opt)
+  this.getNumPages    = function() { return this.numPages; };
+  this.getCurrentPage = function() { return this.currentPage; };
+
+  //
+  // Set default options for the paginator
+  //
+  this.setDefaults = function(opt)
   {
     if (!opt || typeof opt != "object")
       return this;
     // Merge with defaults
     this.options = $.extend({
-      mode:         0,         // 0: buttons, 1: item range, 2: page number
-      itemsPerPage: 20,        // Number of rows per page
-      splitLeft:    3,         // Number of split buttons to the left
-      splitMiddle:  3,         // Number of split buttons in the middle
-      splitRight:   3,         // Number of split buttons to the right
-      gotoText:     "Go",      // Text on the "go" button
-      prevText:     "&laquo;", // Text on the "previous" button, ignored if prevIcon is not null
-      nextText:     "&raquo;", // Text on the "next" button, ignored if nextIcon is not null
-      firstText:    "|<",      // Text on the "first" button, ignored if firstIcon is not null
-      lastText:     ">|",      // Text on the "last" button, ignored if lastIcon is not null
-      gotoIcon:     null,      // Icon on the "go" button instead of gotoText
-      prevIcon:     null,      // Icon on the "previous" button instead of prevText
-      nextIcon:     null,      // Icon on the "next" button instead of nextText
-      firstIcon:    null,      // Icon on the "first" button instead of firstText
-      lastIcon:     null,      // Icon on the "last" button instead of lastText
-      hideGoto:     false,     // Whether to hide the "goto page" button/input field
-      hidePrev:     false,     // Whether to hide the "previous" button
-      hideNext:     false,     // Whether to hide the "next" button
-      hideFirst:    true,      // Whether to hide the "first" button. Should be "true" if splitLeft == 1
-      hideLast:     true,      // Whether to hide the "last" button. Should be "true" if splitRight == 1
+      mode:         0,          // 0: buttons, 1: item range, 2: page number
+      itemsPerPage: 20,         // Number of rows per page
+      splitLeft:    3,          // Number of split buttons to the left
+      splitMiddle:  3,          // Number of split buttons in the middle
+      splitRight:   3,          // Number of split buttons to the right
+      itemText:     "Item",     // Text in front of item range for mode == 1
+      pageText:     "Page",     // Text in front of page number for mode == 2
+      gotoText:     "&crarr;",  // Text on the "go" button
+      prevText:     "&lsaquo;", // Text on the "previous" button, ignored if prevIcon is not null
+      nextText:     "&rsaquo;", // Text on the "next" button, ignored if nextIcon is not null
+      firstText:    "&laquo;",  // Text on the "first" button, ignored if firstIcon is not null
+      lastText:     "&raquo;",  // Text on the "last" button, ignored if lastIcon is not null
+      gotoIcon:     null,       // Icon on the "go" button instead of gotoText
+      prevIcon:     null,       // Icon on the "previous" button instead of prevText
+      nextIcon:     null,       // Icon on the "next" button instead of nextText
+      firstIcon:    null,       // Icon on the "first" button instead of firstText
+      lastIcon:     null,       // Icon on the "last" button instead of lastText
+      hideGoto:     false,      // Whether to hide the "goto page" button/input field
+      hidePrev:     false,      // Whether to hide the "previous" button
+      hideNext:     false,      // Whether to hide the "next" button
+      hideFirst:    true,       // Whether to hide the "first" button. Should be "true" if splitLeft == 1
+      hideLast:     true,       // Whether to hide the "last" button. Should be "true" if splitRight == 1
     }, opt);
+    let err = "";
+    if (this.options.mode < 0 || this.options.mode > 2)
+      err += "Illegal mode. ";
+    if (this.options.splitLeft < 0)
+      err += "Illegal splitLeft. ";
+    if (this.options.splitMiddle < 0)
+      err += "Illegal splitMiddle. ";
+    if (this.options.splitRight < 0)
+      err += "Illegal splitRight. ";
+    if (err != "")
+      console.error("anyPaginator: "+err);
     return this;
-  }; // setOptions
-
-  //
-  // Remove all pages, reset currentPage and numPages and create prev/next buttons
-  //
-  this.reset = function()
-  {
-    if (!this.currentPage)
-      this.currentPage = 1;
-    this.numPages = 0;
-    this.pager    = redrawPaginatorContainer(this);
-    redrawPrevButton(this,1);
-    redrawNextButton(this,this.numPages);
-  }; // reset
+  }; // setDefaults
 
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
-  this.refresh = function(opt)
+  this.refresh = function()
   {
-    if (!opt)
-      opt = this.options;
-    let np = this.numPages;
-    this.initialize(opt);
+    this.container = redrawPaginatorContainer(this);
+    let np = this.numPages; // Important!
     for (let page_no=1; page_no<=np; page_no++)
-      this.addPage();
+      this.showPage(page_no);
     this.showPage(1);
   }; // refresh
 
@@ -112,18 +106,22 @@ $.fn.anyPaginator = function (opt,args)
   //
   this.addPage = function()
   {
-    if (!this.pager || !this.options)
+    if (!this.container || !this.options)
       return this;
 
     ++this.numPages;
 
     // Show the new page button
     this.showPage(this.numPages);
-    toggleHighlight(this,this.numPages,false);
+
+    // Make sure the current page is displayed
+    this.showPage(this.currentPage);
 
     // Highlight the current page button
-    toggleHighlight(this,this.currentPage,true);
-
+    if (this.options.mode == 0) {
+      toggleHighlight(this,this.numPages,false);
+      toggleHighlight(this,this.currentPage,true);
+    }
     return this;
   } // addPage
 
@@ -132,12 +130,13 @@ $.fn.anyPaginator = function (opt,args)
   //
   this.removePage = function()
   {
-    if (!this.pager || !this.options)
+    if (!this.container || !this.options)
       return this;
 
     removePageNumberButton(this,this.numPages);
 
     --this.numPages;
+
     if (this.currentPage > this.numPages)
       this.currentPage = this.numPages;
 
@@ -167,7 +166,8 @@ $.fn.anyPaginator = function (opt,args)
         let half       = Math.trunc(this.numPages/2);
         let half_split = Math.trunc(this.options.splitMiddle/2);
         // Remove all buttons except pageNo
-        for (let i=1; i<=this.numPages; i++)
+        let np = this.numPages;
+        for (let i=1; i<=np; i++)
           if (i != pageNo)
             removePageNumberButton(this,i);
         // Redraw left buttons
@@ -262,6 +262,8 @@ $.fn.anyPaginator = function (opt,args)
     // Change prev and next buttons if neccessary
     redrawPrevButton(this,1);
     redrawNextButton(this,this.numPages);
+    redrawFirstButton(this);
+    redrawLastButton(this);
 
     // Display goto page/input field
     if (!this.options.hideGoto)
@@ -271,7 +273,7 @@ $.fn.anyPaginator = function (opt,args)
   }; // showPage
 
   //
-  // Update the view when a button is clicked
+  // Update the paginator when a button is clicked
   //
   this.buttonClicked = function(event)
   {
@@ -291,6 +293,12 @@ $.fn.anyPaginator = function (opt,args)
           if (this.currentPage < this.numPages)
             ++this.currentPage;
           break;
+        case "first":
+          this.currentPage = 1;
+          break;
+        case "last":
+          this.currentPage = this.numPages;
+          break;
         default:
           if (Number.isInteger(opt.clickedPage)) {
             this.currentPage = opt.clickedPage;
@@ -308,9 +316,9 @@ $.fn.anyPaginator = function (opt,args)
   }; // buttonClicked
 
   //
-  // Update the view when the go button is clicked or enter is prerss in the input field
+  // Update the paginator when the go button is clicked or enter is prerss in the input field
   //
-  this.goClicked = function(event)
+  this.gotoClicked = function(event)
   {
     let opt = event.data;
     if (!opt)
@@ -338,7 +346,7 @@ $.fn.anyPaginator = function (opt,args)
         opt.onClick.call(context,event.data);
       }
     }
-  }; // goClicked
+  }; // gotoClicked
 
   /////////////////////
   // Private methods //
@@ -346,30 +354,30 @@ $.fn.anyPaginator = function (opt,args)
 
   function redrawPaginatorContainer(self)
   {
-    let pager_id = "anyPaginator_container";
-    self.pager = $("#"+pager_id);
-    if (self.pager.length)
-      self.pager.remove();
-    self.pager = $("<div id='"+pager_id+"' class='any-paginator-container'></div>");
-    self.append(self.pager);
-    return self.pager;
+    let container_id = "anyPaginator_container";
+    self.container = $("#"+container_id);
+    if (self.container.length)
+      self.container.remove();
+    self.container = $("<div id='"+container_id+"' class='any-paginator-container'></div>");
+    self.append(self.container);
+    return self.container;
   }; // redrawPaginatorContainer
 
   function redrawPrevButton(self,first_page)
   {
-    if (!self.pager || !self.options || first_page != 1)
+    if (!self.container || !self.options || first_page != 1)
       return self;
     let btn_id = "anyPaginator_prev";
     if ($("#"+btn_id))
       $("#"+btn_id).remove();
-    let prev_class = self.currentPage == 1 ? "any-paginator-inactive" : "";
-    let prev_text = "";
+    let act_class = self.currentPage == 1 ? "any-paginator-inactive" : "";
+    let btn_text = "";
     if (!self.options.prevIcon)
-      prev_text = self.options.prevText;
+      btn_text = self.options.prevText;
     else
-      prev_class += " "+self.options.prevIcon;
-    let prev_div   = $("<div id='"+btn_id+"' class='any-paginator-btn "+prev_class+" noselect'>"+prev_text+"</div>");
-    self.pager.prepend(prev_div);
+      act_class += " "+self.options.prevIcon;
+    let prev_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-prev "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.prepend(prev_div);
     if (self.currentPage > 1) {
       // The prev button should be active
       let click_opt = {...self.options};
@@ -388,19 +396,19 @@ $.fn.anyPaginator = function (opt,args)
 
   function redrawNextButton(self,last_page)
   {
-    if (!self.pager || !self.options)
+    if (!self.container || !self.options)
       return self;
     let btn_id = "anyPaginator_next";
     if ($("#"+btn_id))
       $("#"+btn_id).remove();
-    let next_class = self.currentPage >= last_page ? "any-paginator-inactive" : "";
-    let next_text = "";
+    let act_class = self.currentPage >= last_page ? "any-paginator-inactive" : "";
+    let btn_text = "";
     if (!self.options.nextIcon)
-      next_text = self.options.nextText;
+      btn_text = self.options.nextText;
     else
-      next_class += " "+self.options.nextIcon;
-    let next_div   = $("<div id='"+btn_id+"' class='any-paginator-btn "+next_class+" noselect'>"+next_text+"</div>");
-    self.pager.append(next_div);
+      act_class += " "+self.options.nextIcon;
+    let next_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-next "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.append(next_div);
     if (self.currentPage < last_page) {
       // The next button should be active
       let click_opt = {...self.options};
@@ -417,9 +425,71 @@ $.fn.anyPaginator = function (opt,args)
     return self;
   }; // redrawNextButton
 
+  function redrawFirstButton(self)
+  {
+    if (!self.container || !self.options)
+      return self;
+    let btn_id = "anyPaginator_first";
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let act_class = self.currentPage <= 1 ? "any-paginator-inactive" : "";
+    let btn_text = "";
+    if (!self.options.firstIcon)
+      btn_text = self.options.firstText;
+    else
+      act_class += " "+self.options.firstIcon;
+    let first_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-first "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.prepend(first_div);
+    if (self.currentPage > 1) {
+      // The first button should be active
+      let click_opt = {...self.options};
+      click_opt.clickedPage = "first";
+      first_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
+    }
+    else {
+      // The first button should be inactive
+      first_div.off("click");
+      first_div.css("cursor","default");
+    }
+    if (self.options.hideFirst)
+      first_div.hide();
+    return self;
+  }; // redrawFirstButton
+
+  function redrawLastButton(self)
+  {
+    if (!self.container || !self.options)
+      return self;
+    let btn_id = "anyPaginator_last";
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let act_class = self.currentPage >= self.numPages ? "any-paginator-inactive" : "";
+    let btn_text = "";
+    if (!self.options.lastIcon)
+      btn_text = self.options.lastText;
+    else
+      act_class += " "+self.options.lastIcon;
+    let last_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-last "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.append(last_div);
+    if (self.currentPage < self.numPages) {
+      // The last button should be active
+      let click_opt = {...self.options};
+      click_opt.clickedPage = "last";
+      last_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
+    }
+    else {
+      // The last button should be inactive
+      last_div.off("click");
+      last_div.css("cursor","default");
+    }
+    if (self.options.hideLast)
+      last_div.hide();
+    return self;
+  }; // redrawLastButton
+
   function redrawPageNumberButton(self,pageNo,isEllipsis)
   {
-    if (!self.pager || !self.options)
+    if (!self.container || !self.options)
       return self;
     removePageNumberButton(self,pageNo);
     let ellipsis_class = isEllipsis ? "any-paginator-ellipsis" : "any-paginator-num";
@@ -432,17 +502,17 @@ $.fn.anyPaginator = function (opt,args)
     let attr = isEllipsis ? "data-ellipsis='1'" : "";
     let str  = isEllipsis ? ellipsis_text       : pageNo;
     let pg_div = $("<div id='anyPaginator_"+pageNo+"' class='any-paginator-btn "+ellipsis_class+" noselect' "+attr+">"+str+"</div>");
-    let ins = self.pager.find("#anyPaginator_"+(pageNo-1));
+    let ins = $("#anyPaginator_"+(pageNo-1));
     if (ins.length)
       pg_div.insertAfter(ins);
     else {
-      ins = self.pager.find("#anyPaginator_"+(pageNo+1));
+      ins = $("#anyPaginator_"+(pageNo+1));
       if (ins.length)
         pg_div.insertBefore(ins);
       else {
         // Search left side
         for (let i=pageNo-1; i>=1; i--) {
-          ins = self.pager.find("#anyPaginator_"+i);
+          ins = $("#anyPaginator_"+i);
           if (ins.length)
             break;
         }
@@ -451,8 +521,9 @@ $.fn.anyPaginator = function (opt,args)
         }
         else {
           // Search right side
-          for (let i=pageNo+1; i<self.numPages; i++) {
-            ins = self.pager.find("#anyPaginator_"+i);
+          let np = self.numPages;
+          for (let i=pageNo+1; i<np; i++) {
+            ins = $("#anyPaginator_"+i);
             if (ins.length)
               break;
           }
@@ -462,9 +533,9 @@ $.fn.anyPaginator = function (opt,args)
         }
         if (!ins.length) {
           if (pageNo <= self.numPages)
-            pg_div.insertAfter(self.pager.find("#anyPaginator_prev"));
+            pg_div.insertAfter($("#anyPaginator_prev"));
           else
-            pg_div.insertBefore(self.pager.find("#anyPaginator_next"));
+            pg_div.insertBefore($("#anyPaginator_next"));
         }
       } // else
     } // else
@@ -487,8 +558,7 @@ $.fn.anyPaginator = function (opt,args)
 
   function toggleHighlight(self,pageNo,toggle)
   {
-    let pg_id  = "#anyPaginator_"+pageNo;
-    let pg_div = self.pager.find(pg_id);
+    let pg_div = $("#anyPaginator_"+pageNo);
     if (pg_div.length) {
       if (toggle) {
         pg_div.css("border","2px solid #fc5200");
@@ -503,34 +573,36 @@ $.fn.anyPaginator = function (opt,args)
 
   function redrawItemRange(self,pageNo)
   {
-    if (!self.pager || !self.options)
+    if (!self.container || !self.options)
       return self;
     let div_id = "anyPaginator_itemrange";
     if ($("#"+div_id))
       $("#"+div_id).remove();
+    let label = self.options.itemText ? self.options.itemText : "";
     let from = self.options.itemsPerPage * (pageNo-1) + 1;
     let to   = self.options.itemsPerPage * pageNo;
     let num  = self.options.itemsPerPage * self.numPages;
-    let str = " "+from+"-"+to+" of "+num;
+    let str = label+" "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    self.pager.append(div);
+    self.container.append(div);
   } // redrawItemRange
 
   function redrawPageView(self,pageNo)
   {
-    if (!self.pager || !self.options)
+    if (!self.container || !self.options)
       return self;
     let div_id = "anyPaginator_pageview";
     if ($("#"+div_id))
       $("#"+div_id).remove();
-    let str = " "+pageNo+"/"+self.numPages;
+    let label = self.options.pageText ? self.options.pageText : "";
+    let str = label+" "+pageNo+"/"+self.numPages;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    self.pager.append(div);
+    self.container.append(div);
   } // pagenumber
 
   function showGoto(self,pageNo)
   {
-    if (!self.pager || !self.options)
+    if (!self.container || !self.options)
       return self;
     let div_id = "anyPaginator_goto";
     if ($("#"+div_id))
@@ -547,33 +619,33 @@ $.fn.anyPaginator = function (opt,args)
     let go_div = $("<div id='"+div_id+"' class='any-paginator-goto noselect'></div>");
     go_div.append(go_inp);
     go_div.append(go_btn);
-    self.pager.append(go_div);
+    self.container.append(go_div);
     let click_opt = {...self.options};
-    go_btn.off("click").on("click", click_opt, $.proxy(self.goClicked,self));
-    go_inp.keypress(function (e) { if (e.which == 13) { self.goClicked({data:click_opt}); } });
+    go_btn.off("click").on("click", click_opt, $.proxy(self.gotoClicked,self));
+    go_inp.keypress(function (e) { if (e.which == 13) { self.gotoClicked({data:click_opt}); } });
   } // showGoto
 
   /////////////////////////////////////////
   // Call methods
   /////////////////////////////////////////
 
-  if (!opt || typeof opt == "object")
-    this.initialize(opt);
+  if (cmd == "reset" || !cmd || typeof cmd == "object")
+    this.reset(cmd);
   else
-  if (opt == "reset")
-    this.reset();
+  if (cmd == "option")
+    this.setOption(option);
   else
-  if (opt == "options")
-    this.setOptions(args);
+  if (cmd == "refresh")
+    this.refresh();
   else
-  if (opt == "refresh")
-    this.refresh(args);
-  else
-  if (opt == "add")
+  if (cmd == "add")
     this.addPage();
   else
-  if (opt == "remove")
+  if (cmd == "remove")
     this.removePage();
+  else
+  if (cmd == "show")
+    this.showPage(options);
 
   return this;
 }; // anyPaginator
