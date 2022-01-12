@@ -74,8 +74,8 @@ function refreshData(pager)
 | gotoText                     | Text on the "go" button, ignored if gotoIcon is set            | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is set      | String                       | "&lsaquo;"                 |
 | nextText                     | Text on the "next" button, ignored if nextIcon is set          | String                       | "&rsaquo;"                 |
-| firstText                    | Text on the "first" button, ignored if firstIcon is set        | String                       | "&laquo"                   |
-| lastText                     | Text on the "last" button, ignored if lastIcon is set          | String                       | "&raquo"                   |
+| firstText                    | Text on the "first" button, ignored if firstIcon is set        | String                       | "&laquo;"                  |
+| lastText                     | Text on the "last" button, ignored if lastIcon is set          | String                       | "&raquo;"                  |
 | gotoIcon                     | Font Awesome icon on the "goto" button instead of gotoText     | String                       | null                       |
 | prevIcon                     | Font Awesome icon on the "previous" button instead of prevText | String                       | null                       |
 | nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
