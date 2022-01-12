@@ -120,7 +120,7 @@ var cp = pager.getCurrentPage();
 ```
 
 #### setOption(options)
-Set one or more options for the paginator.
+Set one or more options for the paginator. Remember to call refresh() after options are changed.
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
 
@@ -128,11 +128,11 @@ pager.setOption({splitFirst:2,splitLast:2});
 ```
 
 #### refresh()
-Redraw all the page numbers, ellipsis and navigators.
+Redraw all the page numbers, ellipsis and navigators. If any arguments are specified, the user-supplied onClick handler is called with these arguments in an array.
 ```js
-pager.anyPaginator("refresh");
+pager.anyPaginator("refresh",args);
 
-pager.refresh();
+pager.refresh(args);
 ```
 
 #### addPage()
