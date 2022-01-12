@@ -167,12 +167,12 @@ pager.showPage(12);
 #### buttonClicked(event)
 Update the paginator when a button is clicked. 
 Normally not neccessary to call this method. 
-If a user onClick method is set in options, it will be called after buttonClicked has finished.
+If a user defined onClick method is set in options, it will be called after buttonClicked has finished.
 
 #### gotoClicked(event)
 Update the paginator when the go button is clicked or enter is pressed in the input field.
 Normally not neccessary to call this method.
-If a user onClick method is set in options, it will be called after gotoClicked has finished.
+If a user defined onClick method is set in options, it will be called after gotoClicked has finished.
 
 # License
 
