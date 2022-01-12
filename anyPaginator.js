@@ -132,11 +132,10 @@ $.fn.anyPaginator = function (cmd,...args)
 
     ++this.numPages;
 
-    // Show the new page button
+    // Show the new page button, then redisplay current page
+    let cp = this.currentPage;
     this.showPage(this.numPages);
-
-    // Make sure the current page is displayed
-    this.showPage(this.currentPage);
+    this.showPage(cp);
 
     // Highlight the current page button
     if (this.options.mode == 0) {
@@ -169,6 +168,12 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.showPage = function(pageNo)
   {
+    if (pageNo == undefined)
+      pageNo = this.currentPage;
+
+    if (!Number.isInteger(pageNo) || pageNo <= 0)
+      return this; // Return silently if illegal pageNo
+
     if (this.options.mode) {
       if (this.options.mode == 1)
         redrawItemRange(this,pageNo); // Create item range
@@ -177,6 +182,7 @@ $.fn.anyPaginator = function (cmd,...args)
         redrawPageView(this,pageNo); // Create page number
     }
     else {
+      this.currentPage = pageNo;
       // Create page number buttons
       redrawPageNumberButton(this,pageNo);
 
