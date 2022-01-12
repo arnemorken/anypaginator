@@ -39,45 +39,37 @@ function refreshTable(pager,num)
 {
   if (!pager)
     return;
-  let page_no = 1;
   let tbody = $("#mytable > tbody");
   if (tbody.length)
     tbody.empty();
-  for (let i=1; i<=num; i++) {
-    // Display only items on current page
-    if (!((i-1) % pager.options.itemsPerPage))
-      ++page_no;
-    if (page_no-1 == pager.getCurrentPage()) {
-      tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
-    }
-  }
+  let start = (pager.getCurrentPage() - 1) * pager.options.itemsPerPage + 1;
+  let stop  = start + pager.options.itemsPerPage - 1;
+  if (stop > num)
+    stop = num;
+  for (let i=start; i<=stop; i++)
+    tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
 } // refreshTable
 
 function populatePager(pager,num)
 {
   if (!pager)
     return;
-  let page_no = 1;
   for (let i=1; i<=num; i++) {
     // Add a page number each itemsPerPage rows
-    if (!((i-1) % pager.options.itemsPerPage)) {
+    if (!((i-1) % pager.options.itemsPerPage))
       pager.anyPaginator("add");
-      ++page_no;
-    }
   }
 } // populatePager
 
 // Initialize paginator in tfoot
-let num = 200;
+let num = 150;
 let pager =  $("#myfoot").anyPaginator({ mode:         0,
-                                         onClick:      function() { refreshTable(pager,num); },
+                                         onClick:      function(args) { refreshTable(pager,num); },
                                          itemsPerPage: 5,
-                                         gotoIcon:     "fa-thin fa-arrow-turn-down-left",
-                                         prevIcon:     "fas fa-caret-left",
-                                         nextIcon:     "fas fa-caret-right",
+                                         hideFirst:    false,
+                                         hideLast:     false,
                                          ellipsisIcon: "fa-thin fa-ellipsis-stroke",
                                       });
-
 // Display table contents
 refreshTable(pager,num);
 

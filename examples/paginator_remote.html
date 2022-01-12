@@ -15,7 +15,6 @@
 <head>
   <meta charset="utf-8" />
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
-  <link  href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet"/>
   <script src="../anyPaginator.js"></script>
   <link  href="../anyPaginator.css" rel="stylesheet"/>
   <title>anyPaginator example - remote data</title>
@@ -53,7 +52,6 @@ function refreshTable(pager,num)
       // Display all items received
       for (const i in data)
         tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
-      populatePager(pager,num,pager.getCurrentPage());
     }
     else
     if (textStatus == "error")
@@ -64,11 +62,10 @@ function refreshTable(pager,num)
   });
 } // refreshTable
 
-function populatePager(pager,num,page)
+function populatePager(pager,num)
 {
   if (!pager)
     return;
-  pager.reset();
   let page_no = 1;
   for (let i=1; i<=num; i++) {
     // Add a page number each itemsPerPage rows
@@ -77,7 +74,6 @@ function populatePager(pager,num,page)
       ++page_no;
     }
   }
-  pager.showPage(page);
 } // populatePager
 
 // Create remote table
@@ -85,10 +81,9 @@ let num = 70; // Number of rows
 let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
-
   // Initialize paginator in tfoot
   let pager =  $("#myfoot").anyPaginator({ mode:         0,
-                                           onClick:      function() { refreshTable(pager,num); },
+                                           onClick:      function(args) { refreshTable(pager,num); },
                                            itemsPerPage: 5,
                                            prevText:     "<",
                                            nextText:     ">",
