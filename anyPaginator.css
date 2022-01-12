@@ -51,28 +51,28 @@
 }
 
 .any-paginator-prev {
-  margin-right: 5px;
-  font:         16px Verdana, sans-serif;
+  margin-right:   5px;
+  font-size:      14px;
 }
 
 .any-paginator-next {
-  margin-left:  5px;
-  font:         16px Verdana, sans-serif;
+  margin-left:    5px;
+  font-size:      14px;
 }
 
 .any-paginator-first {
-  font:         16px Verdana, sans-serif;
+  font-size:      14px;
 }
 
 .any-paginator-last {
-  font:         16px Verdana, sans-serif;
+  font-size:      14px;
 }
 
 .any-paginator-goto {
   margin-left:  5px;
   white-space:  nowrap;
   display:      inline-block;
-  font:         16px Verdana, sans-serif;
+  font-size:    14px;
 }
 
 #anyPaginator_goto_inp {
@@ -94,9 +94,11 @@
 }
 
 #anyPaginator_goto_btn {
+  min-width:    12px;
   padding:      2px;
   white-space:  nowrap;
   display:      inline-block;
+  text-align:   center;
   cursor:       pointer;
 }
 
