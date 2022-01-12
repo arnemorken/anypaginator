@@ -73,7 +73,7 @@ function refreshData(pager)
 | splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
 | itemText                     | Text in front of item range for mode == 1                      | String                       | "Item"                     |
 | pageText                     | Text in front of page number for mode == 2                     | String                       | "Page"                     |
-| gotoText                     | Text on the "go" button, ignored if gotoIcon is set            | String                       | "Go"                       |
+| gotoText                     | Text on the "goto" button, ignored if gotoIcon is set          | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is set      | String                       | "&lsaquo;"                 |
 | nextText                     | Text on the "next" button, ignored if nextIcon is set          | String                       | "&rsaquo;"                 |
 | firstText                    | Text on the "first" button, ignored if firstIcon is set        | String                       | "&laquo;"                  |
