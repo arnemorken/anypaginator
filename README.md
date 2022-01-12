@@ -168,7 +168,7 @@ Update the paginator when a button is clicked.
 Normally not neccessary to call this method.
 
 #### gotoClicked(event)
-Update the paginator when the go button is clicked or enter is prerss in the input field.
+Update the paginator when the go button is clicked or enter is pressed in the input field.
 Normally not neccessary to call this method.
 
 # License
