@@ -60,6 +60,12 @@ function refreshData(pager)
 }
 ```
 
+# Improvements
+
+Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us!
+
+PS! We love pull requests! ;)
+
 # API
 
 ### Options
@@ -179,5 +185,13 @@ If a user defined onClick method is set in options, it will be called after goto
 AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
 
 Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
+
+# Contact
+
+Feature requests, ideas, bug reports: software@balanse.info
+
+License and other commercial inqueries: license@balanse.info
+
+------------------------------------------------------------------------
 
 ### See also the anyList project: https://github.com/arnemorken/anylist
