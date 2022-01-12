@@ -88,6 +88,7 @@ function refreshData(pager)
 | hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
 | hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
 | hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
+| onClick                      | User defined event handler for button click                    | Function                     | undefined                  |
 
 ### Public methods
 
