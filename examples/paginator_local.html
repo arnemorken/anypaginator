@@ -3,7 +3,8 @@
  *
  * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
  *
- * License: MIT.
+ * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+ * Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
  *
  * See also the anyList project: https://github.com/arnemorken/anylist
  *
@@ -44,9 +45,9 @@ function refreshTable(pager,num)
     tbody.empty();
   for (let i=1; i<=num; i++) {
     // Display only items on current page
-    if (!((i-1) % pager.options.rowsPerPage))
+    if (!((i-1) % pager.options.itemsPerPage))
       ++page_no;
-    if (page_no-1 == pager.currentPage) {
+    if (page_no-1 == pager.getCurrentPage()) {
       tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
     }
   }
@@ -58,8 +59,8 @@ function populatePager(pager,num)
     return;
   let page_no = 1;
   for (let i=1; i<=num; i++) {
-    // Add a page number each rowsPerPage rows
-    if (!((i-1) % pager.options.rowsPerPage)) {
+    // Add a page number each itemsPerPage rows
+    if (!((i-1) % pager.options.itemsPerPage)) {
       pager.anyPaginator("add");
       ++page_no;
     }
@@ -70,12 +71,13 @@ function populatePager(pager,num)
 let num = 200;
 let pager =  $("#myfoot").anyPaginator({ mode:         0,
                                          onClick:      function() { refreshTable(pager,num); },
-                                         rowsPerPage:  5,
+                                         itemsPerPage: 5,
                                          gotoIcon:     "fa-thin fa-arrow-turn-down-left",
                                          prevIcon:     "fas fa-caret-left",
                                          nextIcon:     "fas fa-caret-right",
                                          ellipsisIcon: "fa-thin fa-ellipsis-stroke",
                                       });
+
 // Display table contents
 refreshTable(pager,num);
 

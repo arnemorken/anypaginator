@@ -3,7 +3,8 @@
  *
  * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
  *
- * License: MIT.
+ * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+ * Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
  *
  * See also the anyList project: https://github.com/arnemorken/anylist
  *
@@ -14,6 +15,7 @@
 <head>
   <meta charset="utf-8" />
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
+  <link  href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet"/>
   <script src="../anyPaginator.js"></script>
   <link  href="../anyPaginator.css" rel="stylesheet"/>
   <title>anyPaginator example - remote data</title>
@@ -39,8 +41,8 @@ function refreshTable(pager,num)
 {
   if (!pager)
     return;
-  let from = pager.options.rowsPerPage *(pager.currentPage - 1);
-  let to   = from + pager.options.rowsPerPage - 1;
+  let from = pager.options.itemsPerPage *(pager.getCurrentPage() - 1);
+  let to   = from + pager.options.itemsPerPage - 1;
   let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
   .done( function(data,textStatus,jqXHR) {
@@ -51,7 +53,7 @@ function refreshTable(pager,num)
       // Display all items received
       for (const i in data)
         tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
-      populatePager(pager,num,pager.currentPage);
+      populatePager(pager,num,pager.getCurrentPage());
     }
     else
     if (textStatus == "error")
@@ -69,8 +71,8 @@ function populatePager(pager,num,page)
   pager.reset();
   let page_no = 1;
   for (let i=1; i<=num; i++) {
-    // Add a page number each rowsPerPage rows
-    if (!((i-1) % pager.options.rowsPerPage)) {
+    // Add a page number each itemsPerPage rows
+    if (!((i-1) % pager.options.itemsPerPage)) {
       pager.anyPaginator("add");
       ++page_no;
     }
@@ -85,11 +87,11 @@ $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
 
   // Initialize paginator in tfoot
-  let pager =  $("#myfoot").anyPaginator({ mode:        0,
-                                           onClick:     function() { refreshTable(pager,num); },
-                                           rowsPerPage: 5,
-                                           prevText:    "<",
-                                           nextText:    ">",
+  let pager =  $("#myfoot").anyPaginator({ mode:         0,
+                                           onClick:      function() { refreshTable(pager,num); },
+                                           itemsPerPage: 5,
+                                           prevText:     "<",
+                                           nextText:     ">",
                                         });
   // Display table contents
   refreshTable(pager,num);
