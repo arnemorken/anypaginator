@@ -99,9 +99,8 @@ $.fn.anyPaginator = function (cmd,...args)
       // Recalculate numPages
       let np = (this.numPages * old_ipp) / this.options.itemsPerPage;
       this.numPages = Math.trunc(np);
-      if (np > this.numPages)
-        this.numPages += 1;
     }
+    this.refresh();
     return this;
   }; // setOptions
 
@@ -182,6 +181,7 @@ $.fn.anyPaginator = function (cmd,...args)
         redrawPageView(this,pageNo); // Create page number
     }
     else {
+      toggleHighlight(this,this.currentPage,false);
       this.currentPage = pageNo;
       // Create page number buttons
       redrawPageNumberButton(this,pageNo);
