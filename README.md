@@ -6,7 +6,7 @@ An easy to use, yet advanced and fully customizable javascript/jQuery paginator 
 Take a look at the jsFiddle demos:
 
 * "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/55/
-* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/23/
+* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/29/
 * Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/8/
 * Image pagination: (coming soon)
 
