@@ -343,7 +343,7 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // buttonClicked
 
   //
-  // Update the paginator when the go button is clicked or enter is prerss in the input field
+  // Update the paginator when the go button is clicked or enter is pressed in the input field
   //
   this.gotoClicked = function(event)
   {
@@ -351,8 +351,8 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!opt)
       return this;
     // Find new page
-    let num = $("#anyPaginator_goto_inp").val();
-    if (Number.isInteger(parseInt(num))) {
+    let num = parseInt($("#anyPaginator_goto_inp").val());
+    if (Number.isInteger(num)) {
       toggleHighlight(this,this.currentPage,false); // Remove highlight from old button
       if (this.options.mode == 1) {
         let num_items = this.numPages * this.options.itemsPerPage;
@@ -362,7 +362,7 @@ $.fn.anyPaginator = function (cmd,...args)
       else { // mode == 0 or mode == 2
         if (num >= 1 && num <= this.numPages) {
           this.currentPage = num;
-          opt.clickedPage = parseInt(this.currentPage);
+          opt.clickedPage = this.currentPage;
         }
       }
       // Show new page
@@ -518,6 +518,7 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     if (!self.container || !self.options)
       return self;
+    pageNo = parseInt(pageNo);
     removePageNumberButton(self,pageNo);
     let ellipsis_class = isEllipsis ? "any-paginator-ellipsis" : "any-paginator-num";
     let ellipsis_text  = "";
@@ -569,7 +570,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!isEllipsis) {
       // Register click handler
       let click_opt = {...self.options};
-      click_opt.clickedPage = parseInt(pageNo);
+      click_opt.clickedPage = pageNo;
       pg_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
     }
     return self;
