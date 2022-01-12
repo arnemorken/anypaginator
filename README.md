@@ -103,6 +103,14 @@ Initialize options and properties and redraw the paginator.
 ```js
 // Initialize the plugin with default values
 var pager = $("#mydiv").anyPaginator();
+
+// Initialize the plugin with 10 items per page, 2 buttons on the left and right side and a Font Awesome icon for the ellipsis:
+var pager = $("#mydiv").anyPaginator({ 
+                          itemsPerPage: 10,
+                          splitLeft:    2,
+                          splitRight:   2,
+                          ellipsisIcon: "fa-thin fa-ellipsis-stroke",
+                        });
 ```
 
 #### reset(options)
