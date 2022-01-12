@@ -12,7 +12,7 @@
 
 (function ( $ ) {
 
-$.fn.anyPaginator = function (cmd,options)
+$.fn.anyPaginator = function (cmd,...args)
 {
   ////////////////////
   // Public methods //
@@ -92,13 +92,18 @@ $.fn.anyPaginator = function (cmd,options)
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
-  this.refresh = function()
+  this.refresh = function(args)
   {
     this.container = redrawPaginatorContainer(this);
     let np = this.numPages; // Important!
     for (let page_no=1; page_no<=np; page_no++)
       this.showPage(page_no);
     this.showPage(1);
+    if (this.options.onClick && this.numPages > 0) {
+      // Call user supplied function
+      let context = this.options.context ? this.options.context : this;
+      this.options.onClick.call(context,args);
+    }
   }; // refresh
 
   //
@@ -629,6 +634,8 @@ $.fn.anyPaginator = function (cmd,options)
   // Call methods
   /////////////////////////////////////////
 
+  let options = args && args.length ? args[0] : null;
+
   if (cmd == "reset" || !cmd || typeof cmd == "object")
     this.reset(cmd);
   else
@@ -636,7 +643,7 @@ $.fn.anyPaginator = function (cmd,options)
     this.setOption(option);
   else
   if (cmd == "refresh")
-    this.refresh();
+    this.refresh(args);
   else
   if (cmd == "add")
     this.addPage();
