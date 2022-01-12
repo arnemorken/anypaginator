@@ -17,20 +17,22 @@
 
 .any-paginator-btn {
   margin-right: 1px;
+  min-width:    12px;
+  border-radius:3px;
   white-space:  nowrap;
   display:      inline-block;
-  min-width:    20px;
   text-align:   center;
-  border-radius:3px;
   color:        #fc5200;
   cursor:       pointer;
 }
 
 .any-paginator-num {
+  min-width:    20px;
   border:       1px solid #fc5200;
 }
 
 .any-paginator-ellipsis {
+  min-width:    20px;
   border:       1px solid white;
   color:        #888;
   cursor:       default;
@@ -41,17 +43,36 @@
 }
 
 .any-paginator-compact {
-  margin-right: 1px;
+  min-width:    20px;
   white-space:  nowrap;
   display:      inline-block;
-  min-width:    20px;
   text-align:   center;
   color:        #333;
 }
 
+.any-paginator-prev {
+  margin-right: 5px;
+  font:         16px Verdana, sans-serif;
+}
+
+.any-paginator-next {
+  margin-left:  5px;
+  font:         16px Verdana, sans-serif;
+}
+
+.any-paginator-first {
+  font:         16px Verdana, sans-serif;
+}
+
+.any-paginator-last {
+  font:         16px Verdana, sans-serif;
+}
+
 .any-paginator-goto {
+  margin-left:  5px;
   white-space:  nowrap;
   display:      inline-block;
+  font:         16px Verdana, sans-serif;
 }
 
 #anyPaginator_goto_inp {
