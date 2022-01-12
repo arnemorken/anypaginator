@@ -9,7 +9,7 @@ Take a look at the jsFiddle demos:
 
 * "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/55/
 * Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/33/
-* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/19/
+* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/21/
 * Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/1/
 
 # Download
@@ -60,6 +60,12 @@ function refreshData(pager)
 }
 ```
 
+# Improvements
+
+Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
+
+PS! We love pull requests! ;)
+
 # API
 
 ### Options
@@ -97,6 +103,14 @@ Initialize options and properties and redraw the paginator.
 ```js
 // Initialize the plugin with default values
 var pager = $("#mydiv").anyPaginator();
+
+// Initialize the plugin with 10 items per page, 2 buttons on the left and right side and a Font Awesome icon for the ellipsis:
+var pager = $("#mydiv").anyPaginator({ 
+                          itemsPerPage: 10,
+                          splitLeft:    2,
+                          splitRight:   2,
+                          ellipsisIcon: "fa-thin fa-ellipsis-stroke",
+                        });
 ```
 
 #### reset(options)
@@ -133,7 +147,7 @@ pager.refresh();
 ```
 
 #### refresh()
-Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set, it will be called with the specified arguments in an array.
+Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
 
@@ -179,5 +193,13 @@ If a user defined onClick method is set in options, it will be called after goto
 AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
 
 Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
+
+# Contact
+
+Feature requests, ideas, bug reports: software@balanse.info
+
+License and other commercial inqueries: license@balanse.info
+
+------------------------------------------------------------------------
 
 ### See also the anyList project: https://github.com/arnemorken/anylist
