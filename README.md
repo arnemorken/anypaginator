@@ -62,7 +62,7 @@ function refreshData(pager)
 
 # Improvements
 
-Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us!
+Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
 
 PS! We love pull requests! ;)
 
