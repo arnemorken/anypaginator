@@ -74,7 +74,7 @@ $.fn.anyPaginator = function (cmd,options)
       hideNext:     false,      // Whether to hide the "next" button
       hideFirst:    true,       // Whether to hide the "first" button. Should be "true" if splitLeft == 1
       hideLast:     true,       // Whether to hide the "last" button. Should be "true" if splitRight == 1
-    }, opt);
+    },opt);
     let err = "";
     if (this.options.mode < 0 || this.options.mode > 2)
       err += "Illegal mode. ";

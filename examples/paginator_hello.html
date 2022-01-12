@@ -1,0 +1,50 @@
+<!--
+ ****************************************************************************************
+ *
+ * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
+ *
+ * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+ * Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
+ *
+ * See also the anyList project: https://github.com/arnemorken/anylist
+ *
+ ****************************************************************************************
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
+  <script src="../anyPaginator.js"></script>
+  <link  href="../anyPaginator.css" rel="stylesheet"/>
+  <title>anyPaginator 'Hello world' example</title>
+</head>
+
+<body>
+
+<h3>anyPaginator 'Hello world' example</h3>
+<div id="mypager"></div>
+<div id="mydata"></div>
+
+<script>
+let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
+for (let i=1; i<=200; i++) {
+  // Add a page number each itemsPerPage rows
+  if (!((i-1) % pager.options.itemsPerPage))
+    pager.anyPaginator("add");
+}
+
+refreshData(pager);
+
+function refreshData(pager)
+{
+  $("#mydata").empty();
+  let start = (pager.getCurrentPage() - 1) * pager.options.itemsPerPage + 1;
+  let stop  = start + pager.options.itemsPerPage - 1;
+  for (let i=start; i<=stop; i++)
+    $("#mydata").append("<p>Hello world "+i+"</p>");
+}
+</script>
+
+</body>
+</html>
