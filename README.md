@@ -107,6 +107,7 @@ pager = pager.reset({mode:1});
 Return the number of pages in the paginator.
 ```js
 var np = pager.anyPaginator("numPages");
+
 var np = pager.getNumPages();
 ```
 
@@ -114,6 +115,7 @@ var np = pager.getNumPages();
 Return the page that is currently highlighted.
 ```js
 var cp = pager.anyPaginator("currentPage");
+
 var cp = pager.getCurrentPage();
 ```
 
@@ -121,6 +123,7 @@ var cp = pager.getCurrentPage();
 Set one or more options for the paginator.
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
+
 pager.setOption({splitFirst:2,splitLast:2});
 ```
 
@@ -128,6 +131,7 @@ pager.setOption({splitFirst:2,splitLast:2});
 Redraw all the page numbers, ellipsis and navigators.
 ```js
 pager.anyPaginator("refresh");
+
 pager.refresh();
 ```
 
@@ -135,6 +139,7 @@ pager.refresh();
 Add a page number button.
 ```js
 pager.anyPaginator("add");
+
 pager.addPage();
 ```
 
@@ -142,6 +147,7 @@ pager.addPage();
 Remove a page number button.
 ```js
 pager.anyPaginator("remove");
+
 pager.removePage();
 ```
 
@@ -149,6 +155,7 @@ pager.removePage();
 Redraw the paginator with focus on the page pageNo.
 ```js
 pager.anyPaginator("show",12);
+
 pager.showPage(12);
 ```
 
