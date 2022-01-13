@@ -128,14 +128,6 @@ var cp = pager.anyPaginator("currentPage");
 var cp = pager.getCurrentPage();
 ```
 
-#### getNumItems()
-Return the number of items in the paginator.
-```js
-var np = pager.anyPaginator("numItems");
-
-var np = pager.getNumItems();
-```
-
 #### getNumPages()
 Return the number of pages in the paginator.
 ```js
@@ -144,6 +136,13 @@ var np = pager.anyPaginator("numPages");
 var np = pager.getNumPages();
 ```
 
+#### getNumItems()
+Return the number of items in the paginator.
+```js
+var np = pager.anyPaginator("numItems");
+
+var np = pager.getNumItems();
+```
 
 #### setCurrentPage()
 Set the current page and redraw the paginator.
