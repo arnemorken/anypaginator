@@ -44,6 +44,13 @@ $.fn.anyPaginator = function (cmd,...args)
   this.getCurrentPage = function() { return this.currentPage; };
 
   //
+  // Setters
+  //
+  this.setCurrentPage = function(n) { if (n>this.numPages) return;
+                                      this.currentPage = n; this.refresh(); }
+  this.setNumPages    = function(n) { this.numPages    = n; this.refresh(); }
+
+  //
   // Set default options for the paginator
   //
   this.setDefaults = function(opt)
