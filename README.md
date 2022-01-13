@@ -243,7 +243,7 @@ Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
 
 Feature requests, ideas, bug reports: software@balanse.info
 
-License and other commercial inqueries: license@balanse.info
+License and other commercial inquiries: license@balanse.info
 
 ------------------------------------------------------------------------
 
