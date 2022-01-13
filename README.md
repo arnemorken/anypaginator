@@ -122,7 +122,7 @@ pager = pager.reset({mode:1});
 ```
 
 #### currentPage()
-Return the page that is currently highlighted or set highlight to a given page.
+Get the page that is currently highlighted or set highlight to a given page.
 ```js
 // Get
 var curr_page = pager.anyPaginator("currentPage");
@@ -133,7 +133,7 @@ pager.currentPage(17);
 ```
 
 #### numPages()
-Return or set the number of pages in the paginator.
+Get or set the number of pages in the paginator.
 ```js
 // Get
 var n_pages = pager.anyPaginator("numPages");
@@ -144,7 +144,7 @@ pager.numPages(15);
 ```
 
 #### numItems()
-Return or set the number of items in the paginator.
+Get or set the number of items in the paginator.
 ```js
 // Get
 var n_pages = pager.anyPaginator("numItems");
@@ -154,11 +154,19 @@ pager.anyPaginator("numItems",200);
 pager.numItems(200);
 ```
 
-#### setOption(options)
-Set one or more options for the paginator.
+#### option(options)
+Get or set one or more options for the paginator.
 ```js
-pager.anyPaginator("option",{splitFirst:2,splitLast:2});
-pager.setOption({splitFirst:2,splitLast:2});
+// Get
+pager.anyPaginator("option"); // Get the options object
+pager.option();               // Get the options object
+pager.anyPaginator("option","pageText"); // Get the "pageText" option
+pager.option("pageText");                // Get the "pageText" option
+// Set
+pager.anyPaginator("option",{splitLeft:2,splitRight:2}); // Set all options in the given object
+pager.option({splitLeft:2,splitRight:2});                // Set all options in the given object
+pager.anyPaginator("option","splitLeft",2);              // Set the "splitLeft" option
+pager.option("splitLeft",2);                             // Set the "splitLeft" option
 ```
 
 #### refresh()
