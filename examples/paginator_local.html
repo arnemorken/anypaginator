@@ -50,31 +50,24 @@ function refreshTable(pager,num)
     tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
 } // refreshTable
 
-function populatePager(pager,num)
-{
-  if (!pager)
-    return;
-  for (let i=1; i<=num; i++) {
-    // Add a page number each itemsPerPage rows
-    if (!((i-1) % pager.options.itemsPerPage))
-      pager.anyPaginator("page");
-  }
-} // populatePager
-
 // Initialize paginator in tfoot
 let num = 150;
-let pager =  $("#myfoot").anyPaginator({ mode:         0,
-                                         onClick:      function(args) { refreshTable(pager,num); },
-                                         itemsPerPage: 5,
-                                         hideFirst:    false,
-                                         hideLast:     false,
-                                         ellipsisIcon: "fa-thin fa-ellipsis-stroke",
-                                      });
+let pager = $("#myfoot").anyPaginator({ mode:         0,
+                                        onClick:      function(args) { refreshTable(pager,num); },
+                                        itemsPerPage: 5,
+                                        hideFirst:    false,
+                                        hideLast:     false,
+                                        ellipsisIcon: "fa-thin fa-ellipsis-stroke",
+                                     });
 // Display table contents
 refreshTable(pager,num);
 
 // Add page numbers
-populatePager(pager,num);
+for (let i=1; i<=num; i++) {
+  // Add an item
+  pager.anyPaginator("item");
+}
+pager.refresh(); // Must call refresh after using addItem
 
 </script>
 

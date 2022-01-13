@@ -27,27 +27,23 @@
 <div id="mydata"></div>
 
 <script>
-let images = [
-  "https://images8.alphacoders.com/374/thumb-1920-374653.jpg",
-  "https://images3.alphacoders.com/260/thumb-1920-260517.jpg",
-  "https://images8.alphacoders.com/786/thumb-1920-786581.jpg",
-  "https://images7.alphacoders.com/595/thumb-1920-595400.jpg",
-  "https://images3.alphacoders.com/240/thumb-1920-240227.jpg",
-  "https://images7.alphacoders.com/312/thumb-1920-312291.jpg",
-];
-let pager =  $("#mypager").anyPaginator({ itemsPerPage: 1,
-                                          hideGoto:     true,
-                                          onClick: function() { refreshData(pager); } });
-for (let i=1; i<=images.length; i++) {
-  // Add a page number each itemsPerPage rows
-  if (!((i-1) % pager.options.itemsPerPage))
-    pager.anyPaginator("page");
-}
+let pager = $("#mypager").anyPaginator({ itemsPerPage: 1,
+                                         hideGoto:     true,
+                                         onClick: function() { refreshData(pager); } });
+pager.numItems(6);
 
 refreshData(pager);
 
 function refreshData(pager)
 {
+  let images = [
+    "https://images8.alphacoders.com/374/thumb-1920-374653.jpg",
+    "https://images3.alphacoders.com/260/thumb-1920-260517.jpg",
+    "https://images8.alphacoders.com/786/thumb-1920-786581.jpg",
+    "https://images7.alphacoders.com/595/thumb-1920-595400.jpg",
+    "https://images3.alphacoders.com/240/thumb-1920-240227.jpg",
+    "https://images7.alphacoders.com/312/thumb-1920-312291.jpg",
+  ];
   $("#mydata").empty();
   let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
   let stop  = start + pager.options.itemsPerPage - 1;

@@ -62,38 +62,29 @@ function refreshTable(pager,num)
   });
 } // refreshTable
 
-function populatePager(pager,num)
-{
-  if (!pager)
-    return;
-  let page_no = 1;
-  for (let i=1; i<=num; i++) {
-    // Add a page number each itemsPerPage rows
-    if (!((i-1) % pager.options.itemsPerPage)) {
-      pager.anyPaginator("page");
-      ++page_no;
-    }
-  }
-} // populatePager
-
 // Create remote table
 let num = 70; // Number of rows
 let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
-  let pager =  $("#myfoot").anyPaginator({ mode:         0,
-                                           onClick:      function(args) { refreshTable(pager,num); },
-                                           itemsPerPage: 5,
-                                           gotoText:     "Go",
-                                           prevText:     "<",
-                                           nextText:     ">",
-                                        });
+  let pager = $("#myfoot").anyPaginator({ mode:         0,
+                                          onClick:      function(args) { refreshTable(pager,num); },
+                                          itemsPerPage: 5,
+                                          gotoText:     "Go",
+                                          prevText:     "<",
+                                          nextText:     ">",
+                                       });
   // Display table contents
   refreshTable(pager,num);
 
   // Add page numbers
-  populatePager(pager,num);
+  for (let i=1; i<=num; i++) {
+    // Add a page number each itemsPerPage rows
+    if (!((i-1) % pager.options.itemsPerPage)) {
+      pager.anyPaginator("page");
+    }
+  }
 })
 .fail(function(jqXHR,textStatus,error) {
   console.error("Server error (create):"+jqXHR.responseText);
