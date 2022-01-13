@@ -59,11 +59,6 @@ function refreshData(pager)
 }
 ```
 
-# Improvements
-
-Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
-We love pull requests! ;)
-
 # API
 
 ### Options
@@ -230,6 +225,11 @@ If a user defined onClick method is set in options, it will be called after butt
 Update the paginator when the go button is clicked or enter is pressed in the input field.
 Normally not neccessary to call this method.
 If a user defined onClick method is set in options, it will be called after gotoClicked has finished.
+
+# Improvements
+
+Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
+We love pull requests! ;)
 
 # License
 
