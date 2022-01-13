@@ -73,6 +73,8 @@ PS! We love pull requests! ;)
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
 | mode                         | 0: buttons, 1: item range, 2: page number                      | Number                       | 0                          |
+|                              | If using mode 1, the paginator should be called with "item", or|                              |                            |
+|                              | setNumItems should be called after all pages are added.        |                              |                            |
 | itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
