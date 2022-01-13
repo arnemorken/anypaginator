@@ -64,13 +64,13 @@ $.fn.anyPaginator = function (cmd,...args)
       return this;
     // Merge with defaults
     this.options = $.extend({
-      mode:         0,          // 0: buttons, 1: item range, 2: page number
+      mode:         0,          // 0: buttons, 1: page number, 2: item range
       itemsPerPage: 20,         // Number of rows per page
       splitLeft:    3,          // Number of split buttons to the left
       splitMiddle:  3,          // Number of split buttons in the middle
       splitRight:   3,          // Number of split buttons to the right
-      itemText:     "Item",     // Text in front of item range for mode == 1
-      pageText:     "Page",     // Text in front of page number for mode == 2
+      pageText:     "Page",     // Text in front of page number for mode == 1
+      itemText:     "Item",     // Text in front of item range for mode == 2
       gotoText:     "&crarr;",  // Text on the "go" button
       prevText:     "&lsaquo;", // Text on the "previous" button, ignored if prevIcon is not null
       nextText:     "&rsaquo;", // Text on the "next" button, ignored if nextIcon is not null
@@ -232,10 +232,10 @@ $.fn.anyPaginator = function (cmd,...args)
 
     if (this.options.mode) {
       if (this.options.mode == 1)
-        redrawItemRange(this,pageNo); // Create item range
+        redrawPageView(this,pageNo); // Create page number
       else
       if (this.options.mode == 2)
-        redrawPageView(this,pageNo); // Create page number
+        redrawItemRange(this,pageNo); // Create item range
     }
     else {
       // Create page number buttons
@@ -399,16 +399,16 @@ $.fn.anyPaginator = function (cmd,...args)
     let num = parseInt($("#anyPaginator_goto_inp").val());
     if (Number.isInteger(num)) {
       toggleHighlight(this,this.currentPage,false); // Remove highlight from old button
-      if (this.options.mode == 1) {
-        let num_items = this.numPages * this.options.itemsPerPage;
-        if (num >= 1 && num <= num_items)
-          this.currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
-      }
-      else { // mode == 0 or mode == 2
+      if (this.options.mode == 0 || this.options.mode == 1) {
         if (num >= 1 && num <= this.numPages) {
           this.currentPage = num;
           opt.clickedPage = this.currentPage;
         }
+      }
+      else { // mode == 2
+        let num_items = this.numPages * this.options.itemsPerPage;
+        if (num >= 1 && num <= num_items)
+          this.currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
       }
       // Show new page
       this.showPage(this.currentPage);
