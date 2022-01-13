@@ -120,6 +120,22 @@ Reset options and properties and redraw the paginator.
 pager = pager.reset({mode:1});
 ```
 
+#### getCurrentPage()
+Return the page that is currently highlighted.
+```js
+var cp = pager.anyPaginator("currentPage");
+
+var cp = pager.getCurrentPage();
+```
+
+#### getNumItems()
+Return the number of items in the paginator.
+```js
+var np = pager.anyPaginator("numItems");
+
+var np = pager.getNumItems();
+```
+
 #### getNumPages()
 Return the number of pages in the paginator.
 ```js
@@ -128,12 +144,29 @@ var np = pager.anyPaginator("numPages");
 var np = pager.getNumPages();
 ```
 
-#### getCurrentPage()
-Return the page that is currently highlighted.
-```js
-var cp = pager.anyPaginator("currentPage");
 
-var cp = pager.getCurrentPage();
+#### setCurrentPage()
+Set the current page and redraw the paginator.
+```js
+pager.anyPaginator("setCurrentPage",17);
+
+pager.setCurrentPage(17);
+```
+
+#### setNumPages()
+Sets the number of pages and redraw the paginator.
+```js
+pager.anyPaginator("setNumPages",15);
+
+pager.setNumPages(15);
+```
+
+#### setNumItems()
+Set the number of items and redraw the paginator. The number of pages will be recalculated.
+```js
+pager.anyPaginator("setNumItems",200);
+
+pager.setNumItems(200);
 ```
 
 #### setOption(options)
