@@ -395,125 +395,127 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     if (!self.container || !self.options || first_page != 1)
       return self;
-    let btn_id = "anyPaginator_prev";
-    if ($("#"+btn_id))
-      $("#"+btn_id).remove();
-    let act_class = self.currentPage == 1 ? "any-paginator-inactive" : "";
+    let pagestr = "prev";
+    let active = self.currentPage > 1;
+    let act_class = "any-paginator-"+pagestr+" ";
+    act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
     if (!self.options.prevIcon)
       btn_text = self.options.prevText;
     else
       act_class += " "+self.options.prevIcon;
-    let prev_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-prev "+act_class+" noselect'>"+btn_text+"</div>");
-    self.container.prepend(prev_div);
-    if (self.currentPage > 1) {
-      // The prev button should be active
-      let click_opt = {...self.options};
-      click_opt.clickedPage = "prev";
-      prev_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
-    }
-    else {
-      // The prev button should be inactive
-      prev_div.off("click");
-      prev_div.css("cursor","default");
-    }
+    let btn_id = "anyPaginator_"+pagestr;
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.prepend(btn_div);
+    toggleActive(self,btn_div,pagestr,active);
     if (self.options.hidePrev)
-      prev_div.hide();
+      btn_div.hide();
     return self;
-  }; // redrawPrevButton
+  } // redrawPrevButton
 
   function redrawNextButton(self,last_page)
   {
     if (!self.container || !self.options)
       return self;
-    let btn_id = "anyPaginator_next";
-    if ($("#"+btn_id))
-      $("#"+btn_id).remove();
-    let act_class = self.currentPage >= last_page ? "any-paginator-inactive" : "";
+    let pagestr = "next";
+    let active  = self.currentPage < last_page;
+    let act_class = "any-paginator-"+pagestr+" ";
+    act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
     if (!self.options.nextIcon)
       btn_text = self.options.nextText;
     else
       act_class += " "+self.options.nextIcon;
-    let next_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-next "+act_class+" noselect'>"+btn_text+"</div>");
-    self.container.append(next_div);
-    if (self.currentPage < last_page) {
-      // The next button should be active
-      let click_opt = {...self.options};
-      click_opt.clickedPage = "next";
-      next_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
-    }
-    else {
-      // The next button should be inactive
-      next_div.off("click");
-      next_div.css("cursor","default");
-    }
+    let btn_id = "anyPaginator_"+pagestr;
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.append(btn_div);
+    toggleActive(self,btn_div,pagestr,active);
     if (self.options.hideNext)
-      next_div.hide();
+      btn_div.hide();
     return self;
-  }; // redrawNextButton
+  } // redrawNextButton
 
   function redrawFirstButton(self)
   {
     if (!self.container || !self.options)
       return self;
-    let btn_id = "anyPaginator_first";
-    if ($("#"+btn_id))
-      $("#"+btn_id).remove();
-    let act_class = self.currentPage <= 1 ? "any-paginator-inactive" : "";
+    let pagestr = "first";
+    let active  = self.currentPage > 1;
+    let act_class = "any-paginator-"+pagestr+" ";
+    act_class += !active ? "any-paginator-inactive " : "";
     let btn_text = "";
     if (!self.options.firstIcon)
       btn_text = self.options.firstText;
     else
       act_class += " "+self.options.firstIcon;
-    let first_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-first "+act_class+" noselect'>"+btn_text+"</div>");
-    self.container.prepend(first_div);
-    if (self.currentPage > 1) {
-      // The first button should be active
-      let click_opt = {...self.options};
-      click_opt.clickedPage = "first";
-      first_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
-    }
-    else {
-      // The first button should be inactive
-      first_div.off("click");
-      first_div.css("cursor","default");
-    }
+    let btn_id = "anyPaginator_"+pagestr;
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.prepend(btn_div);
+    toggleActive(self,btn_div,pagestr,active);
     if (self.options.hideFirst)
-      first_div.hide();
+      btn_div.hide();
     return self;
-  }; // redrawFirstButton
+  } // redrawFirstButton
 
   function redrawLastButton(self)
   {
     if (!self.container || !self.options)
       return self;
-    let btn_id = "anyPaginator_last";
-    if ($("#"+btn_id))
-      $("#"+btn_id).remove();
-    let act_class = self.currentPage >= self.numPages ? "any-paginator-inactive" : "";
+    let pagestr = "last";
+    let active  = self.currentPage < self.numPages;
+    let act_class = "any-paginator-"+pagestr+" ";
+    act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
     if (!self.options.lastIcon)
       btn_text = self.options.lastText;
     else
       act_class += " "+self.options.lastIcon;
-    let last_div = $("<div id='"+btn_id+"' class='any-paginator-btn any-paginator-last "+act_class+" noselect'>"+btn_text+"</div>");
-    self.container.append(last_div);
-    if (self.currentPage < self.numPages) {
-      // The last button should be active
+    let btn_id = "anyPaginator_"+pagestr;
+    if ($("#"+btn_id))
+      $("#"+btn_id).remove();
+    let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
+    self.container.append(btn_div);
+    toggleActive(self,btn_div,pagestr,active);
+    if (self.options.hideLast)
+      btn_div.hide();
+    return self;
+  } // redrawLastButton
+
+  function toggleActive(self,btn,pagestr,active)
+  {
+    if (active) {
+      // The button should be active
       let click_opt = {...self.options};
-      click_opt.clickedPage = "last";
-      last_div.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
+      click_opt.clickedPage = pagestr;
+      btn.off("click").on("click", click_opt, $.proxy(self.buttonClicked,self));
     }
     else {
-      // The last button should be inactive
-      last_div.off("click");
-      last_div.css("cursor","default");
+      // The button should be inactive
+      btn.off("click");
+      btn.css("cursor","default");
     }
-    if (self.options.hideLast)
-      last_div.hide();
-    return self;
-  }; // redrawLastButton
+  } // toggleActive
+
+  function toggleHighlight(self,pageNo,toggle)
+  {
+    let pg_div = $("#anyPaginator_"+pageNo);
+    if (pg_div.length) {
+      if (toggle) {
+        pg_div.css("border","2px solid #fc5200");
+        pg_div.css("font-weight", "bolder");
+      }
+      else {
+        pg_div.css("border","1px solid #fc5200");
+        pg_div.css("font-weight", "normal");
+      }
+    }
+  } // toggleHighlight
 
   function redrawPageNumberButton(self,pageNo,isEllipsis)
   {
@@ -584,21 +586,6 @@ $.fn.anyPaginator = function (cmd,...args)
       pg_div.remove();
     return self;
   } // removePageNumberButton
-
-  function toggleHighlight(self,pageNo,toggle)
-  {
-    let pg_div = $("#anyPaginator_"+pageNo);
-    if (pg_div.length) {
-      if (toggle) {
-        pg_div.css("border","2px solid #fc5200");
-        pg_div.css("font-weight", "bolder");
-      }
-      else {
-        pg_div.css("border","1px solid #fc5200");
-        pg_div.css("font-weight", "normal");
-      }
-    }
-  } // toggleHighlight
 
   function redrawItemRange(self,pageNo)
   {
