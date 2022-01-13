@@ -236,13 +236,19 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   // Decrease the number of items, possibly removing a page
   //
-  this.removeItem = function()
+  this.removeItem = function(doRefresh)
   {
     if (!this.container || !this.options)
       return this;
 
+    if (this._numItems <= 0)
+      return this;
+
     --this._numItems;
+
     recalcNumPages(this);
+    if (doRefresh)
+      this.refresh();
     return this;
   }; // addItem
 
