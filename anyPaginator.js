@@ -31,9 +31,9 @@ $.fn.anyPaginator = function (cmd,...args)
       console.error("anyPaginator: Options missing. ");
       return this;
     }
+    this._currentPage = 1;
     this._numPages = 0;
     this._numItems = 0;
-    this._currentPage = 1;
 
     this.refresh();
 
@@ -203,18 +203,22 @@ $.fn.anyPaginator = function (cmd,...args)
       this._currentPage = this._numPages;
 
     this.refresh();
+    return this;
   }; // removePage
 
   //
   // Increase the number of items, possibly adding a page
   //
-  this.addItem = function()
+  this.addItem = function(doRefresh)
   {
     if (!this.container || !this.options)
       return this;
 
     ++this._numItems;
     recalcNumPages(this);
+    if (doRefresh)
+      this.refresh();
+    return this;
   }; // addItem
 
   //
@@ -227,6 +231,7 @@ $.fn.anyPaginator = function (cmd,...args)
 
     --this._numItems;
     recalcNumPages(this);
+    return this;
   }; // addItem
 
   function recalcNumPages(self)
@@ -752,7 +757,7 @@ $.fn.anyPaginator = function (cmd,...args)
     this.addPage();
   else
   if (cmd == "item")
-    this.addItem();
+    this.addItem(options);
   else
   if (cmd == "remove" && args && args[0] == "page")
     this.removePage();
