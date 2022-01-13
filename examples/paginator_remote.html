@@ -40,7 +40,7 @@ function refreshTable(pager,num)
 {
   if (!pager)
     return;
-  let from = pager.options.itemsPerPage *(pager.getCurrentPage() - 1);
+  let from = pager.options.itemsPerPage *(pager.currentPage() - 1);
   let to   = from + pager.options.itemsPerPage - 1;
   let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
@@ -70,7 +70,7 @@ function populatePager(pager,num)
   for (let i=1; i<=num; i++) {
     // Add a page number each itemsPerPage rows
     if (!((i-1) % pager.options.itemsPerPage)) {
-      pager.anyPaginator("add");
+      pager.anyPaginator("page");
       ++page_no;
     }
   }
@@ -85,6 +85,7 @@ $.getJSON(db_url)
   let pager =  $("#myfoot").anyPaginator({ mode:         0,
                                            onClick:      function(args) { refreshTable(pager,num); },
                                            itemsPerPage: 5,
+                                           gotoText:     "Go",
                                            prevText:     "<",
                                            nextText:     ">",
                                         });

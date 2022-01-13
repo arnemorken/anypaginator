@@ -42,7 +42,7 @@ function refreshTable(pager,num)
   let tbody = $("#mytable > tbody");
   if (tbody.length)
     tbody.empty();
-  let start = (pager.getCurrentPage() - 1) * pager.options.itemsPerPage + 1;
+  let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
   let stop  = start + pager.options.itemsPerPage - 1;
   if (stop > num)
     stop = num;
@@ -57,7 +57,7 @@ function populatePager(pager,num)
   for (let i=1; i<=num; i++) {
     // Add a page number each itemsPerPage rows
     if (!((i-1) % pager.options.itemsPerPage))
-      pager.anyPaginator("add");
+      pager.anyPaginator("page");
   }
 } // populatePager
 

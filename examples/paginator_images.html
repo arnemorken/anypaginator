@@ -41,7 +41,7 @@ let pager =  $("#mypager").anyPaginator({ itemsPerPage: 1,
 for (let i=1; i<=images.length; i++) {
   // Add a page number each itemsPerPage rows
   if (!((i-1) % pager.options.itemsPerPage))
-    pager.anyPaginator("add");
+    pager.anyPaginator("page");
 }
 
 refreshData(pager);
@@ -49,7 +49,7 @@ refreshData(pager);
 function refreshData(pager)
 {
   $("#mydata").empty();
-  let start = (pager.getCurrentPage() - 1) * pager.options.itemsPerPage + 1;
+  let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
   let stop  = start + pager.options.itemsPerPage - 1;
   for (let i=start; i<=stop; i++)
     $("#mydata").append("<img style='max-width:800px;' src='"+images[i-1]+"'></img>");
