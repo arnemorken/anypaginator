@@ -128,25 +128,42 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // setDefaults
 
   //
-  // Set options supplied by user
+  // Set or get options
   //
-  this.setOptions = function(opt)
+  this.option = function(opt,val)
   {
-    if (!opt || typeof opt != "object")
-      return this;
-    let old_ipp = this.options.itemsPerPage;
-    this.options = $.extend(this.options,opt);
-    if (opt.itemsPerPage) {
-      if (this._numItems)
-        recalcNumPages(this);
-      else {
-        console.error("anyPaginator: numItems not set, cannot recalculate numPages. ");
-        this.options.itemsPerPage = old_ipp;
-      }
+    if (!opt) {
+      // Get the options object
+      return this.options;
     }
-    this.refresh();
+    if (typeof opt == "object") {
+      // Set options in the opt object
+      let old_ipp = this.options.itemsPerPage;
+      this.options = $.extend(this.options,opt);
+      if (opt.itemsPerPage) {
+        if (this._numItems)
+          recalcNumPages(this);
+        else {
+          console.error("anyPaginator: numItems not set, cannot recalculate numPages. ");
+          this.options.itemsPerPage = old_ipp;
+        }
+      }
+      this.refresh();
+      return this;
+    }
+    if (!val) {
+      // Get the option opt
+      return this.options[opt];
+    }
+    if (typeof opt == "string") {
+      // Set the options in val
+      this.options[opt] = val;
+      this.refresh();
+      return this;
+    }
+    console.error("anyPaginator: option: Illegal opt parameter type. ");
     return this;
-  }; // setOptions
+  }; // option
 
   //
   // Redraw all the page numbers, ellipsis and navigators
@@ -763,39 +780,37 @@ $.fn.anyPaginator = function (cmd,...args)
   let options = args && args.length ? args[0] : null;
 
   if (cmd == "reset" || !cmd || typeof cmd == "object")
-    this.reset(cmd);
-  else
+    return this.reset(cmd);
+
   if (cmd == "option")
-    this.setOptions(options);
-  else
+    return this.option(options,args[1]);
+
   if (cmd == "currentPage")
-    this.currentPage(options);
-  else
+    return this.currentPage(options);
+
   if (cmd == "_numPages")
-    this.numPages(options);
-  else
+    return this.numPages(options);
+
   if (cmd == "_numItems")
-    this.numItems(options);
-  else
+    return this.numItems(options);
+
   if (cmd == "refresh")
-    this.refresh(args);
-  else
+    return this.refresh(args);
+
   if (cmd == "page") {
     if (options == "remove")
-      this.removePage();
+      return this.removePage();
     else
-      this.addPage();
+      return this.addPage();
   }
-  else
   if (cmd == "item") {
     if (options == "remove")
-      this.removeItem(args[1]);
+      return this.removeItem(args[1]);
     else
-      this.addItem(options);
+      return this.addItem(options);
   }
-  else
   if (cmd == "show")
-    this.showPage(options);
+    return this.showPage(options);
 
   return this;
 }; // anyPaginator
