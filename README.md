@@ -47,7 +47,7 @@ pager.numItems(200);
 refreshData(pager);
 ```
 
-5. Have the onClick calback function redraw the contents according to the page number selected:
+5. Have the onClick calback function redraw the data according to the page number selected:
 ```js
 function refreshData(pager)
 {
