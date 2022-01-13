@@ -157,7 +157,6 @@ pager.numItems(200);
 Set one or more options for the paginator.
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
-
 pager.setOption({splitFirst:2,splitLast:2});
 ```
 
@@ -165,31 +164,41 @@ pager.setOption({splitFirst:2,splitLast:2});
 Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
-
 pager.refresh(pager,num);
 ```
 
 #### addPage()
-Add a page number button.
+Increase number of pages by 1 and display a new page number button.
 ```js
-pager.anyPaginator("add");
-
+pager.anyPaginator("page");
 pager.addPage();
 ```
 
 #### removePage()
-Remove a page number button.
+Decrease number of pages by 1 and remove a page number button.
 ```js
-pager.anyPaginator("remove");
-
+pager.anyPaginator("page","remove");
 pager.removePage();
 ```
 
+#### addItem()
+Increase number of items by 1, recalculate number of pages and display a new page number button if neccessary.
+```js
+pager.anyPaginator("item");
+pager.addItem();
+```
+
+#### removeItem()
+Decrease number of items by 1, recalculate number of pages and remove a page number button if neccessary.
+```js
+pager.anyPaginator("item","remove");
+pager.removeItem();
+```
+
 #### showPage(pageNo)
-Redraw the paginator with focus on the page pageNo.
+Set focus to the page pageNo.
 ```js
 pager.anyPaginator("show",12);
-
 pager.showPage(12);
 ```
 
