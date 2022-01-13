@@ -137,13 +137,11 @@ var cp = pager.getCurrentPage();
 ```
 
 #### setOption(options)
-Set one or more options for the paginator. Remember to call refresh() after options are changed.
+Set one or more options for the paginator.
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
-pager.anyPaginator("refresh");
 
 pager.setOption({splitFirst:2,splitLast:2});
-pager.refresh();
 ```
 
 #### refresh()
