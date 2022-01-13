@@ -53,7 +53,7 @@ refreshData(pager);
 function refreshData(pager)
 {
   $("#mydata").empty();
-  let start = (pager.currentPage - 1) * pager.options.itemsPerPage + 1;
+  let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
   let stop  = start + pager.options.itemsPerPage - 1;
   for (let i=start; i<=stop; i++)
     $("#mydata").append("<p>Hello row "+i+"</p>");
@@ -120,59 +120,43 @@ Reset options and properties and redraw the paginator.
 pager = pager.reset({mode:1});
 ```
 
-#### getCurrentPage()
-Return the page that is currently highlighted.
+#### currentPage()
+Return the page that is currently highlighted or set highlight to a given page.
 ```js
-var cp = pager.anyPaginator("currentPage");
-
-var cp = pager.getCurrentPage();
+// Get
+var curr_page = pager.anyPaginator("currentPage");
+var curr_page = pager.currentPage();
+// Set
+pager.anyPaginator("currentPage",17);
+pager.currentPage(17);
 ```
 
-#### getNumPages()
-Return the number of pages in the paginator.
+#### numPages()
+Return or set the number of pages in the paginator.
 ```js
-var np = pager.anyPaginator("numPages");
-
-var np = pager.getNumPages();
+// Get
+var n_pages = pager.anyPaginator("numPages");
+var n_pages = pager.numPages();
+// Set
+pager.anyPaginator("numPages",15);
+pager.numPages(15);
 ```
 
-#### getNumItems()
-Return the number of items in the paginator.
+#### numItems()
+Return or set the number of items in the paginator.
 ```js
-var np = pager.anyPaginator("numItems");
-
-var np = pager.getNumItems();
-```
-
-#### setCurrentPage()
-Set the current page and redraw the paginator.
-```js
-pager.anyPaginator("setCurrentPage",17);
-
-pager.setCurrentPage(17);
-```
-
-#### setNumPages()
-Sets the number of pages and redraw the paginator.
-```js
-pager.anyPaginator("setNumPages",15);
-
-pager.setNumPages(15);
-```
-
-#### setNumItems()
-Set the number of items and redraw the paginator. The number of pages will be recalculated.
-```js
-pager.anyPaginator("setNumItems",200);
-
-pager.setNumItems(200);
+// Get
+var n_pages = pager.anyPaginator("numItems");
+var n_pages = pager.numItems();
+// Set
+pager.anyPaginator("numItems",200);
+pager.numItems(200);
 ```
 
 #### setOption(options)
 Set one or more options for the paginator.
 ```js
 pager.anyPaginator("option",{splitFirst:2,splitLast:2});
-
 pager.setOption({splitFirst:2,splitLast:2});
 ```
 
@@ -180,31 +164,41 @@ pager.setOption({splitFirst:2,splitLast:2});
 Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
-
 pager.refresh(pager,num);
 ```
 
 #### addPage()
-Add a page number button.
+Increase number of pages by 1 and display a new page number button.
 ```js
-pager.anyPaginator("add");
-
+pager.anyPaginator("page");
 pager.addPage();
 ```
 
 #### removePage()
-Remove a page number button.
+Decrease number of pages by 1 and remove a page number button.
 ```js
-pager.anyPaginator("remove");
-
+pager.anyPaginator("page","remove");
 pager.removePage();
 ```
 
+#### addItem()
+Increase number of items by 1, recalculate number of pages and display a new page number button if neccessary.
+```js
+pager.anyPaginator("item");
+pager.addItem();
+```
+
+#### removeItem()
+Decrease number of items by 1, recalculate number of pages and remove a page number button if neccessary.
+```js
+pager.anyPaginator("item","remove");
+pager.removeItem();
+```
+
 #### showPage(pageNo)
-Redraw the paginator with focus on the page pageNo.
+Set focus to the page pageNo.
 ```js
 pager.anyPaginator("show",12);
-
 pager.showPage(12);
 ```
 
