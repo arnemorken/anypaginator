@@ -110,10 +110,11 @@ $.fn.anyPaginator = function (cmd,...args)
   this.refresh = function(args)
   {
     this.container = redrawPaginatorContainer(this);
-    let np = this.numPages; // Important!
+    let cp = this.currentPage;
+    let np = this.numPages;
     for (let page_no=1; page_no<=np; page_no++)
       this.showPage(page_no);
-    this.showPage(1);
+    this.showPage(cp);
     if (this.options.onClick && this.numPages > 0) {
       // Call user supplied function
       let context = this.options.context ? this.options.context : this;
