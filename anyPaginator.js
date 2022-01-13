@@ -107,13 +107,8 @@ $.fn.anyPaginator = function (cmd,...args)
       return this;
     let old_ipp = this.options.itemsPerPage;
     this.options = $.extend(this.options,opt);
-    if (opt.itemsPerPage) {
-      // Recalculate numPages
-      let np = this.numItems
-               ? this.numItems / this.options.itemsPerPage
-               : (this.numPages * old_ipp) / this.options.itemsPerPage; // Note! May yield one page too many!
-      this.numPages = Math.trunc(np);
-    }
+    if (opt.itemsPerPage)
+      recalcNumPages(this);
     this.refresh();
     return this;
   }; // setOptions
@@ -204,9 +199,10 @@ $.fn.anyPaginator = function (cmd,...args)
   function recalcNumPages(self)
   {
     let np = self.numPages;
-    self.numPages = Math.trunc(self.numItems / self.options.itemsPerPage) + 1;
-    if (np != self.numPages)
-      self.refresh();
+    self.numPages = Math.trunc(self.numItems / self.options.itemsPerPage);
+    if (self.numItems % self.options.itemsPerPage)
+      self.numPages +=  1;
+    self.refresh();
     return self;
   } // recalcNumPages
 
