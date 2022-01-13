@@ -31,9 +31,9 @@ $.fn.anyPaginator = function (cmd,...args)
       console.error("anyPaginator: Options missing. ");
       return this;
     }
-    this.numPages = 0;
-    this.numItems = 0;
-    this.currentPage = 1;
+    this._numPages = 0;
+    this._numItems = 0;
+    this._currentPage = 1;
 
     this.refresh();
 
@@ -41,19 +41,37 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // reset
 
   //
-  // Getters
+  // Getter-setters
   //
-  this.getCurrentPage = function() { return this.currentPage; };
-  this.getNumPages    = function() { return this.numPages; };
-  this.getNumItems    = function() { return this.numItems; };
+  this.currentPage = function(pageNo)
+  {
+    if (!pageNo)
+      return this._currentPage;
+    if (!Number.isInteger(pageNo) || pageNo > this._numPages)
+      return; // Illegal value for pageNo
+    this._currentPage = pageNo;
+    this.refresh();
+    return this;
+  };
 
-  //
-  // Setters
-  //
-  this.setCurrentPage = function(n) { if (n>this.numPages) return;
-                                      this.currentPage = n; this.refresh(); }
-  this.setNumPages    = function(n) { this.numPages    = n; this.refresh(); }
-  this.setNumItems    = function(n) { this.numItems    = n; recalcNumPages(this); }
+  this.numPages = function(nPages)
+  {
+    if (!nPages)
+      return this._numPages;
+    this._numPages = nPages;
+    this.refresh();
+    return this;
+  }; // numPages
+
+  this.numItems = function(nItems)
+  {
+    if (!nItems)
+      return this._numItems;
+    this._numItems = nItems;
+    recalcNumPages(this);
+    this.refresh();
+    return this;
+  }; // numItems
 
   //
   // Set default options for the paginator
@@ -126,18 +144,25 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.refresh = function(args)
   {
-    this.container = redrawPaginatorContainer(this);
-    let cp = this.currentPage;
-    let np = this.numPages;
-    for (let page_no=1; page_no<=np; page_no++)
-      this.showPage(page_no);
-    this.showPage(cp);
-    if (this.options.onClick && this.numPages > 0) {
+    refreshPaginator(this);
+    if (this.options.onClick && this._numPages > 0) {
       // Call user supplied function
       let context = this.options.context ? this.options.context : this;
       this.options.onClick.call(context,args);
     }
+    return this;
   }; // refresh
+
+  function refreshPaginator(self)
+  {
+    self.container = redrawPaginatorContainer(self);
+    let cp = self._currentPage;
+    let np = self._numPages;
+    for (let page_no=1; page_no<=np; page_no++)
+      self.showPage(page_no);
+    self.showPage(cp);
+    return self;
+  } // refreshPaginator
 
   //
   // Increase the number of pages and add a button
@@ -147,17 +172,17 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!this.container || !this.options)
       return this;
 
-    ++this.numPages;
+    ++this._numPages;
 
     // Show the new page button, then redisplay current page
-    let cp = this.currentPage;
-    this.showPage(this.numPages);
+    let cp = this._currentPage;
+    this.showPage(this._numPages);
     this.showPage(cp);
 
     // Highlight the current page button
     if (this.options.mode == 0) {
-      toggleHighlight(this,this.numPages,false);
-      toggleHighlight(this,this.currentPage,true);
+      toggleHighlight(this,this._numPages,false);
+      toggleHighlight(this,this._currentPage,true);
     }
     return this;
   } // addPage
@@ -170,12 +195,12 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!this.container || !this.options)
       return this;
 
-    removePageNumberButton(this,this.numPages);
+    removePageNumberButton(this,this._numPages);
 
-    --this.numPages;
+    --this._numPages;
 
-    if (this.currentPage > this.numPages)
-      this.currentPage = this.numPages;
+    if (this._currentPage > this._numPages)
+      this._currentPage = this._numPages;
 
     this.refresh();
   }; // removePage
@@ -188,7 +213,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!this.container || !this.options)
       return this;
 
-    ++this.numItems;
+    ++this._numItems;
     recalcNumPages(this);
   }; // addItem
 
@@ -200,18 +225,19 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!this.container || !this.options)
       return this;
 
-    --this.numItems;
+    --this._numItems;
     recalcNumPages(this);
   }; // addItem
 
   function recalcNumPages(self)
   {
-    let np = self.numPages;
-    self.numPages = Math.trunc(self.numItems / self.options.itemsPerPage);
-    if (self.numItems % self.options.itemsPerPage)
-      self.numPages +=  1;
-    self.refresh();
-    return self;
+    let np = self._numPages;
+    self._numPages = Math.trunc(self._numItems / self.options.itemsPerPage);
+    if (self._numItems % self.options.itemsPerPage)
+      self._numPages +=  1;
+    if (np != self._numPages)
+      return true;
+    return false;
   } // recalcNumPages
 
   //
@@ -219,12 +245,12 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.showPage = function(pageNo)
   {
-    toggleHighlight(this,this.currentPage,false);
-    this.currentPage = pageNo;
+    toggleHighlight(this,this._currentPage,false);
+    this._currentPage = pageNo;
 
     // Change prev and next buttons if neccessary
     redrawPrevButton(this,1);
-    redrawNextButton(this,this.numPages);
+    redrawNextButton(this,this._numPages);
     redrawFirstButton(this);
     redrawLastButton(this);
 
@@ -233,7 +259,7 @@ $.fn.anyPaginator = function (cmd,...args)
       showGoto(this,pageNo);
 
     if (pageNo == undefined)
-      pageNo = this.currentPage;
+      pageNo = this._currentPage;
 
     if (!Number.isInteger(pageNo) || pageNo <= 0)
       return this; // Return silently if illegal pageNo
@@ -251,12 +277,12 @@ $.fn.anyPaginator = function (cmd,...args)
 
       let max_split = this.options.splitLeft + this.options.splitMiddle + this.options.splitRight + 3;
       let use_split = this.options.splitLeft > 0 && this.options.splitMiddle > 0 && this.options.splitRight > 0;
-      if (this.numPages > max_split && use_split) {
+      if (this._numPages > max_split && use_split) {
         // The view may need to be modified
-        let half       = Math.trunc(this.numPages/2);
+        let half       = Math.trunc(this._numPages/2);
         let half_split = Math.trunc(this.options.splitMiddle/2);
         // Remove all buttons except pageNo
-        let np = this.numPages;
+        let np = this._numPages;
         for (let i=1; i<=np; i++)
           if (i != pageNo)
             removePageNumberButton(this,i);
@@ -267,7 +293,7 @@ $.fn.anyPaginator = function (cmd,...args)
         for (let i=half-half_split+1; i<=half+half_split+1; i++)
           redrawPageNumberButton(this,i);
         // Redraw right buttons
-        for (let i=this.numPages-this.options.splitRight+1; i<=this.numPages; i++)
+        for (let i=this._numPages-this.options.splitRight+1; i<=this._numPages; i++)
           redrawPageNumberButton(this,i);
         // Redraw main ellipsis buttons
         if (pageNo != half-half_split)
@@ -284,7 +310,7 @@ $.fn.anyPaginator = function (cmd,...args)
         else
         // Right of left split, left of middle split
         if (pageNo >= this.options.splitLeft+1 && pageNo < half - half_split) {
-          if (pageNo == this.currentPage) {
+          if (pageNo == this._currentPage) {
             if (this.options.splitLeft > 2)
               redrawPageNumberButton(this,this.options.splitLeft - 1,true); // ellipsis
             removePageNumberButton(this,this.options.splitLeft);
@@ -318,8 +344,8 @@ $.fn.anyPaginator = function (cmd,...args)
         // Button after middle split
         if (pageNo == half + half_split + 2) {
           if (this.options.splitRight > 1) {
-            redrawPageNumberButton(this,this.numPages - this.options.splitRight + 2);
-            removePageNumberButton(this,this.numPages - this.options.splitRight + 1);
+            redrawPageNumberButton(this,this._numPages - this.options.splitRight + 2);
+            removePageNumberButton(this,this._numPages - this.options.splitRight + 1);
           }
           let is_ellipsis = $("#anyPaginator_"+(pageNo+1)).attr("data-ellipsis");
           if (!is_ellipsis || this.options.splitRight == 1)
@@ -327,11 +353,11 @@ $.fn.anyPaginator = function (cmd,...args)
         }
         else
         // Right of middle split, left of right split
-        if (pageNo > half + half_split + 2 && pageNo <= this.numPages - this.options.splitRight) {
-          if (pageNo == this.currentPage) {
+        if (pageNo > half + half_split + 2 && pageNo <= this._numPages - this.options.splitRight) {
+          if (pageNo == this._currentPage) {
             if (this.options.splitRight > 2)
-              redrawPageNumberButton(this,this.numPages - this.options.splitRight + 2,true); // ellipsis
-            removePageNumberButton(this,this.numPages - this.options.splitRight + 1);
+              redrawPageNumberButton(this,this._numPages - this.options.splitRight + 2,true); // ellipsis
+            removePageNumberButton(this,this._numPages - this.options.splitRight + 1);
             removePageNumberButton(this,pageNo+1);
             let is_ellipsis = $("#anyPaginator_"+(pageNo-1)).attr("data-ellipsis");
             if (!is_ellipsis && pageNo > half - half_split)
@@ -342,7 +368,7 @@ $.fn.anyPaginator = function (cmd,...args)
         }
         else
         // Right of right split
-        if (pageNo > this.numPages - this.options.splitRight) {
+        if (pageNo > this._numPages - this.options.splitRight) {
         }
       }
       // Highlight new button
@@ -362,31 +388,31 @@ $.fn.anyPaginator = function (cmd,...args)
       return this;
     if (opt.clickedPage) {
       // Remove highlight from old button
-      toggleHighlight(this,this.currentPage,false);
+      toggleHighlight(this,this._currentPage,false);
       // Find new page
       switch (opt.clickedPage) {
         case "prev":
-          if (this.currentPage > 1)
-            --this.currentPage;
+          if (this._currentPage > 1)
+            --this._currentPage;
           break;
         case "next":
-          if (this.currentPage < this.numPages)
-            ++this.currentPage;
+          if (this._currentPage < this._numPages)
+            ++this._currentPage;
           break;
         case "first":
-          this.currentPage = 1;
+          this._currentPage = 1;
           break;
         case "last":
-          this.currentPage = this.numPages;
+          this._currentPage = this._numPages;
           break;
         default:
           if (Number.isInteger(opt.clickedPage)) {
-            this.currentPage = opt.clickedPage;
+            this._currentPage = opt.clickedPage;
           }
           break;
       } // switch
       // Show new page
-      this.showPage(this.currentPage);
+      this.showPage(this._currentPage);
     }
     if (opt.onClick) {
       // Call user supplied function
@@ -406,20 +432,20 @@ $.fn.anyPaginator = function (cmd,...args)
     // Find new page
     let num = parseInt($("#anyPaginator_goto_inp").val());
     if (Number.isInteger(num)) {
-      toggleHighlight(this,this.currentPage,false); // Remove highlight from old button
+      toggleHighlight(this,this._currentPage,false); // Remove highlight from old button
       if (this.options.mode == 0 || this.options.mode == 1) {
-        if (num >= 1 && num <= this.numPages) {
-          this.currentPage = num;
-          opt.clickedPage = this.currentPage;
+        if (num >= 1 && num <= this._numPages) {
+          this._currentPage = num;
+          opt.clickedPage = this._currentPage;
         }
       }
       else { // mode == 2
-        let num_items = this.numPages * this.options.itemsPerPage;
+        let num_items = this._numPages * this.options.itemsPerPage;
         if (num >= 1 && num <= num_items)
-          this.currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
+          this._currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
       }
       // Show new page
-      this.showPage(this.currentPage);
+      this.showPage(this._currentPage);
       if (opt.onClick) {
         // Call user supplied function
         let context = opt.context ? opt.context : this;
@@ -448,7 +474,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!self.container || !self.options || first_page != 1)
       return self;
     let pagestr = "prev";
-    let active = self.currentPage > 1;
+    let active = self._currentPage > 1;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
@@ -472,7 +498,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!self.container || !self.options)
       return self;
     let pagestr = "next";
-    let active  = self.currentPage < last_page;
+    let active  = self._currentPage < last_page;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
@@ -496,7 +522,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!self.container || !self.options)
       return self;
     let pagestr = "first";
-    let active  = self.currentPage > 1;
+    let active  = self._currentPage > 1;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive " : "";
     let btn_text = "";
@@ -520,7 +546,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!self.container || !self.options)
       return self;
     let pagestr = "last";
-    let active  = self.currentPage < self.numPages;
+    let active  = self._currentPage < self._numPages;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
@@ -604,7 +630,7 @@ $.fn.anyPaginator = function (cmd,...args)
         }
         else {
           // Search right side
-          let np = self.numPages;
+          let np = self._numPages;
           for (let i=pageNo+1; i<np; i++) {
             ins = $("#anyPaginator_"+i);
             if (ins.length)
@@ -615,7 +641,7 @@ $.fn.anyPaginator = function (cmd,...args)
           }
         }
         if (!ins.length) {
-          if (pageNo <= self.numPages)
+          if (pageNo <= self._numPages)
             pg_div.insertAfter($("#anyPaginator_prev"));
           else
             pg_div.insertBefore($("#anyPaginator_next"));
@@ -649,9 +675,9 @@ $.fn.anyPaginator = function (cmd,...args)
     let label = self.options.itemText ? self.options.itemText : "";
     let from = self.options.itemsPerPage * (pageNo-1) + 1;
     let to   = self.options.itemsPerPage * pageNo;
-    if (self.numItems && to > self.numItems)
-      to = self.numItems;
-    let num  = self.numItems ? self.numItems : self.options.itemsPerPage * self.numPages;
+    if (self._numItems && to > self._numItems)
+      to = self._numItems;
+    let num  = self._numItems ? self._numItems : self.options.itemsPerPage * self._numPages;
     let str = label+" "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev")
@@ -671,7 +697,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if ($("#"+div_id))
       $("#"+div_id).remove();
     let label = self.options.pageText ? self.options.pageText : "";
-    let str = label+" "+pageNo+"/"+self.numPages;
+    let str = label+" "+pageNo+"/"+self._numPages;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev")
     if (!ins.length)
@@ -736,6 +762,15 @@ $.fn.anyPaginator = function (cmd,...args)
   else
   if (cmd == "show")
     this.showPage(options);
+  else
+  if (cmd == "currentPage")
+    this.currentPage(options);
+  else
+  if (cmd == "_numPages")
+    this.numPages(options);
+  else
+  if (cmd == "_numItems")
+    this.numItems(options);
 
   return this;
 }; // anyPaginator
