@@ -53,7 +53,7 @@ refreshData(pager);
 function refreshData(pager)
 {
   $("#mydata").empty();
-  let start = (pager.currentPage - 1) * pager.options.itemsPerPage + 1;
+  let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
   let stop  = start + pager.options.itemsPerPage - 1;
   for (let i=start; i<=stop; i++)
     $("#mydata").append("<p>Hello row "+i+"</p>");
