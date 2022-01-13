@@ -41,11 +41,7 @@ Pages and/or items may be added dynamically at any time.
 3. Initialize the paginator and add some pages:
 ```js
 let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
-for (let i=1; i<=200; i++) {
-  // Add a page number each itemsPerPage rows
-  if (!((i-1) % pager.options.itemsPerPage))
-    pager.anyPaginator("add");
-}
+pager.numItems(200);
 ```
 
 4. Display some data initially:
