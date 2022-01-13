@@ -127,14 +127,23 @@ $.fn.anyPaginator = function (cmd,...args)
     return this;
   }; // setDefaults
 
+  //
+  // Set options supplied by user
+  //
   this.setOptions = function(opt)
   {
     if (!opt || typeof opt != "object")
       return this;
     let old_ipp = this.options.itemsPerPage;
     this.options = $.extend(this.options,opt);
-    if (opt.itemsPerPage)
-      recalcNumPages(this);
+    if (opt.itemsPerPage) {
+      if (this._numItems)
+        recalcNumPages(this);
+      else {
+        console.error("anyPaginator: numItems not set, cannot recalculate numPages. ");
+        this.options.itemsPerPage = old_ipp;
+      }
+    }
     this.refresh();
     return this;
   }; // setOptions
