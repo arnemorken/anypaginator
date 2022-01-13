@@ -12,6 +12,10 @@ Take a look at the jsFiddle demos:
 * Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/21/
 * Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/1/
 
+You may set/add a number of pages or items to the paginator. 
+In the latter case, page buttons will be added automatically as needed. 
+The recommended method is to simply set the "numItems" property.
+
 # Download
 
 - Github repository:                  https://github.com/arnemorken/anypaginator/
