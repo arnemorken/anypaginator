@@ -649,10 +649,18 @@ $.fn.anyPaginator = function (cmd,...args)
     let label = self.options.itemText ? self.options.itemText : "";
     let from = self.options.itemsPerPage * (pageNo-1) + 1;
     let to   = self.options.itemsPerPage * pageNo;
-    let num  = self.options.itemsPerPage * self.numPages;
+    if (self.numItems && to > self.numItems)
+      to = self.numItems;
+    let num  = self.numItems ? self.numItems : self.options.itemsPerPage * self.numPages;
     let str = label+" "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    self.container.append(div);
+    let ins = $("#anyPaginator_prev")
+    if (!ins.length)
+      ins = $("#anyPaginator_first")
+    if (ins.length)
+      div.insertAfter(ins);
+    else
+      self.container.prepend(div);
   } // redrawItemRange
 
   function redrawPageView(self,pageNo)
@@ -665,7 +673,13 @@ $.fn.anyPaginator = function (cmd,...args)
     let label = self.options.pageText ? self.options.pageText : "";
     let str = label+" "+pageNo+"/"+self.numPages;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    self.container.append(div);
+    let ins = $("#anyPaginator_prev")
+    if (!ins.length)
+      ins = $("#anyPaginator_first")
+    if (ins.length)
+      div.insertAfter(ins);
+    else
+      self.container.prepend(div);
   } // pagenumber
 
   function showGoto(self,pageNo)
