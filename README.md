@@ -12,6 +12,11 @@ Take a look at the jsFiddle demos:
 * Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/21/
 * Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/1/
 
+You may set/add a number of pages or items to the paginator. 
+In the latter case, page buttons will be added automatically as needed. 
+The recommended method is to simply set the "numItems" property.
+Pages and/or items may be added dynamically at any time.
+
 # Download
 
 - Github repository:                  https://github.com/arnemorken/anypaginator/
@@ -35,12 +40,8 @@ Take a look at the jsFiddle demos:
 
 3. Initialize the paginator and add some pages:
 ```js
-let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
-for (let i=1; i<=200; i++) {
-  // Add a page number each itemsPerPage rows
-  if (!((i-1) % pager.options.itemsPerPage))
-    pager.anyPaginator("add");
-}
+let pager = $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
+pager.numItems(200);
 ```
 
 4. Display some data initially:
@@ -72,7 +73,7 @@ PS! We love pull requests! ;)
 
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
-| mode                         | 0: buttons, 1: page number, 2: item range. If using mode 2, the paginator should be called with "item", or setNumItems should be called after all pages are added.| Number                       | 0                          |
+| mode                         | 0: buttons, 1: page number, 2: item range.                     | Number                       | 0                          |
 | itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
@@ -169,6 +170,11 @@ pager.refresh(pager,num);
 
 #### addPage()
 Increase number of pages by 1 and display a new page number button.
+Note that instead of using "addPage" you may add items with "addItem" or simply by setting the "numPages" or "numItems"
+option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
+
+If pages are added with "addPage" and you need to change "itemsPerPage" at a later time, "numItems(n)" must be called
+before setting "itemsPerPage" in order for the correct number of pages to be calculated.
 ```js
 pager.anyPaginator("page");
 pager.addPage();
@@ -183,6 +189,11 @@ pager.removePage();
 
 #### addItem()
 Increase number of items by 1, recalculate number of pages and display a new page number button if neccessary.
+Note that instead of using "addItem" you may add pages with "addPage" or simply by setting the "numPages" or "numItems"
+option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
+
+If items are added with "addItem" you should call either "refresh" or "numItems(n)" or set "itemsPerPage" after all items 
+are added in order for the paginator to be displayed with correct values.
 ```js
 pager.anyPaginator("item");
 pager.addItem();
