@@ -191,8 +191,8 @@ Increase number of items by 1, recalculate number of pages and display a new pag
 Note that instead of using "addItem" you may add pages with "addPage" or simply by setting the "numPages" or "numItems"
 option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
 
-If items are added with "addItem" you should call either "refresh" or "numItems" or set "itemsPerPage" after all items 
-are added in order for the paginator to be displayed with proper values.
+If items are added with "addItem" you should call either "refresh" or "numItems(n)" or set "itemsPerPage" after all items 
+are added in order for the paginator to be displayed with correct values.
 ```js
 pager.anyPaginator("item");
 pager.addItem();
