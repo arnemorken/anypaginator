@@ -15,6 +15,7 @@ Take a look at the jsFiddle demos:
 You may set/add a number of pages or items to the paginator. 
 In the latter case, page buttons will be added automatically as needed. 
 The recommended method is to simply set the "numItems" property.
+Pages and/or items may be added dynamically at any time.
 
 # Download
 
