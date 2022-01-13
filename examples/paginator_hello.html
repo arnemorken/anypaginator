@@ -27,12 +27,8 @@
 <div id="mydata"></div>
 
 <script>
-let pager =  $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
-for (let i=1; i<=200; i++) {
-  // Add a page number each itemsPerPage rows
-  if (!((i-1) % pager.options.itemsPerPage))
-    pager.anyPaginator("page");
-}
+let pager = $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
+pager.numItems(200);
 
 refreshData(pager);
 
