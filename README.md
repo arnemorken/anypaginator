@@ -72,7 +72,7 @@ PS! We love pull requests! ;)
 
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
-| mode                         | 0: buttons, 1: item range, 2: page number                      | Number                       | 0                          |
+| mode                         | 0: buttons, 1: page number, 2: item range. If using mode 2, the paginator should be called with "item", or setNumItems should be called after all pages are added.| Number                       | 0                          |
 | itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
@@ -120,6 +120,22 @@ Reset options and properties and redraw the paginator.
 pager = pager.reset({mode:1});
 ```
 
+#### getCurrentPage()
+Return the page that is currently highlighted.
+```js
+var cp = pager.anyPaginator("currentPage");
+
+var cp = pager.getCurrentPage();
+```
+
+#### getNumItems()
+Return the number of items in the paginator.
+```js
+var np = pager.anyPaginator("numItems");
+
+var np = pager.getNumItems();
+```
+
 #### getNumPages()
 Return the number of pages in the paginator.
 ```js
@@ -128,12 +144,29 @@ var np = pager.anyPaginator("numPages");
 var np = pager.getNumPages();
 ```
 
-#### getCurrentPage()
-Return the page that is currently highlighted.
-```js
-var cp = pager.anyPaginator("currentPage");
 
-var cp = pager.getCurrentPage();
+#### setCurrentPage()
+Set the current page and redraw the paginator.
+```js
+pager.anyPaginator("setCurrentPage",17);
+
+pager.setCurrentPage(17);
+```
+
+#### setNumPages()
+Sets the number of pages and redraw the paginator.
+```js
+pager.anyPaginator("setNumPages",15);
+
+pager.setNumPages(15);
+```
+
+#### setNumItems()
+Set the number of items and redraw the paginator. The number of pages will be recalculated.
+```js
+pager.anyPaginator("setNumItems",200);
+
+pager.setNumItems(200);
 ```
 
 #### setOption(options)
