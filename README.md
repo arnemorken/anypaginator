@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml)
+
 # anyPaginator
 An easy to use, yet advanced and fully customizable javascript/jQuery paginator plugin. 
 
