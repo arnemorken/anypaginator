@@ -32,16 +32,20 @@ $.fn.anyPaginator = function (cmd,...args)
       return this;
     }
     this.numPages = 0;
+    this.numItems = 0;
     this.currentPage = 1;
+
     this.refresh();
+
     return this;
   }; // reset
 
   //
   // Getters
   //
-  this.getNumPages    = function() { return this.numPages; };
   this.getCurrentPage = function() { return this.currentPage; };
+  this.getNumPages    = function() { return this.numPages; };
+  this.getNumItems    = function() { return this.numItems; };
 
   //
   // Setters
@@ -49,6 +53,7 @@ $.fn.anyPaginator = function (cmd,...args)
   this.setCurrentPage = function(n) { if (n>this.numPages) return;
                                       this.currentPage = n; this.refresh(); }
   this.setNumPages    = function(n) { this.numPages    = n; this.refresh(); }
+  this.setNumItems    = function(n) { this.numItems    = n; recalcNumPages(this); }
 
   //
   // Set default options for the paginator
@@ -104,7 +109,9 @@ $.fn.anyPaginator = function (cmd,...args)
     this.options = $.extend(this.options,opt);
     if (opt.itemsPerPage) {
       // Recalculate numPages
-      let np = (this.numPages * old_ipp) / this.options.itemsPerPage;
+      let np = this.numItems
+               ? this.numItems / this.options.itemsPerPage
+               : (this.numPages * old_ipp) / this.options.itemsPerPage; // Note! May yield one page too many!
       this.numPages = Math.trunc(np);
     }
     this.refresh();
@@ -169,6 +176,39 @@ $.fn.anyPaginator = function (cmd,...args)
 
     this.refresh();
   }; // removePage
+
+  //
+  // Increase the number of items, possibly adding a page
+  //
+  this.addItem = function()
+  {
+    if (!this.container || !this.options)
+      return this;
+
+    ++this.numItems;
+    recalcNumPages(this);
+  }; // addItem
+
+  //
+  // Decrease the number of items, possibly removing a page
+  //
+  this.removeItem = function()
+  {
+    if (!this.container || !this.options)
+      return this;
+
+    --this.numItems;
+    recalcNumPages(this);
+  }; // addItem
+
+  function recalcNumPages(self)
+  {
+    let np = self.numPages;
+    self.numPages = Math.trunc(self.numItems / self.options.itemsPerPage) + 1;
+    if (np != self.numPages)
+      self.refresh();
+    return self;
+  } // recalcNumPages
 
   //
   // Redraw the paginator with focus on the page pageNo
@@ -663,11 +703,17 @@ $.fn.anyPaginator = function (cmd,...args)
   if (cmd == "refresh")
     this.refresh(args);
   else
-  if (cmd == "add")
+  if (cmd == "page")
     this.addPage();
   else
-  if (cmd == "remove")
+  if (cmd == "item")
+    this.addItem();
+  else
+  if (cmd == "remove" && args && args[0] == "page")
     this.removePage();
+  else
+  if (cmd == "remove" && args && args[0] == "item")
+    this.removeItem();
   else
   if (cmd == "show")
     this.showPage(options);
