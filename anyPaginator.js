@@ -768,24 +768,6 @@ $.fn.anyPaginator = function (cmd,...args)
   if (cmd == "option")
     this.setOptions(options);
   else
-  if (cmd == "refresh")
-    this.refresh(args);
-  else
-  if (cmd == "page")
-    this.addPage();
-  else
-  if (cmd == "item")
-    this.addItem(options);
-  else
-  if (cmd == "remove" && args && args[0] == "page")
-    this.removePage();
-  else
-  if (cmd == "remove" && args && args[0] == "item")
-    this.removeItem();
-  else
-  if (cmd == "show")
-    this.showPage(options);
-  else
   if (cmd == "currentPage")
     this.currentPage(options);
   else
@@ -794,6 +776,26 @@ $.fn.anyPaginator = function (cmd,...args)
   else
   if (cmd == "_numItems")
     this.numItems(options);
+  else
+  if (cmd == "refresh")
+    this.refresh(args);
+  else
+  if (cmd == "page") {
+    if (options == "remove")
+      this.removePage();
+    else
+      this.addPage();
+  }
+  else
+  if (cmd == "item") {
+    if (options == "remove")
+      this.removeItem(args[1]);
+    else
+      this.addItem(options);
+  }
+  else
+  if (cmd == "show")
+    this.showPage(options);
 
   return this;
 }; // anyPaginator
