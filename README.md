@@ -10,7 +10,7 @@ Take a look at the jsFiddle demos:
 * "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/57/
 * Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/35/
 * Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/24/
-* Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/1/
+* Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/3/
 
 You may set/add a number of pages or items to the paginator. 
 In the latter case, page buttons will be added automatically as needed. 
