@@ -206,6 +206,9 @@ $.fn.anyPaginator = function (cmd,...args)
 
     removePageNumberButton(this,this._numPages);
 
+    if (this._numPages <= 0)
+      return this;
+
     --this._numPages;
 
     if (this._currentPage > this._numPages)
