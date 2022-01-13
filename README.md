@@ -72,7 +72,7 @@ PS! We love pull requests! ;)
 
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
-| mode                         | 0: buttons, 1: page number, 2: item range. If using mode 2, the paginator should be called with "item", or numItems(n) should be called after all pages are added.| Number                       | 0                          |
+| mode                         | 0: buttons, 1: page number, 2: item range.                     | Number                       | 0                          |
 | itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
@@ -169,6 +169,11 @@ pager.refresh(pager,num);
 
 #### addPage()
 Increase number of pages by 1 and display a new page number button.
+Note that instead of using "addPage" you may add items with "addItem" or simply by setting the "numPages" or "numItems"
+option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
+
+If pages are added with "addPage" and you need to change "itemsPerPage" at a later time, "numItems(n)" should be called
+after all pages are added and before setting "itemsPerPage" in order for the correct number of pages to be calculated.
 ```js
 pager.anyPaginator("page");
 pager.addPage();
@@ -183,6 +188,11 @@ pager.removePage();
 
 #### addItem()
 Increase number of items by 1, recalculate number of pages and display a new page number button if neccessary.
+Note that instead of using "addItem" you may add pages with "addPage" or simply by setting the "numPages" or "numItems"
+option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
+
+If items are added with "addItem" you should call either "refresh" or "numItems" or set "itemsPerPage" after all items 
+are added in order for the paginator to be displayed with proper values.
 ```js
 pager.anyPaginator("item");
 pager.addItem();
