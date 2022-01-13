@@ -153,7 +153,10 @@ pager.anyPaginator("numItems",200);
 pager.numItems(200);
 ```
 
-#### option() #### option(option) #### option(options) #### option(option,val)
+#### option() 
+#### option(option) 
+#### option(options) 
+#### option(option,val)
 Get or set one or more options for the paginator.
 ```js
 // Get
