@@ -123,7 +123,7 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // refresh
 
   //
-  // Add a page number button
+  // Increase the number of pages and add a button
   //
   this.addPage = function()
   {
@@ -146,7 +146,7 @@ $.fn.anyPaginator = function (cmd,...args)
   } // addPage
 
   //
-  // Remove a page number button
+  // Decrease the number of pages and remove a button
   //
   this.removePage = function()
   {
