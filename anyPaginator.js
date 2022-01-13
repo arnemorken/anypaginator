@@ -88,16 +88,24 @@ $.fn.anyPaginator = function (cmd,...args)
       hideLast:     true,       // Whether to hide the "last" button. Should be "true" if splitRight == 1
     },opt);
     let err = "";
-    if (this.options.mode < 0 || this.options.mode > 2)
+    if (this.options.mode < 0 || this.options.mode > 2) {
       err += "Illegal mode. ";
-    if (this.options.splitLeft < 0)
+      this.options.mode = 0;
+    }
+    if (this.options.splitLeft < 0) {
       err += "Illegal splitLeft. ";
-    if (this.options.splitMiddle < 0)
+      this.options.splitLeft = 3;
+    }
+    if (this.options.splitMiddle < 0) {
       err += "Illegal splitMiddle. ";
-    if (this.options.splitRight < 0)
+      this.options.splitMiddle = 3;
+    }
+    if (this.options.splitRight < 0) {
       err += "Illegal splitRight. ";
+      this.options.splitRight = 3;
+    }
     if (err != "")
-      console.error("anyPaginator: "+err);
+      console.error("anyPaginator: "+err+"Setting to default. ");
     return this;
   }; // setDefaults
 
