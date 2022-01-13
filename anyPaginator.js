@@ -215,6 +215,19 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.showPage = function(pageNo)
   {
+    toggleHighlight(this,this.currentPage,false);
+    this.currentPage = pageNo;
+
+    // Change prev and next buttons if neccessary
+    redrawPrevButton(this,1);
+    redrawNextButton(this,this.numPages);
+    redrawFirstButton(this);
+    redrawLastButton(this);
+
+    // Display goto page/input field
+    if (!this.options.hideGoto)
+      showGoto(this,pageNo);
+
     if (pageNo == undefined)
       pageNo = this.currentPage;
 
@@ -229,8 +242,6 @@ $.fn.anyPaginator = function (cmd,...args)
         redrawPageView(this,pageNo); // Create page number
     }
     else {
-      toggleHighlight(this,this.currentPage,false);
-      this.currentPage = pageNo;
       // Create page number buttons
       redrawPageNumberButton(this,pageNo);
 
@@ -333,16 +344,6 @@ $.fn.anyPaginator = function (cmd,...args)
       // Highlight new button
       toggleHighlight(this,pageNo,true);
     } // else
-
-    // Change prev and next buttons if neccessary
-    redrawPrevButton(this,1);
-    redrawNextButton(this,this.numPages);
-    redrawFirstButton(this);
-    redrawLastButton(this);
-
-    // Display goto page/input field
-    if (!this.options.hideGoto)
-      showGoto(this,pageNo);
 
     return this;
   }; // showPage
