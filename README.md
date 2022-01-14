@@ -1,6 +1,4 @@
-[![CodeQL](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml)
-
-# anyPaginator <img src="balanselogo_85x95.png" align="right">
+# anyPaginator [![CodeQL](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml) <img src="balanselogo_85x95.png" align="right">
 An easy to use, yet advanced and fully customizable Javascript/jQuery paginator plugin.
 anyPaginator is a spinoff of the <a href="https://github.com/arnemorken/anylist">anyList</a> project
 and we think it's the best Javascript paginator out there. 
