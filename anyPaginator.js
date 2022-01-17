@@ -174,7 +174,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (this.options.onClick && this._numPages > 0) {
       // Call user supplied function
       let context = this.options.context ? this.options.context : this;
-      this.options.onClick.call(context,args);
+      this.options.onClick.call(context,this);
     }
     return this;
   }; // refresh
@@ -457,7 +457,9 @@ $.fn.anyPaginator = function (cmd,...args)
     if (opt.onClick) {
       // Call user supplied function
       let context = opt.context ? opt.context : this;
-      opt.onClick.call(context,event.data);
+      this.clickedPage = opt.clickedPage;
+      opt.onClick.call(context,this);
+      delete this.clickedPage;
     }
   }; // buttonClicked
 
@@ -489,7 +491,9 @@ $.fn.anyPaginator = function (cmd,...args)
       if (opt.onClick) {
         // Call user supplied function
         let context = opt.context ? opt.context : this;
-        opt.onClick.call(context,event.data);
+        this.clickedPage = opt.clickedPage;
+        opt.onClick.call(context,this);
+        delete this.clickedPage;
       }
     }
   }; // gotoClicked
@@ -795,7 +799,7 @@ $.fn.anyPaginator = function (cmd,...args)
     return this.numItems(options);
 
   if (cmd == "refresh")
-    return this.refresh(args);
+    return this.refresh();
 
   if (cmd == "page") {
     if (options == "remove")
