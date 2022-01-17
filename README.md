@@ -18,6 +18,7 @@ Both pages and items can be added to the paginator. In the latter case, page but
 The recommended method is to simply set the "numItems" option. Pages and/or items may be added dynamically at any time.
 
 The user provides a callback function to redraw data whenever a button is pressed, anyPaginator takes care of the rest.
+The callback function will receive the pager as its only parameter.
 
 # Download
 
@@ -223,17 +224,19 @@ pager.showPage(12);
 #### buttonClicked(event)
 Update the paginator when a button is clicked. 
 Normally not neccessary to call this method. 
-If a user defined onClick method is set in options, it will be called after buttonClicked has finished.
+If a user defined onClick method is set in options, it will be called after buttonClicked has finished
+with the pager as parameter.
 
 #### gotoClicked(event)
 Update the paginator when the go button is clicked or enter is pressed in the input field.
 Normally not neccessary to call this method.
-If a user defined onClick method is set in options, it will be called after gotoClicked has finished.
+If a user defined onClick method is set in options, it will be called after gotoClicked has finished
+with the pager as parameter.
 
 # Improvements
 
 Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
-We love pull requests! ;)
+We love pull requests! 
 
 # License
 
