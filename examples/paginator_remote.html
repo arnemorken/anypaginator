@@ -36,11 +36,11 @@
 <script>
 let cdn = "https://balanse.info/cdn/anypaginator/examples/";
 
-function refreshTable(pager,num)
+function refreshTable(pager)
 {
   if (!pager)
     return;
-  let from = pager.options.itemsPerPage *(pager.currentPage() - 1);
+  let from = pager.options.itemsPerPage * (pager.currentPage() - 1);
   let to   = from + pager.options.itemsPerPage - 1;
   let db_url = cdn + "remote_select.php?from="+from+"&to="+to;
   $.getJSON(db_url)
@@ -69,14 +69,14 @@ $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
   let pager = $("#myfoot").anyPaginator({ mode:         0,
-                                          onClick:      function(args) { refreshTable(pager,num); },
+                                          onClick:      function(args) { refreshTable(pager); },
                                           itemsPerPage: 5,
                                           gotoText:     "Go",
                                           prevText:     "<",
                                           nextText:     ">",
                                        });
   // Display table contents
-  refreshTable(pager,num);
+  refreshTable(pager);
 
   // Add page numbers
   for (let i=1; i<=num; i++) {
