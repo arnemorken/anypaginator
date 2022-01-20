@@ -75,8 +75,8 @@ function refreshData(pager)
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
 | splitRight                   | Number of split buttons to the right                           | Number                       | 3                          |
-| itemText                     | Text in front of item range for mode == 1                      | String                       | "Item"                     |
-| pageText                     | Text in front of page number for mode == 2                     | String                       | "Page"                     |
+| pageText                     | Text in front of page number for mode == 1                     | String                       | "Page"                     |
+| itemText                     | Text in front of item range for mode == 2                      | String                       | "Item"                     |
 | gotoText                     | Text on the "goto" button, ignored if gotoIcon is set          | String                       | "Go"                       |
 | prevText                     | Text on the "previous" button, ignored if prevIcon is set      | String                       | "&lsaquo;"                 |
 | nextText                     | Text on the "next" button, ignored if nextIcon is set          | String                       | "&rsaquo;"                 |
@@ -87,11 +87,11 @@ function refreshData(pager)
 | nextIcon                     | Font Awesome icon on the "next" button instead of nextText     | String                       | null                       |
 | firstIcon                    | Font Awesome icon on the "first" button instead of firstText   | String                       | null                       |
 | lastIcon                     | Font Awesome icon on the "last" button instead of lastText     | String                       | null                       |
-| hideGoto                     | Whether to hide the "goto" button/input field                  | Bool                         | false                      |
-| hidePrev                     | Whether to hide the "previous" button                          | Bool                         | false                      |
-| hideNext                     | Whether to hide the "next" button                              | Bool                         | false                      |
-| hideFirst                    | Whether to hide the "first" button                             | Bool                         | true                       |
-| hideLast                     | Whether to hide the "last" button                              | Bool                         | true                       |
+| hideGoto                     | Whether to hide the "goto" button/input field                  | Boolean                      | false                      |
+| hidePrev                     | Whether to hide the "previous" button                          | Boolean                      | false                      |
+| hideNext                     | Whether to hide the "next" button                              | Boolean                      | false                      |
+| hideFirst                    | Whether to hide the "first" button                             | Boolean                      | true                       |
+| hideLast                     | Whether to hide the "last" button                              | Boolean                      | true                       |
 | onClick                      | User defined event handler for button click                    | Function                     | undefined                  |
 
 ### Public methods
@@ -128,6 +128,7 @@ var curr_page = pager.currentPage();
 pager.anyPaginator("currentPage",17);
 pager.currentPage(17);
 ```
+By default, the setter method will not call the user supplied callback function. To do so, pass "true" after the page number: pager.currentPage(17,true); See refresh().
 
 #### numPages()
 Get or set the number of pages in the paginator.
@@ -139,6 +140,7 @@ var n_pages = pager.numPages();
 pager.anyPaginator("numPages",15);
 pager.numPages(15);
 ```
+By default, the setter method will not call the user supplied callback function. To do so, pass "true" after the number of pages: pager.numPages(15,true); See refresh().
 
 #### numItems()
 Get or set the number of items in the paginator.
@@ -150,12 +152,14 @@ var n_pages = pager.numItems();
 pager.anyPaginator("numItems",200);
 pager.numItems(200);
 ```
+By default, the setter method will not call the user supplied callback function. To do so, pass "true" after the number of items: pager.numItems(200,true); See refresh().
 
 #### option() 
 #### option(option) 
 #### option(options) 
 #### option(option,val)
-Get or set one or more options for the paginator.
+Get or set one or more options for the paginator. 
+The paginator will be refreshed, but the user supplied callback function will not be called.
 ```js
 // Get
 pager.anyPaginator("option"); // Get the options object
@@ -170,7 +174,8 @@ pager.option("splitLeft",2);                             // Set the "splitLeft" 
 ```
 
 #### refresh()
-Redraw all the page numbers, ellipsis and navigators. If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
+Redraw all the page numbers, ellipsis and navigators. 
+If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
 pager.refresh(pager,num);
@@ -178,6 +183,8 @@ pager.refresh(pager,num);
 
 #### addPage()
 Increase number of pages by 1 and display a new page number button.
+The paginator will be redisplayed, but the user supplied callback function will not be called.
+
 Note that instead of using "addPage" you may add items with "addItem" or simply by setting the "numPages" or "numItems"
 option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
 
@@ -190,13 +197,16 @@ pager.addPage();
 
 #### removePage()
 Decrease number of pages by 1 and remove a page number button.
+The paginator will be redisplayed, but the user supplied callback function will not be called.
 ```js
 pager.anyPaginator("page","remove");
 pager.removePage();
 ```
 
 #### addItem()
-Increase number of items by 1, recalculate number of pages and display a new page number button if neccessary.
+Increase number of items by 1, recalculate number of pages and add a new page number button if neccessary.
+The paginator will be redisplayed, but the user supplied callback function will not be called.
+
 Note that instead of using "addItem" you may add pages with "addPage" or simply by setting the "numPages" or "numItems"
 option, in which case page numbers will be added automatically as needed. Setting "numItems" is the recommended way.
 
@@ -209,13 +219,14 @@ pager.addItem();
 
 #### removeItem()
 Decrease number of items by 1, recalculate number of pages and remove a page number button if neccessary.
+The paginator will be redisplayed, but the user supplied callback function will not be called.
 ```js
 pager.anyPaginator("item","remove");
 pager.removeItem();
 ```
 
 #### showPage(pageNo)
-Set focus to the page pageNo.
+Redraw all buttons and set focus to the page pageNo.
 ```js
 pager.anyPaginator("show",12);
 pager.showPage(12);
