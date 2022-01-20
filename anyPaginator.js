@@ -196,6 +196,7 @@ $.fn.anyPaginator = function (cmd,...args)
     let cp = this._currentPage;
     this.showPage(this._numPages);
     this._currentPage = cp;
+    this.showPage(this._currentPage); // To make sure the button(s) are correct
     toggleHighlight(this,this._numPages,false);
     toggleHighlight(this,this._currentPage,true);
 
@@ -221,7 +222,7 @@ $.fn.anyPaginator = function (cmd,...args)
 
     if (this._currentPage > this._numPages)
       this._currentPage = this._numPages;
-
+    this.showPage(this._currentPage); // To make sure the button(s) are correct
     toggleHighlight(this,this._currentPage,true);
 
     return this;
