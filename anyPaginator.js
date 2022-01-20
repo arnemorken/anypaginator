@@ -132,7 +132,8 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // setDefaults
 
   //
-  // Set or get options
+  // Set or get options.
+  // Calls refresh, but does not call user defined click function.
   //
   this.option = function(opt,val)
   {
@@ -144,14 +145,8 @@ $.fn.anyPaginator = function (cmd,...args)
       // Set options in the opt object
       let old_ipp = this.options.itemsPerPage;
       this.options = $.extend(this.options,opt);
-      if (opt.itemsPerPage) {
-        if (this._numItems)
-          recalcNumPages(this);
-        else {
-          console.error("anyPaginator: numItems not set, cannot recalculate numPages. ");
-          this.options.itemsPerPage = old_ipp;
-        }
-      }
+      if (this.options.itemsPerPage != old_ipp)
+        recalcNumPages(this);
       this.refresh();
       return this;
     }
@@ -161,7 +156,10 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (typeof opt == "string") {
       // Set the options in val
+      let old_ipp = this.options.itemsPerPage;
       this.options[opt] = val;
+      if (this.options.itemsPerPage != old_ipp)
+        recalcNumPages(this);
       this.refresh();
       return this;
     }
@@ -241,24 +239,27 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // removePage
 
   //
-  // Increase the number of items, possibly adding a page
+  // Increase the number of items, possibly adding a page.
+  // Does not call refresh(),
   //
-  this.addItem = function(doRefresh)
+  this.addItem = function()
   {
     if (!this.container || !this.options)
       return this;
 
     ++this._numItems;
-    recalcNumPages(this);
-    if (doRefresh)
-      this.refresh();
+
+    if (this._numItems % this.options.itemsPerPage == 1)
+      ++this._numPages;
+
     return this;
   }; // addItem
 
   //
-  // Decrease the number of items, possibly removing a page
+  // Decrease the number of items, possibly removing a page.
+  // Does not call refresh(),
   //
-  this.removeItem = function(doRefresh)
+  this.removeItem = function()
   {
     if (!this.container || !this.options)
       return this;
@@ -268,21 +269,24 @@ $.fn.anyPaginator = function (cmd,...args)
 
     --this._numItems;
 
-    recalcNumPages(this);
-    if (doRefresh)
-      this.refresh();
+    if (this._numItems % this.options.itemsPerPage == 0) {
+      --this._numPages;
+      if (this._currentPage > this._numPages)
+        this._currentPage = this._numPages;
+    }
+
     return this;
-  }; // addItem
+  }; // removeItem
 
   function recalcNumPages(self)
   {
-    let np = self._numPages;
-    self._numPages = Math.trunc(self._numItems / self.options.itemsPerPage);
-    if (self._numItems % self.options.itemsPerPage)
-      self._numPages +=  1;
-    if (np != self._numPages)
-      return true;
-    return false;
+    if (self._numItems && self.options.itemsPerPage) {
+      self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
+    }
+    else {
+      console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
+      self.options.itemsPerPage = old_ipp;
+    }
   } // recalcNumPages
 
   //
