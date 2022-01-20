@@ -1,3 +1,4 @@
+/* jshint esversion: 9 */
 "use strict";
 /****************************************************************************************
  *
@@ -70,8 +71,10 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!nItems)
       return this._numItems;
     if (nItems != this._numItems) {
+      let old_ni = this._numItems;
       this._numItems = nItems;
-      recalcNumPages(this);
+      if (!recalcNumPages(this))
+        this._numItems = old_ni;
       this.refresh(callUserFunction);
     }
     return this;
@@ -146,7 +149,8 @@ $.fn.anyPaginator = function (cmd,...args)
       let old_ipp = this.options.itemsPerPage;
       this.options = $.extend(this.options,opt);
       if (this.options.itemsPerPage != old_ipp)
-        recalcNumPages(this);
+        if (!recalcNumPages(this))
+          this.options.itemsPerPage = old_ipp;
       this.refresh();
       return this;
     }
@@ -159,7 +163,8 @@ $.fn.anyPaginator = function (cmd,...args)
       let old_ipp = this.options.itemsPerPage;
       this.options[opt] = val;
       if (this.options.itemsPerPage != old_ipp)
-        recalcNumPages(this);
+        if (!recalcNumPages(this))
+          this.options.itemsPerPage = old_ipp;
       this.refresh();
       return this;
     }
@@ -201,7 +206,7 @@ $.fn.anyPaginator = function (cmd,...args)
     toggleHighlight(this,this._currentPage,true);
 
     return this;
-  } // addPage
+  }; // addPage
 
   //
   // Decrease the number of pages and remove a button.
@@ -493,10 +498,11 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     if (self._numItems && self.options.itemsPerPage) {
       self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
+      return true;
     }
     else {
       console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
-      self.options.itemsPerPage = old_ipp;
+      return false;
     }
   } // recalcNumPages
 
@@ -520,7 +526,7 @@ $.fn.anyPaginator = function (cmd,...args)
     self.container = $("<div id='"+container_id+"' class='any-paginator-container'></div>");
     self.append(self.container);
     return self.container;
-  }; // redrawPaginatorContainer
+  } // redrawPaginatorContainer
 
   function redrawPrevButton(self,first_page)
   {
@@ -733,9 +739,9 @@ $.fn.anyPaginator = function (cmd,...args)
     let num  = self._numItems ? self._numItems : self.options.itemsPerPage * self._numPages;
     let str = label+" "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    let ins = $("#anyPaginator_prev")
+    let ins = $("#anyPaginator_prev");
     if (!ins.length)
-      ins = $("#anyPaginator_first")
+      ins = $("#anyPaginator_first");
     if (ins.length)
       div.insertAfter(ins);
     else
@@ -752,9 +758,9 @@ $.fn.anyPaginator = function (cmd,...args)
     let label = self.options.pageText ? self.options.pageText : "";
     let str = label+" "+pageNo+"/"+self._numPages;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
-    let ins = $("#anyPaginator_prev")
+    let ins = $("#anyPaginator_prev");
     if (!ins.length)
-      ins = $("#anyPaginator_first")
+      ins = $("#anyPaginator_first");
     if (ins.length)
       div.insertAfter(ins);
     else
@@ -772,7 +778,7 @@ $.fn.anyPaginator = function (cmd,...args)
     let go_class = "";
     let go_text  = "";
     if (!self.options.gotoIcon)
-      go_text = self.options.gotoText ? self.options.gotoText : "Go"
+      go_text = self.options.gotoText ? self.options.gotoText : "Go";
     else
       go_class += " "+self.options.gotoIcon;
     let go_inp = $("<input id='anyPaginator_goto_inp' type='text'></input>");
