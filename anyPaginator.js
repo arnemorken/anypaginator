@@ -19,7 +19,8 @@ $.fn.anyPaginator = function (cmd,...args)
   ////////////////////
 
   //
-  // Initialize / reset options and properties and redraw
+  // Initialize / reset options and properties and redraw.
+  // Does not call user defined click function.
   //
   this.reset = function(opt)
   {
@@ -41,35 +42,38 @@ $.fn.anyPaginator = function (cmd,...args)
   }; // reset
 
   //
-  // Getter-setters
+  // Getter-setters.
+  // Setters call refresh().
   //
-  this.currentPage = function(pageNo)
+  this.currentPage = function(pageNo,callUserFunction)
   {
     if (!pageNo)
       return this._currentPage;
     if (!Number.isInteger(pageNo) || pageNo > this._numPages)
       return; // Illegal value for pageNo
     this._currentPage = pageNo;
-    this.refresh();
+    this.refresh(callUserFunction);
     return this;
   };
 
-  this.numPages = function(nPages)
+  this.numPages = function(nPages,callUserFunction)
   {
     if (!nPages)
       return this._numPages;
     this._numPages = nPages;
-    this.refresh();
+    this.refresh(callUserFunction);
     return this;
   }; // numPages
 
-  this.numItems = function(nItems)
+  this.numItems = function(nItems,callUserFunction)
   {
     if (!nItems)
       return this._numItems;
-    this._numItems = nItems;
-    recalcNumPages(this);
-    this.refresh();
+    if (nItems != this._numItems) {
+      this._numItems = nItems;
+      recalcNumPages(this);
+      this.refresh(callUserFunction);
+    }
     return this;
   }; // numItems
 
