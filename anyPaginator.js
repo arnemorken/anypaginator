@@ -167,6 +167,17 @@ $.fn.anyPaginator = function (cmd,...args)
     return this;
   }; // option
 
+  function recalcNumPages(self)
+  {
+    if (self._numItems && self.options.itemsPerPage) {
+      self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
+    }
+    else {
+      console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
+      self.options.itemsPerPage = old_ipp;
+    }
+  } // recalcNumPages
+
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
@@ -277,17 +288,6 @@ $.fn.anyPaginator = function (cmd,...args)
 
     return this;
   }; // removeItem
-
-  function recalcNumPages(self)
-  {
-    if (self._numItems && self.options.itemsPerPage) {
-      self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
-    }
-    else {
-      console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
-      self.options.itemsPerPage = old_ipp;
-    }
-  } // recalcNumPages
 
   //
   // Redraw the paginator with focus on the page pageNo
