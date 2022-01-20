@@ -168,10 +168,10 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
-  this.refresh = function(args)
+  this.refresh = function(callUserFunction)
   {
     refreshPaginator(this);
-    if (this.options.onClick && this._numPages > 0) {
+    if (callUserFunction && this.options.onClick && this._numPages > 0) {
       // Call user supplied function
       let context = this.options.context ? this.options.context : this;
       this.options.onClick.call(context,this);
@@ -799,7 +799,7 @@ $.fn.anyPaginator = function (cmd,...args)
     return this.numItems(options);
 
   if (cmd == "refresh")
-    return this.refresh();
+    return this.refresh(options);
 
   if (cmd == "page") {
     if (options == "remove")
