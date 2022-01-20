@@ -22,7 +22,7 @@ The callback function will receive the pager as its only parameter.
 
 # Download
 
-Current version: 1.0.0.beta
+Current version: 1.0.1.beta
 
 - Github repository:                  https://github.com/arnemorken/anypaginator/
 - Balanse Software (minified):        https://balanse.info/cdn/anypaginator/anypaginator-1.0.0.b.min.zip
