@@ -195,7 +195,8 @@ $.fn.anyPaginator = function (cmd,...args)
   } // refreshPaginator
 
   //
-  // Increase the number of pages and add a button
+  // Increase the number of pages and add a button.
+  // Does not call refresh(),
   //
   this.addPage = function()
   {
@@ -204,38 +205,38 @@ $.fn.anyPaginator = function (cmd,...args)
 
     ++this._numPages;
 
-    // Show the new page button, then redisplay current page
+    // Show the new page button, but keep focus
     let cp = this._currentPage;
     this.showPage(this._numPages);
-    this.showPage(cp);
+    this._currentPage = cp;
+    toggleHighlight(this,this._numPages,false);
+    toggleHighlight(this,this._currentPage,true);
 
-    // Highlight the current page button
-    if (this.options.mode == 0) {
-      toggleHighlight(this,this._numPages,false);
-      toggleHighlight(this,this._currentPage,true);
-    }
     return this;
   } // addPage
 
   //
-  // Decrease the number of pages and remove a button
+  // Decrease the number of pages and remove a button.
+  // Does not call refresh(),
   //
   this.removePage = function()
   {
     if (!this.container || !this.options)
       return this;
 
-    removePageNumberButton(this,this._numPages);
-
     if (this._numPages <= 0)
       return this;
+
+    // Remove the old page button
+    removePageNumberButton(this,this._numPages);
 
     --this._numPages;
 
     if (this._currentPage > this._numPages)
       this._currentPage = this._numPages;
 
-    this.refresh();
+    toggleHighlight(this,this._currentPage,true);
+
     return this;
   }; // removePage
 
