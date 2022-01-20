@@ -129,7 +129,7 @@ $.fn.anyPaginator = function (cmd,...args)
       err += "Illegal splitRight. ";
       this.options.splitRight = 3;
     }
-    if (err != "")
+    if (err !== "")
       console.error("anyPaginator: "+err+"Setting to default. ");
     return this;
   }; // setDefaults
@@ -264,7 +264,7 @@ $.fn.anyPaginator = function (cmd,...args)
 
     --this._numItems;
 
-    if (this._numItems % this.options.itemsPerPage == 0) {
+    if (this._numItems % this.options.itemsPerPage === 0) {
       --this._numPages;
       if (this._currentPage > this._numPages)
         this._currentPage = this._numPages;
@@ -279,7 +279,7 @@ $.fn.anyPaginator = function (cmd,...args)
   this.showPage = function(pageNo)
   {
     toggleHighlight(this,this._currentPage,false);
-    if (pageNo != undefined)
+    if (pageNo !== undefined)
       this._currentPage = pageNo;
 
     // Change prev and next buttons if neccessary
@@ -292,7 +292,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!this.options.hideGoto)
       showGoto(this,pageNo);
 
-    if (pageNo == undefined)
+    if (pageNo === undefined)
       pageNo = this._currentPage;
 
     if (!Number.isInteger(pageNo) || pageNo <= 0)
@@ -467,7 +467,7 @@ $.fn.anyPaginator = function (cmd,...args)
     let num = parseInt($("#anyPaginator_goto_inp").val());
     if (Number.isInteger(num)) {
       toggleHighlight(this,this._currentPage,false); // Remove highlight from old button
-      if (this.options.mode == 0 || this.options.mode == 1) {
+      if (this.options.mode === 0 || this.options.mode == 1) {
         if (num >= 1 && num <= this._numPages) {
           this._currentPage = num;
           opt.clickedPage = this._currentPage;
