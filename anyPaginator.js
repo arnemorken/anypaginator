@@ -167,17 +167,6 @@ $.fn.anyPaginator = function (cmd,...args)
     return this;
   }; // option
 
-  function recalcNumPages(self)
-  {
-    if (self._numItems && self.options.itemsPerPage) {
-      self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
-    }
-    else {
-      console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
-      self.options.itemsPerPage = old_ipp;
-    }
-  } // recalcNumPages
-
   //
   // Redraw all the page numbers, ellipsis and navigators
   //
@@ -191,17 +180,6 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     return this;
   }; // refresh
-
-  function refreshPaginator(self)
-  {
-    self.container = redrawPaginatorContainer(self);
-    let cp = self._currentPage;
-    let np = self._numPages;
-    for (let page_no=1; page_no<=np; page_no++)
-      self.showPage(page_no);
-    self.showPage(cp);
-    return self;
-  } // refreshPaginator
 
   //
   // Increase the number of pages and add a button.
@@ -509,6 +487,28 @@ $.fn.anyPaginator = function (cmd,...args)
   /////////////////////
   // Private methods //
   /////////////////////
+
+  function recalcNumPages(self)
+  {
+    if (self._numItems && self.options.itemsPerPage) {
+      self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
+    }
+    else {
+      console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
+      self.options.itemsPerPage = old_ipp;
+    }
+  } // recalcNumPages
+
+  function refreshPaginator(self)
+  {
+    self.container = redrawPaginatorContainer(self);
+    let cp = self._currentPage;
+    let np = self._numPages;
+    for (let page_no=1; page_no<=np; page_no++)
+      self.showPage(page_no);
+    self.showPage(cp);
+    return self;
+  } // refreshPaginator
 
   function redrawPaginatorContainer(self)
   {
