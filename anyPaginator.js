@@ -291,7 +291,8 @@ $.fn.anyPaginator = function (cmd,...args)
   this.showPage = function(pageNo)
   {
     toggleHighlight(this,this._currentPage,false);
-    this._currentPage = pageNo;
+    if (pageNo != undefined)
+      this._currentPage = pageNo;
 
     // Change prev and next buttons if neccessary
     redrawPrevButton(this,1);
@@ -309,14 +310,12 @@ $.fn.anyPaginator = function (cmd,...args)
     if (!Number.isInteger(pageNo) || pageNo <= 0)
       return this; // Return silently if illegal pageNo
 
-    if (this.options.mode) {
-      if (this.options.mode == 1)
-        redrawPageView(this,pageNo); // Create page number
-      else
-      if (this.options.mode == 2)
-        redrawItemRange(this,pageNo); // Create item range
-    }
-    else {
+    if (this.options.mode == 1)
+      redrawPageView(this,pageNo); // Create page number
+    else
+    if (this.options.mode == 2)
+      redrawItemRange(this,pageNo); // Create item range
+    else { // mode == 0
       // Create page number buttons
       redrawPageNumberButton(this,pageNo);
 
