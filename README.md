@@ -257,6 +257,11 @@ AGPLv3.0 for open source use or anyPaginator Commercial License for commercial u
 
 Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
 
+# Donations
+Donations are very welcome :)
+
+[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4CDC93V8PSN62&lc=GB&item_name=anyPaginator%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+
 # Contact
 
 Feature requests, ideas, bug reports: software@balanse.info
