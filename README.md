@@ -263,6 +263,11 @@ Feature requests, ideas, bug reports: software@balanse.info
 
 License and other commercial inquiries: license@balanse.info
 
+# Donations
+Donations are very welcome :)
+
+[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7SD5XFUL5XPK4&lc=GB&item_name=fullPage%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+
 ------------------------------------------------------------------------
 
 ### See also the anyList project: https://github.com/arnemorken/anylist
