@@ -260,7 +260,7 @@ Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
 # Donations
 Donations are very welcome :)
 
-[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4CDC93V8PSN62&lc=GB&item_name=anyPaginator%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+[![Donate](https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=4CDC93V8PSN62)
 
 # Contact
 
