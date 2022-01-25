@@ -787,7 +787,7 @@ $.fn.anyPaginator = function (cmd,...args)
     let inp_id = "anyPaginator_goto_inp"+self._baseId;
     let btn_id = "anyPaginator_goto_btn"+self._baseId;
     let go_inp = $("<input id='"+inp_id+"' class='any-paginator-goto-inp' type='text'></input>");
-    let go_btn = $("<div   id='"+btn_id+"' class='"+go_class+"'>"+go_text+"</div>");
+    let go_btn = $("<div   id='"+btn_id+"' class='any-paginator-goto-btn "+go_class+"'>"+go_text+"</div>");
     let go_div = $("<div   id='"+div_id+"' class='any-paginator-goto noselect'></div>");
     go_div.append(go_inp);
     go_div.append(go_btn);
