@@ -12,7 +12,7 @@
 .any-paginator-container {
   margin-top:   10px;
   background:   white;
-  font:         12px Verdana, sans-serif;
+  font:         14px Verdana, sans-serif;
 }
 
 .any-paginator-btn {
@@ -39,7 +39,7 @@
 }
 
 .any-paginator-inactive {
-  color:        #aaa;
+  color:        #888;
 }
 
 .any-paginator-compact {
@@ -52,12 +52,12 @@
 
 .any-paginator-prev {
   margin-right:   5px;
-  font-size:      14px;
+  font-size:      12px;
 }
 
 .any-paginator-next {
   margin-left:    5px;
-  font-size:      14px;
+  font-size:      12px;
 }
 
 .any-paginator-first {
@@ -75,7 +75,7 @@
   font-size:    14px;
 }
 
-#anyPaginator_goto_inp {
+.any-paginator-goto-inp {
   min-width:        22px;
   max-width:        22px;
   min-height:       unset;
@@ -89,11 +89,11 @@
   font:             12px Verdana, sans-serif;
 }
 
-#anyPaginator_goto_inp:focus {
+.any-paginator-goto-inp:focus {
   outline:      none;
 }
 
-#anyPaginator_goto_btn {
+.any-paginator-goto-btn {
   min-width:    12px;
   padding:      2px;
   white-space:  nowrap;
@@ -102,7 +102,7 @@
   cursor:       pointer;
 }
 
-#anyPaginator_goto_btn:hover {
+.any-paginator-goto-btn:hover {
   padding:      1px;
   border:       1px solid #ddd;
 }
