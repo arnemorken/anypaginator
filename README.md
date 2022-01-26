@@ -247,7 +247,7 @@ If a user defined onClick method is set in options, it will be called with the p
 after gotoClicked has finished.
 
 ## CSS classes
-
+```css
 .any-paginator-container
 .any-paginator-prev
 .any-paginator-next
@@ -262,6 +262,7 @@ after gotoClicked has finished.
 .any-paginator-goto
 .any-paginator-goto-inp
 .any-paginator-goto-btn
+```
 
 # Improvements
 
