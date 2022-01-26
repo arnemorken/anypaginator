@@ -817,7 +817,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     let num  = self._numItems ? self._numItems : self.options.itemsPerPage * self._numPages;
     let str = label+" "+from+"-"+to+" of "+num;
-    let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
+    let div = $("<div id='"+div_id+"' class='any-paginator-item noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev"+self._baseId);
     if (!ins.length) {
       ins = $("#anyPaginator_first"+self._baseId);
@@ -841,7 +841,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     let label = self.options.pageText ? self.options.pageText : "";
     let str = label+" "+pageNo+"/"+self._numPages;
-    let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
+    let div = $("<div id='"+div_id+"' class='any-paginator-page noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev"+self._baseId);
     if (!ins.length) {
       ins = $("#anyPaginator_first"+self._baseId);

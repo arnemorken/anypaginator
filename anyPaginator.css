@@ -42,7 +42,8 @@
   color:        #888;
 }
 
-.any-paginator-compact {
+.any-paginator-page,
+.any-paginator-item {
   min-width:    20px;
   white-space:  nowrap;
   display:      inline-block;
