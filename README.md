@@ -246,7 +246,7 @@ Normally not neccessary to call this method.
 If a user defined onClick method is set in options, it will be called with the pager as parameter
 after gotoClicked has finished.
 
-# CSS classes
+## CSS classes
 
 .any-paginator-container
 .any-paginator-prev
