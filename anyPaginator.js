@@ -27,10 +27,12 @@ $.fn.anyPaginator = function (cmd,...args)
   this.reset = function(opt)
   {
     this._baseId = "_apid" + 1 + Math.floor(Math.random()*10000000); // Pseudo-unique id
-    if (opt && typeof opt == "object")
+    if (opt && typeof opt == "object") {
       this.setDefaults(opt); // Set user-defined options
-    else
+    }
+    else {
       this.setDefaults({ }); // Set default options
+    }
     if (!this.options) {
       console.error("anyPaginator: Options missing. ");
       return this;
@@ -50,10 +52,12 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.currentPage = function(pageNo,callUserFunction)
   {
-    if (!pageNo)
+    if (!pageNo) {
       return this._currentPage;
-    if (!Number.isInteger(pageNo) || pageNo > this._numPages)
+    }
+    if (!Number.isInteger(pageNo) || pageNo > this._numPages) {
       return; // Illegal value for pageNo
+    }
     this._currentPage = pageNo;
     this.refresh(callUserFunction);
     return this;
@@ -61,8 +65,9 @@ $.fn.anyPaginator = function (cmd,...args)
 
   this.numPages = function(nPages,callUserFunction)
   {
-    if (!nPages)
+    if (!nPages) {
       return this._numPages;
+    }
     this._numPages = nPages;
     this.refresh(callUserFunction);
     return this;
@@ -70,13 +75,15 @@ $.fn.anyPaginator = function (cmd,...args)
 
   this.numItems = function(nItems,callUserFunction)
   {
-    if (!nItems)
+    if (!nItems) {
       return this._numItems;
+    }
     if (nItems != this._numItems) {
       let old_ni = this._numItems;
       this._numItems = nItems;
-      if (!recalcNumPages(this))
+      if (!recalcNumPages(this)) {
         this._numItems = old_ni;
+      }
       this.refresh(callUserFunction);
     }
     return this;
@@ -87,8 +94,9 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.setDefaults = function(opt)
   {
-    if (!opt || typeof opt != "object")
+    if (!opt || typeof opt != "object") {
       return this;
+    }
     // Merge with defaults
     this.options = $.extend({
       mode:         0,          // 0: buttons, 1: page number, 2: item range
@@ -131,8 +139,9 @@ $.fn.anyPaginator = function (cmd,...args)
       err += "Illegal splitRight. ";
       this.options.splitRight = 3;
     }
-    if (err !== "")
+    if (err !== "") {
       console.error("anyPaginator: "+err+"Setting to default. ");
+    }
     return this;
   }; // setDefaults
 
@@ -150,9 +159,11 @@ $.fn.anyPaginator = function (cmd,...args)
       // Set options in the opt object
       let old_ipp = this.options.itemsPerPage;
       this.options = $.extend(this.options,opt);
-      if (this.options.itemsPerPage != old_ipp)
-        if (!recalcNumPages(this))
+      if (this.options.itemsPerPage != old_ipp) {
+        if (!recalcNumPages(this)) {
           this.options.itemsPerPage = old_ipp;
+        }
+      }
       this.refresh();
       return this;
     }
@@ -162,11 +173,13 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (typeof opt == "string") {
       // Set the options in val
-      let old_ipp = this.options.itemsPerPage;
+       old_ipp = this.options.itemsPerPage;
       this.options[opt] = val;
-      if (this.options.itemsPerPage != old_ipp)
-        if (!recalcNumPages(this))
+      if (this.options.itemsPerPage != old_ipp) {
+        if (!recalcNumPages(this)) {
           this.options.itemsPerPage = old_ipp;
+        }
+      }
       this.refresh();
       return this;
     }
@@ -182,7 +195,7 @@ $.fn.anyPaginator = function (cmd,...args)
     refreshPaginator(this);
     if (callUserFunction && this.options.onClick && this._numPages > 0) {
       // Call user supplied function
-      let context = this.options.context ? this.options.context : this;
+      let context = (this.options.context ? this.options.context : this);
       this.options.onClick.call(context,this);
     }
     return this;
@@ -194,8 +207,9 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.addPage = function()
   {
-    if (!this.container || !this.options)
+    if (!this.container || !this.options) {
       return this;
+    }
 
     ++this._numPages;
 
@@ -216,19 +230,20 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.removePage = function()
   {
-    if (!this.container || !this.options)
+    if (!this.container || !this.options) {
       return this;
-
-    if (this._numPages <= 0)
+    }
+    if (this._numPages <= 0) {
       return this;
-
+    }
     // Remove the old page button
     removePageNumberButton(this,this._numPages);
 
     --this._numPages;
 
-    if (this._currentPage > this._numPages)
+    if (this._currentPage > this._numPages) {
       this._currentPage = this._numPages;
+    }
     this.showPage(this._currentPage); // To make sure the button(s) are correct
     toggleHighlight(this,this._currentPage,true);
 
@@ -241,14 +256,14 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.addItem = function()
   {
-    if (!this.container || !this.options)
+    if (!this.container || !this.options) {
       return this;
-
+    }
     ++this._numItems;
 
-    if (this._numItems % this.options.itemsPerPage == 1)
+    if (this._numItems % this.options.itemsPerPage == 1) {
       ++this._numPages;
-
+    }
     return this;
   }; // addItem
 
@@ -258,18 +273,19 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.removeItem = function()
   {
-    if (!this.container || !this.options)
+    if (!this.container || !this.options) {
       return this;
-
-    if (this._numItems <= 0)
+    }
+    if (this._numItems <= 0) {
       return this;
-
+    }
     --this._numItems;
 
     if (this._numItems % this.options.itemsPerPage === 0) {
       --this._numPages;
-      if (this._currentPage > this._numPages)
+      if (this._currentPage > this._numPages) {
         this._currentPage = this._numPages;
+      }
     }
 
     return this;
@@ -281,9 +297,9 @@ $.fn.anyPaginator = function (cmd,...args)
   this.showPage = function(pageNo)
   {
     toggleHighlight(this,this._currentPage,false);
-    if (pageNo !== undefined)
+    if (pageNo !== undefined) {
       this._currentPage = pageNo;
-
+    }
     // Change prev and next buttons if neccessary
     redrawPrevButton(this,1);
     redrawNextButton(this,this._numPages);
@@ -291,20 +307,22 @@ $.fn.anyPaginator = function (cmd,...args)
     redrawLastButton(this);
 
     // Display goto page/input field
-    if (!this.options.hideGoto)
+    if (!this.options.hideGoto) {
       showGoto(this,pageNo);
-
-    if (pageNo === undefined)
+    }
+    if (pageNo === undefined) {
       pageNo = this._currentPage;
-
-    if (!Number.isInteger(pageNo) || pageNo <= 0)
+    }
+    if (!Number.isInteger(pageNo) || pageNo <= 0) {
       return this; // Return silently if illegal pageNo
-
-    if (this.options.mode == 1)
+    }
+    if (this.options.mode == 1) {
       redrawPageView(this,pageNo); // Create page number
+    }
     else
-    if (this.options.mode == 2)
+    if (this.options.mode == 2) {
       redrawItemRange(this,pageNo); // Create item range
+    }
     else { // mode == 0
       // Create page number buttons
       redrawPageNumberButton(this,pageNo);
@@ -317,27 +335,36 @@ $.fn.anyPaginator = function (cmd,...args)
         let half_split = Math.trunc(this.options.splitMiddle/2);
         // Remove all buttons except pageNo
         let np = this._numPages;
-        for (let i=1; i<=np; i++)
-          if (i != pageNo)
+        for (let i=1; i<=np; i++) {
+          if (i != pageNo) {
             removePageNumberButton(this,i);
+          }
+        }
         // Redraw left buttons
-        for (let i=1; i<=this.options.splitLeft; i++)
+        for (let i=1; i<=this.options.splitLeft; i++) {
           redrawPageNumberButton(this,i);
+        }
         // Redraw middle buttons
-        for (let i=half-half_split+1; i<=half+half_split+1; i++)
+        for (let i=half-half_split+1; i<=half+half_split+1; i++) {
           redrawPageNumberButton(this,i);
+        }
         // Redraw right buttons
-        for (let i=this._numPages-this.options.splitRight+1; i<=this._numPages; i++)
+        for (let i=this._numPages-this.options.splitRight+1; i<=this._numPages; i++) {
           redrawPageNumberButton(this,i);
+        }
         // Redraw main ellipsis buttons
-        if (pageNo != half-half_split)
+        if (pageNo != half-half_split) {
           redrawPageNumberButton(this,half-half_split,true);
-        else
+        }
+        else {
           redrawPageNumberButton(this,pageNo-1,true);
-        if (pageNo != half+half_split+2)
+        }
+        if (pageNo != half+half_split+2) {
           redrawPageNumberButton(this,half+half_split+2,true);
-        else
+        }
+        else {
           redrawPageNumberButton(this,pageNo+1,true);
+        }
         // Left of left split
         if (pageNo < this.options.splitLeft+1) {
         }
@@ -345,15 +372,18 @@ $.fn.anyPaginator = function (cmd,...args)
         // Right of left split, left of middle split
         if (pageNo >= this.options.splitLeft+1 && pageNo < half - half_split) {
           if (pageNo == this._currentPage) {
-            if (this.options.splitLeft > 2)
+            if (this.options.splitLeft > 2) {
               redrawPageNumberButton(this,this.options.splitLeft - 1,true); // ellipsis
+            }
             removePageNumberButton(this,this.options.splitLeft);
             removePageNumberButton(this,pageNo-1);
             let is_ellipsis = $("#anyPaginator_"+(pageNo+1)+this._baseId).attr("data-ellipsis");
-            if (!is_ellipsis && pageNo < half - half_split)
+            if (!is_ellipsis && pageNo < half - half_split) {
               removePageNumberButton(this,pageNo+1);
-            if (pageNo == half - half_split - 1)
+            }
+            if (pageNo == half - half_split - 1) {
               redrawPageNumberButton(this,pageNo+1); // replace ellipsis
+            }
           }
         }
         else
@@ -364,15 +394,17 @@ $.fn.anyPaginator = function (cmd,...args)
             removePageNumberButton(this,this.options.splitLeft);
           }
           let is_ellipsis = $("#anyPaginator_"+(pageNo-1)+this._baseId).attr("data-ellipsis");
-          if (!is_ellipsis || this.options.splitLeft == 1)
+          if (!is_ellipsis || this.options.splitLeft == 1) {
             removePageNumberButton(this,pageNo-1);
+          }
         }
         else
         // Middle split
         if (pageNo > half - half_split && pageNo < half + half_split + 2) {
           // Redraw middle buttons
-          for (let i=half-half_split+1; i<=half+half_split; i++)
+          for (let i=half-half_split+1; i<=half+half_split; i++) {
             redrawPageNumberButton(this,i);
+          }
         }
         else
         // Button after middle split
@@ -382,22 +414,26 @@ $.fn.anyPaginator = function (cmd,...args)
             removePageNumberButton(this,this._numPages - this.options.splitRight + 1);
           }
           let is_ellipsis = $("#anyPaginator_"+(pageNo+1)+this._baseId).attr("data-ellipsis");
-          if (!is_ellipsis || this.options.splitRight == 1)
+          if (!is_ellipsis || this.options.splitRight == 1) {
             removePageNumberButton(this,pageNo+1);
+          }
         }
         else
         // Right of middle split, left of right split
         if (pageNo > half + half_split + 2 && pageNo <= this._numPages - this.options.splitRight) {
           if (pageNo == this._currentPage) {
-            if (this.options.splitRight > 2)
+            if (this.options.splitRight > 2) {
               redrawPageNumberButton(this,this._numPages - this.options.splitRight + 2,true); // ellipsis
+            }
             removePageNumberButton(this,this._numPages - this.options.splitRight + 1);
             removePageNumberButton(this,pageNo+1);
             let is_ellipsis = $("#anyPaginator_"+(pageNo-1)+this._baseId).attr("data-ellipsis");
-            if (!is_ellipsis && pageNo > half - half_split)
+            if (!is_ellipsis && pageNo > half - half_split) {
               removePageNumberButton(this,pageNo-1);
-            if (pageNo == half + half_split + 3)
+            }
+            if (pageNo == half + half_split + 3) {
               redrawPageNumberButton(this,pageNo-1); // replace ellipsis
+            }
           }
         }
         else
@@ -418,20 +454,23 @@ $.fn.anyPaginator = function (cmd,...args)
   this.buttonClicked = function(event)
   {
     let opt = event.data;
-    if (!opt)
+    if (!opt) {
       return this;
+    }
     if (opt.clickedPage) {
       // Remove highlight from old button
       toggleHighlight(this,this._currentPage,false);
       // Find new page
       switch (opt.clickedPage) {
         case "prev":
-          if (this._currentPage > 1)
+          if (this._currentPage > 1) {
             --this._currentPage;
+          }
           break;
         case "next":
-          if (this._currentPage < this._numPages)
+          if (this._currentPage < this._numPages) {
             ++this._currentPage;
+          }
           break;
         case "first":
           this._currentPage = 1;
@@ -450,7 +489,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (opt.onClick) {
       // Call user supplied function
-      let context = opt.context ? opt.context : this;
+      let context = (opt.context ? opt.context : this);
       this.clickedPage = opt.clickedPage;
       opt.onClick.call(context,this);
       delete this.clickedPage;
@@ -463,8 +502,9 @@ $.fn.anyPaginator = function (cmd,...args)
   this.gotoClicked = function(event)
   {
     let opt = event.data;
-    if (!opt)
+    if (!opt) {
       return this;
+    }
     // Find new page
     let num = parseInt($("#anyPaginator_goto_inp"+this._baseId).val());
     if (Number.isInteger(num)) {
@@ -477,8 +517,9 @@ $.fn.anyPaginator = function (cmd,...args)
       }
       else { // mode == 2
         let num_items = this._numPages * this.options.itemsPerPage;
-        if (num >= 1 && num <= num_items)
+        if (num >= 1 && num <= num_items) {
           this._currentPage = Math.trunc((num-1)/this.options.itemsPerPage) + 1;
+        }
       }
       // Show new page
       this.showPage(this._currentPage);
@@ -513,8 +554,9 @@ $.fn.anyPaginator = function (cmd,...args)
     self.container = redrawPaginatorContainer(self);
     let cp = self._currentPage;
     let np = self._numPages;
-    for (let page_no=1; page_no<=np; page_no++)
+    for (let page_no=1; page_no<=np; page_no++) {
       self.showPage(page_no);
+    }
     self.showPage(cp);
     return self;
   } // refreshPaginator
@@ -523,8 +565,9 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     self.container_id = "anyPaginator_container"+self._baseId;
     self.container = $("#"+self.container_id);
-    if (self.container.length)
+    if (self.container.length) {
       self.container.remove();
+    }
     self.container = $("<div id='"+self.container_id+"' class='any-paginator-container'></div>");
     self.append(self.container);
     return self.container;
@@ -532,97 +575,117 @@ $.fn.anyPaginator = function (cmd,...args)
 
   function redrawPrevButton(self,first_page)
   {
-    if (!self.container || !self.options || first_page != 1)
+    if (!self.container || !self.options || first_page != 1) {
       return self;
+    }
     let pagestr = "prev";
     let active = self._currentPage > 1;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
-    if (!self.options.prevIcon)
+    if (!self.options.prevIcon) {
       btn_text = self.options.prevText;
-    else
+    }
+    else {
       act_class += " "+self.options.prevIcon;
+    }
     let btn_id = "anyPaginator_"+pagestr+self._baseId;
-    if ($("#"+btn_id))
+    if ($("#"+btn_id)) {
       $("#"+btn_id).remove();
+    }
     let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
     self.container.prepend(btn_div);
     toggleActive(self,btn_div,pagestr,active);
-    if (self.options.hidePrev)
+    if (self.options.hidePrev) {
       btn_div.hide();
+    }
     return self;
   } // redrawPrevButton
 
   function redrawNextButton(self,last_page)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let pagestr = "next";
     let active  = self._currentPage < last_page;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
-    if (!self.options.nextIcon)
+    if (!self.options.nextIcon) {
       btn_text = self.options.nextText;
-    else
+    }
+    else {
       act_class += " "+self.options.nextIcon;
+    }
     let btn_id = "anyPaginator_"+pagestr+self._baseId;
-    if ($("#"+btn_id))
+    if ($("#"+btn_id)) {
       $("#"+btn_id).remove();
+    }
     let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
     self.container.append(btn_div);
     toggleActive(self,btn_div,pagestr,active);
-    if (self.options.hideNext)
+    if (self.options.hideNext) {
       btn_div.hide();
+    }
     return self;
   } // redrawNextButton
 
   function redrawFirstButton(self)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let pagestr = "first";
     let active  = self._currentPage > 1;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive " : "";
     let btn_text = "";
-    if (!self.options.firstIcon)
+    if (!self.options.firstIcon) {
       btn_text = self.options.firstText;
-    else
+    }
+    else {
       act_class += " "+self.options.firstIcon;
+    }
     let btn_id = "anyPaginator_"+pagestr+self._baseId;
-    if ($("#"+btn_id))
+    if ($("#"+btn_id)) {
       $("#"+btn_id).remove();
+    }
     let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
     self.container.prepend(btn_div);
     toggleActive(self,btn_div,pagestr,active);
-    if (self.options.hideFirst)
+    if (self.options.hideFirst) {
       btn_div.hide();
+    }
     return self;
   } // redrawFirstButton
 
   function redrawLastButton(self)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let pagestr = "last";
     let active  = self._currentPage < self._numPages;
     let act_class = "any-paginator-"+pagestr+" ";
     act_class += !active ? "any-paginator-inactive" : "";
     let btn_text = "";
-    if (!self.options.lastIcon)
+    if (!self.options.lastIcon) {
       btn_text = self.options.lastText;
-    else
+    }
+    else {
       act_class += " "+self.options.lastIcon;
+    }
     let btn_id = "anyPaginator_"+pagestr+self._baseId;
-    if ($("#"+btn_id))
+    if ($("#"+btn_id)) {
       $("#"+btn_id).remove();
+    }
     let btn_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+act_class+" noselect'>"+btn_text+"</div>");
     self.container.append(btn_div);
     toggleActive(self,btn_div,pagestr,active);
-    if (self.options.hideLast)
+    if (self.options.hideLast) {
       btn_div.hide();
+    }
     return self;
   } // redrawLastButton
 
@@ -658,34 +721,40 @@ $.fn.anyPaginator = function (cmd,...args)
 
   function redrawPageNumberButton(self,pageNo,isEllipsis)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     pageNo = parseInt(pageNo);
     removePageNumberButton(self,pageNo);
     let ellipsis_class = isEllipsis ? "any-paginator-ellipsis" : "any-paginator-num";
     let ellipsis_text  = "";
-    if (!self.options.ellipsisIcon)
+    if (!self.options.ellipsisIcon) {
       ellipsis_text = self.options.ellipsisText ? self.options.ellipsisText : "...";
+    }
     else
-    if (isEllipsis)
+    if (isEllipsis) {
       ellipsis_class += " "+self.options.ellipsisIcon;
+    }
     let attr   = isEllipsis ? "data-ellipsis='1'" : "";
     let str    = isEllipsis ? ellipsis_text       : pageNo;
     let btn_id = "anyPaginator_"+pageNo+self._baseId;
     let pg_div = $("<div id='"+btn_id+"' class='any-paginator-btn "+ellipsis_class+" noselect' "+attr+">"+str+"</div>");
     let ins    = $("#anyPaginator_"+(pageNo-1)+self._baseId);
-    if (ins.length)
+    if (ins.length) {
       pg_div.insertAfter(ins);
+    }
     else {
       ins = $("#anyPaginator_"+(pageNo+1)+self._baseId);
-      if (ins.length)
+      if (ins.length) {
         pg_div.insertBefore(ins);
+      }
       else {
         // Search left side
         for (let i=pageNo-1; i>=1; i--) {
           ins = $("#anyPaginator_"+i+self._baseId);
-          if (ins.length)
+          if (ins.length) {
             break;
+          }
         }
         if (ins.length) {
           pg_div.insertAfter(ins);
@@ -695,18 +764,21 @@ $.fn.anyPaginator = function (cmd,...args)
           let np = self._numPages;
           for (let i=pageNo+1; i<np; i++) {
             ins = $("#anyPaginator_"+i+self._baseId);
-            if (ins.length)
+            if (ins.length) {
               break;
+            }
           }
           if (ins.length) {
             pg_div.insertBefore(ins);
           }
         }
         if (!ins.length) {
-          if (pageNo <= self._numPages)
+          if (pageNo <= self._numPages) {
             pg_div.insertAfter($("#anyPaginator_prev"+self._baseId));
-          else
+          }
+          else {
             pg_div.insertBefore($("#anyPaginator_next"+self._baseId));
+          }
         }
       } // else
     } // else
@@ -722,68 +794,83 @@ $.fn.anyPaginator = function (cmd,...args)
   function removePageNumberButton(self,pageNo)
   {
     let pg_div = $("#anyPaginator_"+pageNo+self._baseId);
-    if (pg_div.length)
+    if (pg_div.length) {
       pg_div.remove();
+    }
     return self;
   } // removePageNumberButton
 
   function redrawItemRange(self,pageNo)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let div_id = "anyPaginator_itemrange"+self._baseId;
-    if ($("#"+div_id))
+    if ($("#"+div_id)) {
       $("#"+div_id).remove();
+    }
     let label = self.options.itemText ? self.options.itemText : "";
     let from = self.options.itemsPerPage * (pageNo-1) + 1;
     let to   = self.options.itemsPerPage * pageNo;
-    if (self._numItems && to > self._numItems)
+    if (self._numItems && to > self._numItems) {
       to = self._numItems;
+    }
     let num  = self._numItems ? self._numItems : self.options.itemsPerPage * self._numPages;
     let str = label+" "+from+"-"+to+" of "+num;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev"+self._baseId);
-    if (!ins.length)
+    if (!ins.length) {
       ins = $("#anyPaginator_first"+self._baseId);
-    if (ins.length)
+    }
+    if (ins.length) {
       div.insertAfter(ins);
-    else
+    }
+    else {
       self.container.prepend(div);
+    }
   } // redrawItemRange
 
   function redrawPageView(self,pageNo)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let div_id = "anyPaginator_pageview"+self._baseId;
-    if ($("#"+div_id))
+    if ($("#"+div_id)) {
       $("#"+div_id).remove();
+    }
     let label = self.options.pageText ? self.options.pageText : "";
     let str = label+" "+pageNo+"/"+self._numPages;
     let div = $("<div id='"+div_id+"' class='any-paginator-compact noselect'>"+str+"</div>");
     let ins = $("#anyPaginator_prev"+self._baseId);
-    if (!ins.length)
+    if (!ins.length) {
       ins = $("#anyPaginator_first"+self._baseId);
-    if (ins.length)
+    }
+    if (ins.length) {
       div.insertAfter(ins);
-    else
+    }
+    else {
       self.container.prepend(div);
+    }
   } // pagenumber
 
   function showGoto(self,pageNo)
   {
-    if (!self.container || !self.options)
+    if (!self.container || !self.options) {
       return self;
+    }
     let div_id = "anyPaginator_goto"+self._baseId;
-    if ($("#"+div_id))
+    if ($("#"+div_id)) {
       $("#"+div_id).remove();
-
+    }
     let go_class = "";
     let go_text  = "";
-    if (!self.options.gotoIcon)
+    if (!self.options.gotoIcon) {
       go_text = self.options.gotoText ? self.options.gotoText : "Go";
-    else
+    }
+    else {
       go_class += " "+self.options.gotoIcon;
+    }
     let inp_id = "anyPaginator_goto_inp"+self._baseId;
     let btn_id = "anyPaginator_goto_btn"+self._baseId;
     let go_inp = $("<input id='"+inp_id+"' class='any-paginator-goto-inp' type='text'></input>");
@@ -803,24 +890,24 @@ $.fn.anyPaginator = function (cmd,...args)
 
   let options = args && args.length ? args[0] : null;
 
-  if (cmd == "reset" || !cmd || typeof cmd == "object")
+  if (cmd == "reset" || !cmd || typeof cmd == "object") {
     return this.reset(cmd);
-
-  if (cmd == "option")
+  }
+  if (cmd == "option") {
     return this.option(options,args[1]);
-
-  if (cmd == "currentPage")
+  }
+  if (cmd == "currentPage") {
     return this.currentPage(options);
-
-  if (cmd == "_numPages")
+  }
+  if (cmd == "_numPages") {
     return this.numPages(options);
-
-  if (cmd == "_numItems")
+  }
+  if (cmd == "_numItems") {
     return this.numItems(options);
-
-  if (cmd == "refresh")
+  }
+  if (cmd == "refresh") {
     return this.refresh(options);
-
+  }
   if (cmd == "page") {
     if (options == "remove")
       return this.removePage();
@@ -833,9 +920,9 @@ $.fn.anyPaginator = function (cmd,...args)
     else
       return this.addItem(options);
   }
-  if (cmd == "show")
+  if (cmd == "show") {
     return this.showPage(options);
-
+  }
   return this;
 }; // anyPaginator
 
