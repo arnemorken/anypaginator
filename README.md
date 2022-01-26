@@ -247,6 +247,7 @@ If a user defined onClick method is set in options, it will be called with the p
 after gotoClicked has finished.
 
 ## CSS classes
+These shouyld be self-explanatory. To style a container with a specific id, use the jQuery addClass function.
 ```css
 .any-paginator-container
 .any-paginator-prev
