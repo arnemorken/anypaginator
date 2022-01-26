@@ -173,7 +173,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (typeof opt == "string") {
       // Set the options in val
-       old_ipp = this.options.itemsPerPage;
+      let old_ipp = this.options.itemsPerPage;
       this.options[opt] = val;
       if (this.options.itemsPerPage != old_ipp) {
         if (!recalcNumPages(this)) {
