@@ -1,0 +1,91 @@
+<!--
+ ****************************************************************************************
+ *
+ * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
+ *
+ * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+ * Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
+ *
+ * See also the anyList project: https://github.com/arnemorken/anylist
+ *
+ ****************************************************************************************
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
+  <link  href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet"/>
+  <script src="../anyPaginator.js"></script>
+  <link  href="../anyPaginator.css" rel="stylesheet"/>
+  <title>anyPaginator - page mode - local data</title>
+</head>
+
+<body>
+
+<div id="mydiv">
+  <h3>anyPaginator - page or item mode - local data</h3>
+  Select mode:
+  <select id="mymode" onchange="javascript:doSelect();">
+    <option value="1">Page</option>
+    <option value="2">Item</option>
+  </select>
+  <p/>
+  <table id="mytable" style="border-collapse: collapse;">
+    <tbody style="border: 1px solid #333;">
+    </tbody>
+    <tfoot>
+      <tr><td id="myfoot"></td></tr>
+    </tfoot>
+  </table>
+</div>
+
+<script>
+function doSelect()
+{
+  let mode = $("#mymode").val();
+  if (pager) {
+    pager.option("mode",mode);
+    pager.showPage(1);
+  }
+}
+
+function refreshTable(pager,num)
+{
+  if (!pager)
+    return;
+  let tbody = $("#mytable > tbody");
+  if (tbody.length)
+    tbody.empty();
+  let start = (pager.currentPage() - 1) * pager.options.itemsPerPage + 1;
+  let stop  = start + pager.options.itemsPerPage - 1;
+  if (stop > num)
+    stop = num;
+  for (let i=start; i<=stop; i++)
+    tbody.append($("<tr><td>Local row "+i+"</td></tr>"));
+} // refreshTable
+
+// Initialize paginator in tfoot
+let num = 150;
+let pager = $("#myfoot").anyPaginator({ mode:         1,
+                                        onClick:      function(args) { refreshTable(pager,num); },
+                                        itemsPerPage: 5,
+                                        hideFirst:    false,
+                                        hideLast:     false,
+                                        gotoIcon: "fa fa-check",
+                                        ellipsisIcon: "fa-thin fa-ellipsis-stroke",
+                                     });
+// Display table contents
+refreshTable(pager,num);
+
+// Add page numbers
+for (let i=1; i<=num; i++) {
+  // Add an item
+  pager.anyPaginator("item");
+}
+pager.refresh(); // Must call refresh after using addItem
+
+</script>
+
+</body>
+</html>
