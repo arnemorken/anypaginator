@@ -18,13 +18,13 @@
   <link  href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet"/>
   <script src="../anyPaginator.js"></script>
   <link  href="../anyPaginator.css" rel="stylesheet"/>
-  <title>anyPaginator example - local data</title>
+  <title>anyPaginator - page mode - local data</title>
 </head>
 
 <body>
 
 <div id="mydiv">
-  <h3>anyPaginator table pager example - local data</h3>
+  <h3>anyPaginator - page mode - local data</h3>
   <table id="mytable" style="border-collapse: collapse;">
     <tbody style="border: 1px solid #333;">
     </tbody>
@@ -52,11 +52,12 @@ function refreshTable(pager,num)
 
 // Initialize paginator in tfoot
 let num = 150;
-let pager = $("#myfoot").anyPaginator({ mode:         0,
+let pager = $("#myfoot").anyPaginator({ mode:         1,
                                         onClick:      function(args) { refreshTable(pager,num); },
                                         itemsPerPage: 5,
                                         hideFirst:    false,
                                         hideLast:     false,
+                                        gotoIcon: "fa fa-check",
                                         ellipsisIcon: "fa-thin fa-ellipsis-stroke",
                                      });
 // Display table contents

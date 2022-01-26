@@ -17,13 +17,13 @@
   <script src="https://balanse.info/cdn/thirdparty/jquery/jquery-3.6.0.min.js"></script>
   <script src="../anyPaginator.js"></script>
   <link  href="../anyPaginator.css" rel="stylesheet"/>
-  <title>anyPaginator example - remote data</title>
+  <title>anyPaginator - item mode - remote data</title>
 </head>
 
 <body>
 
 <div id="mydiv">
-  <h3>anyPaginator table pager example - remote data</h3>
+  <h3>anyPaginator - item mode - remote data</h3>
   <table id="mytable" style="border-collapse: collapse;">
     <tbody style="border: 1px solid #333;">
     </tbody>
@@ -68,12 +68,14 @@ let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
-  let pager = $("#myfoot").anyPaginator({ mode:         0,
+  let pager = $("#myfoot").anyPaginator({ mode:         2,
                                           onClick:      function(args) { refreshTable(pager); },
                                           itemsPerPage: 5,
                                           gotoText:     "Go",
-                                          prevText:     "<",
-                                          nextText:     ">",
+                                          prevText:     "Prev",
+                                          nextText:     "Next",
+                                          hideFirst:    false,
+                                          hideLast:     false,
                                        });
   // Display table contents
   refreshTable(pager);
