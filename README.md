@@ -246,6 +246,23 @@ Normally not neccessary to call this method.
 If a user defined onClick method is set in options, it will be called with the pager as parameter
 after gotoClicked has finished.
 
+# CSS classes
+
+.any-paginator-container
+.any-paginator-prev
+.any-paginator-next
+.any-paginator-first
+.any-paginator-last
+.any-paginator-inactive
+.any-paginator-btn
+.any-paginator-ellipsis
+.any-paginator-num
+.any-paginator-page
+.any-paginator-item
+.any-paginator-goto
+.any-paginator-goto-inp
+.any-paginator-goto-btn
+
 # Improvements
 
 Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
