@@ -248,7 +248,7 @@ If a user defined onClick method is set in options, it will be called with the p
 after gotoClicked has finished.
 
 ## CSS classes
-These should be pretty self explanatory.
+These should be self explanatory.
 ```css
 .any-paginator-container
 .any-paginator-prev
@@ -276,7 +276,7 @@ We love pull requests!
 
 AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
 
-Get licences here: https://anypaginator.balanse.info/license/ (coming soon).
+Get licences here: https://anypaginator.balanse.info/licence/
 
 # Donations
 Donations are very welcome :)
