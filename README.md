@@ -272,9 +272,9 @@ To style an element with a specific id, use the jQuery addClass function.
 Got an idea for improving anyPaginator? A cool new feature you'd like to see? Think you've found a bug? Contact us at software@balanse.info!
 We love pull requests! 
 
-# License
+# Licence
 
-AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
+AGPLv3.0 for open source use or anyPaginator Commercial Licence for commercial use.
 
 Get licences here: https://anypaginator.balanse.info/licence/
 
@@ -287,7 +287,7 @@ Donations are very welcome :)
 
 Feature requests, ideas, bug reports: software@balanse.info
 
-License and other commercial inquiries: license@balanse.info
+Licence and other commercial inquiries: licence@balanse.info
 
 ------------------------------------------------------------------------
 
