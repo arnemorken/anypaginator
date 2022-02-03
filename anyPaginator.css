@@ -79,7 +79,8 @@
 .any-paginator-goto-inp {
   min-width:        22px;
   max-width:        22px;
-  min-height:       unset;
+  min-height:       20px  !important;
+  line-height:      1     !important;
   margin-right:     3px;
   padding:          1px;
   padding-top:      0px;
