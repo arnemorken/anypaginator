@@ -16,14 +16,16 @@
 }
 
 .any-paginator-btn {
-  margin-right: 1px;
-  min-width:    12px;
-  border-radius:3px;
-  white-space:  nowrap;
-  display:      inline-block;
-  text-align:   center;
-  color:        #fc5200;
-  cursor:       pointer;
+  margin-right:   1px;
+  min-width:      12px;
+  min-height:     20px  !important;
+  max-height:     20px  !important;
+  border-radius:  3px;
+  white-space:    nowrap;
+  display:        inline-block;
+  text-align:     center;
+  color:          #fc5200;
+  cursor:         pointer;
 }
 
 .any-paginator-num {
@@ -70,25 +72,25 @@
 }
 
 .any-paginator-goto {
-  margin-left:  5px;
-  white-space:  nowrap;
-  display:      inline-block;
-  font-size:    14px;
+  margin-left:    5px;
+  white-space:    nowrap;
+  display:        inline-block;
+  font-size:      14px;
 }
 
 .any-paginator-goto-inp {
-  min-width:        22px;
-  max-width:        22px;
-  min-height:       20px  !important;
-  line-height:      1     !important;
-  margin-right:     3px;
-  padding:          1px;
-  padding-top:      0px;
-  padding-bottom:   0px;
-  white-space:      nowrap;
-  display:          inline-block;
-  text-align:       center;
-  font:             12px Verdana, sans-serif;
+  min-width:      22px;
+  max-width:      22px;
+  min-height:     20px  !important;
+  max-height:     20px  !important;
+  line-height:    1     !important;
+  margin-right:   3px;
+  padding-top:    0px;
+  padding-bottom: 0px;
+  white-space:    nowrap;
+  display:        inline-block;
+  text-align:     center;
+  font:           12px Verdana, sans-serif;
 }
 
 .any-paginator-goto-inp:focus {
