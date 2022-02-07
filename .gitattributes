@@ -1,4 +1,5 @@
 examples/* linguist-vendored=true
+*.css linguist-vendored=true
 *.css linguist-detectable=false
 *.js linguist-vendored=false
 *.js linguist-detectable=true
