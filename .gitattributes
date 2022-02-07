@@ -1,6 +1,5 @@
 examples/* linguist-vendored
-* linguist-vendored=true
-*.* linguist-vendored=true
 *.js linguist-vendored=false
 *.js linguist-detectable=true
 *.js linguist-language=JavaScript
+* linguist-vendored
