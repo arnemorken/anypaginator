@@ -1,4 +1,5 @@
 examples/* linguist-vendored=true
-*.js linguist-vendored
+.github/workflows/* linguist-vendored=true
 *.js linguist-detectable=true
 *.js linguist-language=JavaScript
+*.js linguist-vendored=false
