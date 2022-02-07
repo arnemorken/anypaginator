@@ -74,6 +74,7 @@ function refreshData(pager)
 | Option                       | Description                                                    | Type                         | Default                    |
 | ---------------------------- | -------------------------------------------------------------- | ---------------------------- | -------------------------- |
 | mode                         | 0: buttons, 1: page number, 2: item range.                     | Number                       | 0                          |
+| hideIfOne                    | If true, hide the paginator if there is only one page          | Boolean                      | true                       |
 | itemsPerPage                 | Number of items per page                                       | Number                       | 20                         |
 | splitLeft                    | Number of split buttons to the left                            | Number                       | 3                          |
 | splitMiddle                  | Number of split buttons in the middle                          | Number                       | 3                          |
