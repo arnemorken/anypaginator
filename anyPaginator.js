@@ -200,7 +200,7 @@ $.fn.anyPaginator = function (cmd,...args)
       this.options.onClick.call(context,this);
     }
     if (this.options.hideIfOne && this._numPages <= 1 && this.container)
-      this.container.hide()
+      this.container.hide();
     return this;
   }; // refresh
 
@@ -225,7 +225,7 @@ $.fn.anyPaginator = function (cmd,...args)
     toggleHighlight(this,this._currentPage,true);
 
     if (this.options.hideIfOne && this._numPages <= 1 && this.container)
-      this.container.hide()
+      this.container.hide();
 
     return this;
   }; // addPage
@@ -254,7 +254,7 @@ $.fn.anyPaginator = function (cmd,...args)
     toggleHighlight(this,this._currentPage,true);
 
     if (this.options.hideIfOne && this._numPages <= 1 && this.container)
-      this.container.hide()
+      this.container.hide();
 
     return this;
   }; // removePage
@@ -275,7 +275,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
 
     if (this.options.hideIfOne && this._numPages <= 1 && this.container)
-      this.container.hide()
+      this.container.hide();
 
     return this;
   }; // addItem
@@ -302,7 +302,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
 
     if (this.options.hideIfOne && this._numPages <= 1 && this.container)
-      this.container.hide()
+      this.container.hide();
 
     return this;
   }; // removeItem
@@ -558,7 +558,7 @@ $.fn.anyPaginator = function (cmd,...args)
     if (self._numItems && self.options.itemsPerPage) {
       self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
       if (self.options.hideIfOne && self._numPages <= 1 && self.container)
-        self.container.hide()
+        self.container.hide();
       return true;
     }
     else {
