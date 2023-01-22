@@ -1,6 +1,6 @@
 # anyPaginator [![CodeQL](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/arnemorken/anypaginator/actions/workflows/codeql-analysis.yml) <img src="balanselogo_85x95.png" align="right">
 An easy to use, yet advanced and fully customizable Javascript/jQuery paginator plugin.
-anyPaginator is a spinoff of the <a href="https://github.com/arnemorken/anylist">anyList</a> project
+anyPaginator is a spinoff of the <a href="https://github.com/arnemorken/anyvista">anyVista</a> project
 and we think it's the best Javascript paginator out there. 
 
 <img src="examples/anyPaginator1.png"><br/>
@@ -292,4 +292,4 @@ Licence and other commercial inquiries: licence@balanse.info
 
 ------------------------------------------------------------------------
 
-### See also the anyList project: https://github.com/arnemorken/anylist
+### See also the anyVista project: https://github.com/arnemorken/anyvista
