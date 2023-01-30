@@ -52,11 +52,15 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.currentPage = function(pageNo,callUserFunction)
   {
-    if (!pageNo) {
+    if (pageNo === undefined) {
       return this._currentPage;
     }
     if (!Number.isInteger(pageNo) || pageNo > this._numPages) {
-      return; // Illegal value for pageNo
+      // there is one case when pageNo can be > numPages, when numPages is zero and pageNo is one
+      if (!(pageNo === 1 && this._numPages === 0)) {
+        console.error("anyPaginator: Invalid value for currentPage, must be integer <= numPages.");
+        return this._currentPage; // Illegal value for pageNo  
+      }
     }
     this._currentPage = pageNo;
     this.refresh(callUserFunction);
@@ -65,7 +69,10 @@ $.fn.anyPaginator = function (cmd,...args)
 
   this.numPages = function(nPages,callUserFunction)
   {
-    if (!nPages) {
+    if (nPages === undefined) {
+      return this._numPages;
+    } else if (!Number.isInteger(nPages)) {
+      console.error("anyPaginator: Invalid value for numPages, must be integer.");
       return this._numPages;
     }
     this._numPages = nPages;
@@ -75,8 +82,11 @@ $.fn.anyPaginator = function (cmd,...args)
 
   this.numItems = function(nItems,callUserFunction)
   {
-    if (!nItems) {
+    if (nItems === undefined) {
       return this._numItems;
+    } else if (!Number.isInteger(nItems)) {
+      console.error("anyPaginator: Invalid value for numItems, must be integer.");
+      return this._numPages;
     }
     if (nItems != this._numItems) {
       let old_ni = this._numItems;
@@ -168,7 +178,7 @@ $.fn.anyPaginator = function (cmd,...args)
       this.refresh();
       return this;
     }
-    if (!val) {
+    if (val === undefined) {
       // Get the option opt
       return this.options[opt];
     }
@@ -555,13 +565,12 @@ $.fn.anyPaginator = function (cmd,...args)
 
   function recalcNumPages(self)
   {
-    if (self._numItems && self.options.itemsPerPage) {
+    if (self._numItems >= 0 && self.options.itemsPerPage) {
       self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
       if (self.options.hideIfOne && self._numPages <= 1 && self.container)
         self.container.hide();
       return true;
-    }
-    else {
+    } else {
       console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
       return false;
     }
@@ -917,10 +926,10 @@ $.fn.anyPaginator = function (cmd,...args)
   if (cmd == "currentPage") {
     return this.currentPage(options);
   }
-  if (cmd == "_numPages") {
+  if (cmd == "numPages") {
     return this.numPages(options);
   }
-  if (cmd == "_numItems") {
+  if (cmd == "numItems") {
     return this.numItems(options);
   }
   if (cmd == "refresh") {
