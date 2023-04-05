@@ -35,6 +35,7 @@
 
 <script>
 let cdn = "https://balanse.info/cdn/anypaginator/examples/";
+let pager = null;
 
 function refreshTable(pager)
 {
@@ -52,6 +53,7 @@ function refreshTable(pager)
       // Display all items received
       for (const i in data)
         tbody.append($("<tr><td>"+data[i]+"</td></tr>"));
+      pager.refresh();
     }
     else
     if (textStatus == "error")
@@ -68,15 +70,15 @@ let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
-  let pager = $("#myfoot").anyPaginator({ mode:         2,
-                                          onClick:      function(args) { refreshTable(pager); },
-                                          itemsPerPage: 5,
-                                          gotoText:     "Go",
-                                          prevText:     "Prev",
-                                          nextText:     "Next",
-                                          hideFirst:    false,
-                                          hideLast:     false,
-                                       });
+  pager = $("#myfoot").anyPaginator({ mode:         2,
+                                      onClick:      function(args) { refreshTable(pager); },
+                                      itemsPerPage: 5,
+                                      gotoText:     "Go",
+                                      prevText:     "Prev",
+                                      nextText:     "Next",
+                                      hideFirst:    false,
+                                      hideLast:     false,
+                                   });
   // Display table contents
   refreshTable(pager);
 
