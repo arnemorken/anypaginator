@@ -2,12 +2,12 @@
 "use strict";
 /****************************************************************************************
  *
- * anyPaginator is copyright (C) 2021-2022 Arne D. Morken and Balanse Software.
+ * anyPaginator is copyright (C) 2021-2023 Arne D. Morken and Balanse Software.
  *
  * License: AGPLv3.0 for open source use or anyPaginator Commercial License for commercial use.
  * Get licences here: http://balanse.info/anypaginator/license/ (coming soon).
  *
- * See also the anyList project: https://github.com/arnemorken/anylist
+ * See also the anyVista project: https://github.com/arnemorken/anyvista
  *
  ****************************************************************************************/
 
