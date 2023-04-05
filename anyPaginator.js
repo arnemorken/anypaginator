@@ -59,7 +59,7 @@ $.fn.anyPaginator = function (cmd,...args)
       // there is one case when pageNo can be > numPages, when numPages is zero and pageNo is one
       if (!(pageNo === 1 && this._numPages === 0)) {
         console.error("anyPaginator: Invalid value for currentPage, must be integer <= numPages.");
-        return this._currentPage; // Illegal value for pageNo  
+        return this._currentPage; // Illegal value for pageNo
       }
     }
     this._currentPage = pageNo;
@@ -71,7 +71,9 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     if (nPages === undefined) {
       return this._numPages;
-    } else if (!Number.isInteger(nPages)) {
+    }
+    else
+    if (!Number.isInteger(nPages)) {
       console.error("anyPaginator: Invalid value for numPages, must be integer.");
       return this._numPages;
     }
@@ -84,7 +86,9 @@ $.fn.anyPaginator = function (cmd,...args)
   {
     if (nItems === undefined) {
       return this._numItems;
-    } else if (!Number.isInteger(nItems)) {
+    }
+    else
+    if (!Number.isInteger(nItems)) {
       console.error("anyPaginator: Invalid value for numItems, must be integer.");
       return this._numPages;
     }
@@ -570,7 +574,8 @@ $.fn.anyPaginator = function (cmd,...args)
       if (self.options.hideIfOne && self._numPages <= 1 && self.container)
         self.container.hide();
       return true;
-    } else {
+    }
+    else {
       console.error("anyPaginator: numItems not set or itemsPerPage==0, cannot recalculate numPages. ");
       return false;
     }
