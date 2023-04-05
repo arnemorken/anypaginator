@@ -13,6 +13,7 @@
   margin-top:   10px;
   background:   white;
   font:         14px Verdana, sans-serif;
+  display:      inline-block;
 }
 
 .any-paginator-btn {
