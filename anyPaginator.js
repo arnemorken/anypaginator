@@ -41,6 +41,10 @@ $.fn.anyPaginator = function (cmd,...args)
     this._numPages = 0;
     this._numItems = 0;
 
+    let elm = $("#"+this.attr('id'));
+    if (elm.length) {
+      elm.data("paginator", this);
+    }
     this.refresh();
 
     return this;
@@ -63,6 +67,10 @@ $.fn.anyPaginator = function (cmd,...args)
       }
     }
     this._currentPage = pageNo;
+    let elm = $("#"+this.attr('id'));
+    if (elm.length) {
+      elm.data("_currentPage", this._currentPage);
+    }
     this.refresh(callUserFunction);
     return this;
   };
@@ -78,6 +86,10 @@ $.fn.anyPaginator = function (cmd,...args)
       return this._numPages;
     }
     this._numPages = nPages;
+    let elm = $("#"+this.attr('id'));
+    if (elm.length) {
+      elm.data("_numPages", this._numPages);
+    }
     this.refresh(callUserFunction);
     return this;
   }; // numPages
@@ -97,6 +109,10 @@ $.fn.anyPaginator = function (cmd,...args)
       this._numItems = nItems;
       if (!recalcNumPages(this)) {
         this._numItems = old_ni;
+      }
+      let elm = $("#"+this.attr('id'));
+      if (elm.length) {
+        elm.data("_numItems", this._numItems);
       }
       this.refresh(callUserFunction);
     }
@@ -156,6 +172,10 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (err !== "") {
       console.error("anyPaginator: "+err+"Setting to default. ");
+    }
+    let elm = $("#"+this.attr('id'));
+    if (elm.length) {
+      elm.data("options", this.options);
     }
     return this;
   }; // setDefaults
@@ -533,6 +553,11 @@ $.fn.anyPaginator = function (cmd,...args)
       this.showPage(this._currentPage);
     }
     if (opt.onClick) {
+      // Update the element with the new _currentPage
+      let elm = $("#"+this.attr('id'));
+      if (elm.length) {
+        elm.data("paginator",this);
+      }
       // Call user supplied function
       let context = (opt.context ? opt.context : this);
       this.clickedPage = opt.clickedPage;
@@ -946,6 +971,23 @@ $.fn.anyPaginator = function (cmd,...args)
   if (cmd == "reset" || !cmd || typeof cmd == "object") {
     return this.reset(cmd);
   }
+  // Associate the options with the element where the paginator lives
+  let elm = $("#"+this.attr('id'));
+  if (elm.length) {
+    if (this.options) {
+      elm.data("paginator", this);
+    }
+    else {
+      let pag = elm.data("paginator");
+      if (pag) {
+        this.options      = pag.options;
+        this._baseId      = pag._baseId;
+        this._currentPage = pag._currentPage;
+        this._numPages    = pag._numPages;
+        this._numItems    = pag._numItems;
+      }
+    }
+  }
   if (cmd == "option") {
     return this.option(options,args[1]);
   }
@@ -979,5 +1021,5 @@ $.fn.anyPaginator = function (cmd,...args)
   return this;
 }; // anyPaginator
 
-})( jQuery );
+})( $ );
 //@ sourceURL=anyPaginator.js
