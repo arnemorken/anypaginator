@@ -46,7 +46,7 @@ Current version: 1.0.2
 
 3. Initialize the paginator and add some pages:
 ```js
-let pager = $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
+let pager = $("#mypager").anyPaginator({ onClick: refreshData });
 pager.numItems(200);
 ```
 
@@ -179,7 +179,8 @@ pager.option("splitLeft",2);                             // Set the "splitLeft" 
 
 #### refresh()
 Redraw all the page numbers, ellipsis and navigators. 
-If a user-supplied onClick handler is set in options, it will be called with the specified arguments in an array after refresh has completed.
+If a user-supplied onClick handler is set in options, it will be called with the pager as parameter 
+after refresh has completed.
 ```js
 pager.anyPaginator("refresh",pager,num);
 pager.refresh(pager,num);
@@ -277,7 +278,7 @@ We love pull requests!
 
 AGPLv3.0 for open source use or anyPaginator Commercial Licence for commercial use.
 
-Get licences here: https://anypaginator.balanse.info/licence/
+Get licences here: http://anypaginator.balanse.info/
 
 # Donations
 Donations are very welcome :)
