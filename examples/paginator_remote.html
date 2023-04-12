@@ -71,7 +71,7 @@ $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
   pager = $("#myfoot").anyPaginator({ mode:         2,
-                                      onClick:      function(args) { refreshTable(pager); },
+                                      onClick:      refreshTable,
                                       itemsPerPage: 5,
                                       gotoText:     "Go",
                                       prevText:     "Prev",

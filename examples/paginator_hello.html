@@ -27,7 +27,7 @@
 <div id="mydata"></div>
 
 <script>
-let pager = $("#mypager").anyPaginator({ onClick: function() { refreshData(pager); } });
+let pager = $("#mypager").anyPaginator({ onClick: refreshData });
 pager.numItems(200);
 
 refreshData(pager);

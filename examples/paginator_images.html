@@ -29,7 +29,7 @@
 <script>
 let pager = $("#mypager").anyPaginator({ itemsPerPage: 1,
                                          hideGoto:     true,
-                                         onClick: function() { refreshData(pager); } });
+                                         onClick: refreshData });
 pager.numItems(6);
 
 refreshData(pager);
