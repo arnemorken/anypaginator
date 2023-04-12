@@ -172,7 +172,7 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (typeof opt == "object") {
       // Set options in the opt object
-      let old_ipp = this.options.itemsPerPage;
+      let old_ipp = this.options ? this.options.itemsPerPage : 20;
       this.options = $.extend(this.options,opt);
       if (this.options.itemsPerPage != old_ipp) {
         if (!recalcNumPages(this)) {
@@ -184,18 +184,27 @@ $.fn.anyPaginator = function (cmd,...args)
     }
     if (val === undefined) {
       // Get the option opt
-      return this.options[opt];
+      if (this.options && opt) {
+        return this.options[opt];
+      }
+      console.error("anyPaginator: option get: Missing this.options. "); // Should never happen
+      return this;
     }
     if (typeof opt == "string") {
       // Set the options in val
-      let old_ipp = this.options.itemsPerPage;
-      this.options[opt] = val;
-      if (this.options.itemsPerPage != old_ipp) {
-        if (!recalcNumPages(this)) {
-          this.options.itemsPerPage = old_ipp;
+      if (this.options) {
+        let old_ipp = this.options.itemsPerPage;
+        this.options[opt] = val;
+        if (this.options.itemsPerPage != old_ipp) {
+          if (!recalcNumPages(this)) {
+            this.options.itemsPerPage = old_ipp;
+          }
         }
+        this.refresh();
       }
-      this.refresh();
+      else {
+        console.error("anyPaginator: option set: Missing this.options. "); // Should never happen
+      }
       return this;
     }
     console.error("anyPaginator: option: Illegal opt parameter type. ");
@@ -207,6 +216,9 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.refresh = function(callUserFunction)
   {
+    if (!this.options) {
+      return this;
+    }
     refreshPaginator(this);
     if (callUserFunction && this.options.onClick && this._numPages > 0) {
       // Call user supplied function
@@ -326,6 +338,9 @@ $.fn.anyPaginator = function (cmd,...args)
   //
   this.showPage = function(pageNo)
   {
+    if (!this.options) {
+      return this;
+    }
     toggleHighlight(this,this._currentPage,false);
     if (pageNo !== undefined) {
       this._currentPage = pageNo;
@@ -532,7 +547,7 @@ $.fn.anyPaginator = function (cmd,...args)
   this.gotoClicked = function(event)
   {
     let opt = event.data;
-    if (!opt) {
+    if (!opt || !this.options) {
       return this;
     }
     // Find new page
@@ -569,6 +584,9 @@ $.fn.anyPaginator = function (cmd,...args)
 
   function recalcNumPages(self)
   {
+    if (!self.options) {
+      return false;
+    }
     if (self._numItems >= 0 && self.options.itemsPerPage) {
       self._numPages = Math.trunc((self._numItems - 1) / self.options.itemsPerPage) + 1;
       if (self.options.hideIfOne && self._numPages <= 1 && self.container)
@@ -723,6 +741,9 @@ $.fn.anyPaginator = function (cmd,...args)
 
   function toggleActive(self,btn,pagestr,active)
   {
+    if (!self.options) {
+      return false;
+    }
     if (active) {
       // The button should be active
       let click_opt = {...self.options};
