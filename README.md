@@ -178,12 +178,13 @@ pager.option("splitLeft",2);                             // Set the "splitLeft" 
 ```
 
 #### refresh()
+#### refresh(callUserFunction)
 Redraw all the page numbers, ellipsis and navigators. 
-If a user-supplied onClick handler is set in options, it will be called with the pager as parameter 
+If callUserFunction == true and a user-supplied onClick handler is set in options, the handler will be called with the pager as parameter 
 after refresh has completed.
 ```js
-pager.anyPaginator("refresh",pager,num);
-pager.refresh(pager,num);
+pager.anyPaginator("refresh",true);
+pager.refresh(true);
 ```
 
 #### addPage()
