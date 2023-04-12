@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  *
- * dbConnection.php s part of the anyVista project.
+ * dbConnection.php is part of the anyVista project.
  * anyVista is copyright (C) 2011-2023 Arne D. Morken and Balanse Software.
  *
  * License: AGPLv3.0 for open source use or anyVista Commercial License for commercial use.
@@ -11,7 +11,7 @@
 require_once "dbDefs.php";
 
 /**
- * __Abstract base class for a PDO database connection.__
+ * __Class for connecting to a PDO database.__
  *
  * @class dbConnection
  * @constructor

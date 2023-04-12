@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  *
- * dbDefs.php s part of the anyVista project.
+ * dbDefs.php is part of the anyVista project.
  * anyVista is copyright (C) 2011-2023 Arne D. Morken and Balanse Software.
  *
  * License: AGPLv3.0 for open source use or anyVista Commercial License for commercial use.

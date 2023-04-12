@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  *
- * dbTable.php s part of the anyVista project.
+ * dbTable.php is part of the anyVista project.
  * anyVista is copyright (C) 2011-2023 Arne D. Morken and Balanse Software.
  *
  * License: AGPLv3.0 for open source use or anyVista Commercial License for commercial use.
@@ -18,7 +18,7 @@ require_once "dbConnection.php";
  * @constructor
  * @param {dbConnection} connection Info about the database connection
  * @example
- *      new dbTable($dbconn);
+ *      new dbTable($connection);
  *
 */
 class dbTable
@@ -168,7 +168,7 @@ class dbTable
     else {
       $this->mNumRowsChanged = $this->mDBConnection->mDBHandle->exec($stmt);
       if ($this->mNumRowsChanged === false) {
-        $this->mError = "dbTable::query4: ".$this->mDBConnection->getError();
+        $this->mError = "dbTable::query5: ".$this->mDBConnection->getError();
         $this->mError .= "\nQuery was: ".$stmt;
         error_log($this->mError);
       }
@@ -260,11 +260,11 @@ class dbTable
    */
   public function idExists($tableName,$idName,$id)
   {
-      $stmt = "SELECT count(*) as num_obj FROM ".$tableName." WHERE ".$idName."='".$id."'";
-      if (!$this->query($stmt))
-        return false;
-      $row = $this->getNext();
-      return ($row != null && $row['num_obj'] > 0);
+    $stmt = "SELECT count(*) as num_obj FROM ".$tableName." WHERE ".$idName."='".$id."'";
+    if (!$this->query($stmt))
+      return false;
+    $row = $this->getNext();
+    return ($row != null && $row['num_obj'] > 0);
   } // idExists
 
   /**
@@ -272,6 +272,7 @@ class dbTable
    * @description Returns true if table exists, false otherwise.
    * @param  {String} tableName Name of table to check.
    * @return true | false
+   * TODO! Move this to dbConnection?
    */
   public function tableExists($tableName)
   {
@@ -297,7 +298,6 @@ class dbTable
         $res->free();
         $res = null;
       }
-      $this->mError = "";
       return false;
     }
     return true;
