@@ -11,9 +11,9 @@ Take a look at the jsFiddle demos:
 
 * "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/57/
 * Page or item mode: https://jsfiddle.net/arnemorken/q72byd8f/3/
-* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/35/
-* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/24/
 * Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/3/
+* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/35/
+* Remote table data. This example currently (18/4 2023) not working, will be fixed soon. Download latest version for a working example.  jsfiddle.net/arnemorken/kou1r0e6/24/
 
 Both pages and items can be added to the paginator. In the latter case, page buttons will be added automatically as needed. 
 The recommended method is to simply set the "numItems" option. Pages and/or items may be added or removed dynamically at any time.
