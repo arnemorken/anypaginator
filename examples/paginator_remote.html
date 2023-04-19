@@ -70,12 +70,12 @@ let db_url = cdn + "remote_create.php?num="+num;
 $.getJSON(db_url)
 .done( function(data,textStatus,jqXHR) {
   // Initialize paginator in tfoot
-  pager = $("#myfoot").anyPaginator({ mode:         2,
+  pager = $("#myfoot").anyPaginator({ mode:         0,
                                       onClick:      refreshTable,
                                       itemsPerPage: 5,
                                       gotoText:     "Go",
-                                      prevText:     "Prev",
-                                      nextText:     "Next",
+                                      prevText:     "<",
+                                      nextText:     ">",
                                       hideFirst:    false,
                                       hideLast:     false,
                                    });
