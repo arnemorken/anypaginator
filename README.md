@@ -279,7 +279,7 @@ We love pull requests!
 
 AGPLv3.0 for open source use or anyPaginator Commercial Licence for commercial use.
 
-Get licences here: http://anypaginator.balanse.info/
+Get licences here: https://anypaginator.balanse.info/
 
 # Donations
 Donations are very welcome :)
