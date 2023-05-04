@@ -9,11 +9,11 @@ and we think it's the best Javascript paginator out there.
 
 Take a look at the jsFiddle demos:
 
-* "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/57/
-* Page or item mode: https://jsfiddle.net/arnemorken/q72byd8f/3/
-* Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/3/
-* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/35/
-* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/32/
+* "Hello world":     https://jsfiddle.net/arnemorken/2qf7k4cs/59/
+* Page or item mode: https://jsfiddle.net/arnemorken/q72byd8f/5/
+* Image pagination:  https://jsfiddle.net/arnemorken/fm2hpgc0/4/
+* Local table data:  https://jsfiddle.net/arnemorken/0snofdq7/40/
+* Remote table data: https://jsfiddle.net/arnemorken/kou1r0e6/33/
 
 Both pages and items can be added to the paginator. In the latter case, page buttons will be added automatically as needed. 
 The recommended method is to simply set the "numItems" option. Pages and/or items may be added or removed dynamically at any time.
