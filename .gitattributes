@@ -1,6 +1,10 @@
-examples/* linguist-vendored=true
-.github/workflows/* linguist-vendored=true
-*.css linguist-vendored
-*.js linguist-vendored=false
+examples/** linguist-vendored
+.github/workflows/* linguist-vendored
+# JavaScript source file
+*.js linguist-documentation=false
 *.js linguist-detectable=true
-*.js linguist-language=JavaScript
+*.js linguist-language=js
+# CSS source file
+*.css linguist-documentation=false
+*.css linguist-detectable=true
+*.css linguist-language=js
